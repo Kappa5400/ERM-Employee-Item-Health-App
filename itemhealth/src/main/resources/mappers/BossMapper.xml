@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.healthapp.mapper.BossMapper">
+
+    <resultMap id="BossResultMap" type="Boss">
+        <id     property="bossId"     column="boss_id"/>
+        <result property="employeeId" column="employee_id"/>
+        <result property="createdAt"  column="created_at"/>
+        <result property="updatedAt"  column="updated_at"/>
+
+        <collection property="subordinateIds" ofType="Long">
+            <result column="subordinate_id"/>
+        </collection>
+    </resultMap>
+
+    <select id="findById" resultMap="BossResultMap">
+        SELECT b.*, s.subordinate_id
+        FROM boss b
+        LEFT JOIN boss_subordinates s ON b.boss_id = s.boss_id
+        WHERE b.boss_id = #{bossId}
+    </select>
+    
+    <select id="findById" resultMap="BossResultMap">
+        SELECT b.*, s.subordinate_id
+        FROM boss b
+        LEFT JOIN boss_subordinates s ON b.boss_id = s.boss_id
+        WHERE b.boss_id = #{bossId}
+    </select>
+
+   
+    <select id="findAll" resultMap="BossResultMap">
+        SELECT b.*, s.subordinate_id
+        FROM boss b
+        LEFT JOIN boss_subordinates s ON b.boss_id = s.boss_id
+    </select>
+
+ 
+    <select id="findSubordinateIds" resultType="Long">
+        SELECT subordinate_id
+        FROM boss_subordinates
+        WHERE boss_id = #{bossId}
+    </select>
+
+   
+    <insert id="insert" useGeneratedKeys="true" keyProperty="bossId">
+        INSERT INTO boss (employee_id, created_at, updated_at)
+        VALUES (#{employeeId}, NOW(), NOW())
+    </insert>
+
+   
+    <insert id="insertSubordinate">
+        INSERT INTO boss_subordinates (boss_id, subordinate_id)
+        VALUES (#{bossId}, #{subordinateId})
+    </insert>
+
+   
+    <update id="update">
+        UPDATE boss SET
+            employee_id = #{employeeId},
+            updated_at  = NOW()
+        WHERE boss_id = #{bossId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM boss WHERE boss_id = #{bossId}
+    </delete>
+
+   
+    <delete id="deleteSubordinate">
+        DELETE FROM boss_subordinates
+        WHERE boss_id = #{bossId} AND subordinate_id = #{subordinateId}
+    </delete>
+
+   
+    <delete id="deleteAllSubordinates">
+        DELETE FROM boss_subordinates WHERE boss_id = #{bossId}
+    </delete>
+
+</mapper>
