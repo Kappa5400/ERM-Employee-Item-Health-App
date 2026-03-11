@@ -7,33 +7,27 @@
     <resultMap id="BossResultMap" type="Boss">
         <id     property="bossId"     column="boss_id"/>
         <result property="employeeId" column="employee_id"/>
+        <result property="name" column="name"/>
         <result property="createdAt"  column="created_at"/>
         <result property="updatedAt"  column="updated_at"/>
-
         <collection property="subordinateIds" ofType="Long">
             <result column="subordinate_id"/>
         </collection>
     </resultMap>
 
-    <select id="findById" resultMap="BossResultMap">
-        SELECT b.*, s.subordinate_id
-        FROM boss b
-        LEFT JOIN boss_subordinates s ON b.boss_id = s.boss_id
-        WHERE b.boss_id = #{bossId}
-    </select>
     
     <select id="findById" resultMap="BossResultMap">
-        SELECT b.*, s.subordinate_id
-        FROM boss b
-        LEFT JOIN boss_subordinates s ON b.boss_id = s.boss_id
-        WHERE b.boss_id = #{bossId}
+        SELECT boss.*, subordinate.subordinate_id, employee.name
+        FROM boss
+        LEFT JOIN boss_subordinates ON boss.boss_id = subordinate.boss_id
+        LEFT JOIN employee ON  boss.employee_id = employee.employee_id
+        WHERE boss.boss_id = #{bossId}
     </select>
-
    
     <select id="findAll" resultMap="BossResultMap">
-        SELECT b.*, s.subordinate_id
-        FROM boss b
-        LEFT JOIN boss_subordinates s ON b.boss_id = s.boss_id
+        SELECT boss.*, subordinate.subordinate_id
+        FROM boss
+        LEFT JOIN boss_subordinates subordinate ON b.boss_id = subordinate.boss_id
     </select>
 
  

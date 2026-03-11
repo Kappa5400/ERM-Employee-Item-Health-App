@@ -13,9 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
+
 public class Boss {
     private Long bossId;
     private Long employeeId;
+    private String name;
     private List<Long> subordinateIds;   
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

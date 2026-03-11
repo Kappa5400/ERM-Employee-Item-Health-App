@@ -1,4 +1,5 @@
 {
   "java.configuration.updateBuildConfiguration": "interactive",
-  "java.autobuild.enabled": true
+  "java.autobuild.enabled": true,
+  "java.compile.nullAnalysis.mode": "automatic"
 }
