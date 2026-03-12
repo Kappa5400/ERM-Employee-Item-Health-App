@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.ord//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.healthapp.mapper.CarMapper"/>
+    <resultMap id="CarResultMap" type="Car"/>
+        <id property="carId" column="car_id"/>
+        <result property="carYear" column="car_year"/>
+        <result property="milage" column="milage"/>
+        <result property="lastServiced" column="last_serviced"/>
+        <result property="toService" column="to_service"/>
+        <result property="needToServiceDate" column="need_to_service_date"/>
+        <result property="lastInsuranceRenewal" column="last_insurance_renewal"/>
+        <result property="insuranceExpireDate" column="insurance_expire_date"/>
+        <result property="toRenewInsurance" column="to_renew_insurance"/>
+        <result property="inUse" column="in_use"/>
+        <result property="createdAt"  column="created_at"/>
+        <result property="updatedAt"  column="updated_at"/>
+    </resultMap>
+
+    <resultMap id="EmployeeCarMap" type="Car" extends="CarResultMap">
+    <association property="employee" javaType="Employee">
+        <result property="name" column="employee_name"/>
+        <result property="employeeId" column="employee_id"/>
+        </association>
+    <resultMap/>
+
+    <!--To impliment select statements-->
+
+
+
+    <insert id="insert" userGeneratedKeys="true" keyProperty="carId">
+        INSERT INTO car (name, employee_id, car_id, milage, last_serviced, to_service, need_to_service_date, last_insurance_renewal, insurance_expire_date,
+        to_renew_insurance, in_use, created_at, updated_at)
+        VALUES VALUES (#{name}, #{employee_id}, #{car_id}, #{milage}, #{last_serviced}, #{to_service}, #{need_to_service_date},
+        #{last_insurance_renewal}, #{insurance_expire_date}, NOW(), NOW())
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM car WHERE car_id = #{carId}
+    </delete>

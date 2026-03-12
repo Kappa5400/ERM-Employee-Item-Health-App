@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class IDCard {
+    private long id_card_id;
     private long employee_ID;
     private Date last_renewed_date;
     private Date need_to_renew_date;

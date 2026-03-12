@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.healthapp.itemhealth.mapper.LaptopMapper">
+
+    <resultMap id="LaptopResultMap" type="Laptop">
+    <id     property="laptopId"     column="laptop_id"/>
+    <result property="osVersion"    column="os_version"/>
+    <result property="needToUpdate" column="need_to_update"/>
+    <result property="laptopYear"   column="laptop_year"/>
+    <result property="toRenew"      column="to_renew"/>
+    <result property="inUse"        column="in_use"/>
+    <result property="employeeId"   column="employee_id"/>
+    <result property="createdAt"    column="created_at"/>
+    <result property="updatedAt"    column="updated_at"/>
+</resultMap>
+
+<resultMap id="LaptopWithEmployeeResultMap" type="Laptop" extends="LaptopResultMap">
+    <association property="employee" javaType="Employee">
+        <id     property="employeeId" column="employee_id"/>
+        <result property="name"       column="employee_name"/>
+        <result property="title"      column="employee_title"/>
+    </association>
+</resultMap>
+
+
+    <!--To impliment select statements-->
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="laptopId">
+        INSERT INTO laptop (os_version, need_to_update, laptop_year, to_renew, in_use, employee_id, created_at, updated_at)
+        VALUES (#{osVersion}, #{needToUpdate}, #{laptopYear}, #{toRenew}, #{inUse}, #{employeeId}, NOW(), NOW())
+    </insert>
+
+    <update id="update">
+        UPDATE laptop SET
+            os_version     = #{osVersion},
+            need_to_update = #{needToUpdate},
+            laptop_year    = #{laptopYear},
+            to_renew       = #{toRenew},
+            in_use         = #{inUse},
+            employee_id    = #{employeeId},
+            updated_at     = NOW()
+        WHERE laptop_id = #{laptopId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM laptop WHERE laptop_id = #{laptopId}
+    </delete>
+
+</mapper>
