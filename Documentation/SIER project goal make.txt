@@ -148,4 +148,4 @@ steps:
 
 13. Deployment
 
-11. documentation, deployment instructions, api documentation (swagger?)
+14. documentation, deployment instructions, api documentation (swagger?)

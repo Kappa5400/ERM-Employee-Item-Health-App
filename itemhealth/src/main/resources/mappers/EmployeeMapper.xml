@@ -33,17 +33,18 @@
     </select>
 
     <select id="findAllEmployeesBoss" resultMap="EmployeeBossMap">
-        SELECT employee.employee_id, employee.name, employee.title, employee.boss_id, boss.boss
+        SELECT employee.employee_id, employee.name, employee.title, employee.boss_id, be.name AS boss_name, be.employee_id AS boss_employee_id
         FROM employee
         LEFT JOIN boss ON employee.boss_id = boss.boss_id
         LEFT JOIN employee be ON boss.employee_id  = be.employee_id
     </select>
 
-<!--tofinish below two-->
+
     <select id="findBossByEmployeeId" resultMap="EmployeeBossMap">
-        SELECT employee.employee_id, employee.name, employee.title, boss, employee.boss_id
+        SELECT employee.employee_id, employee.name, employee.title, employee.boss_id, be.name AS boss_name, be.employee_id AS boss_employee_id
         FROM employee
-        LEFT JOIN employee boss ON employee.boss_id = boss.boss_id
+        LEFT JOIN boss ON employee.boss_id = boss.boss_id
+        LEFT JOIN employee be ON boss.employee_id  = be.employee_id
         WHERE employee.employee_id = #{employeeId}
     </select>
 
