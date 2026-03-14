@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Subordinate {
-    private Long bossId;
-    private Long subordinateId;
+  private Long bossId;
+  private Long subordinateId;
 }

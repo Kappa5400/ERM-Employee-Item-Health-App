@@ -1,13 +1,24 @@
 package com.healthapp.itemhealth.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.healthapp.itemhealth.model.IDCard;
-
+import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface IDCardMapper {
-    void insert(IDCard Idcard);
-    void update(IDCard Idcard);
-    void delete(IDCard Idcard);
-} 
+  IDCard findById(Long idCardId);
+
+  List<IDCard> findAll();
+
+  IDCard findByEmployeeId(Long employeeId);
+
+  List<IDCard> findInUse();
+
+  List<IDCard> findToRenew();
+
+  void insert(IDCard idCard);
+
+  void update(IDCard idCard);
+
+  void delete(Long idCardId);
+}

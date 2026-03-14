@@ -1,41 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.ord//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.healthapp.mapper.CarMapper"/>
-    <resultMap id="CarResultMap" type="Car"/>
-        <id property="carId" column="car_id"/>
-        <result property="carYear" column="car_year"/>
-        <result property="milage" column="milage"/>
-        <result property="lastServiced" column="last_serviced"/>
-        <result property="toService" column="to_service"/>
-        <result property="needToServiceDate" column="need_to_service_date"/>
+<mapper namespace="com.healthapp.itemhealth.mapper.CarMapper">
+
+    <resultMap id="CarResultMap" type="Car">
+        <id     property="carId"                column="car_id"/>
+        <result property="carYear"              column="car_year"/>
+        <result property="milage"               column="milage"/>
+        <result property="lastServiced"         column="last_serviced"/>
+        <result property="toService"            column="to_service"/>
+        <result property="needToServiceDate"    column="need_to_service_date"/>
         <result property="lastInsuranceRenewal" column="last_insurance_renewal"/>
-        <result property="insuranceExpireDate" column="insurance_expire_date"/>
-        <result property="toRenewInsurance" column="to_renew_insurance"/>
-        <result property="inUse" column="in_use"/>
-        <result property="createdAt"  column="created_at"/>
-        <result property="updatedAt"  column="updated_at"/>
+        <result property="insuranceExpireDate"  column="insurance_expire_date"/>
+        <result property="toRenewInsurance"     column="to_renew_insurance"/>
+        <result property="inUse"                column="in_use"/>
+        <result property="employeeId"           column="employee_id"/>
+        <result property="createdAt"            column="created_at"/>
+        <result property="updatedAt"            column="updated_at"/>
     </resultMap>
 
     <resultMap id="EmployeeCarMap" type="Car" extends="CarResultMap">
-    <association property="employee" javaType="Employee">
-        <result property="name" column="employee_name"/>
-        <result property="employeeId" column="employee_id"/>
+        <association property="employee" javaType="Employee">
+            <id     property="employeeId" column="employee_id"/>
+            <result property="name"       column="employee_name"/>
         </association>
-    <resultMap/>
+    </resultMap>
 
-    <!--To impliment select statements-->
+    <select id="findById" resultMap="EmployeeCarMap">
+        SELECT car.*, employee.name AS employee_name
+        FROM car
+        LEFT JOIN employee ON car.employee_id = employee.employee_id
+        WHERE car.car_id = #{carId}
+    </select>
 
+    <select id="findAll" resultMap="EmployeeCarMap">
+        SELECT car.*, employee.name AS employee_name
+        FROM car
+        LEFT JOIN employee ON car.employee_id = employee.employee_id
+    </select>
 
+    <select id="findInUse" resultMap="EmployeeCarMap">
+        SELECT car.*, employee.name AS employee_name
+        FROM car
+        LEFT JOIN employee ON car.employee_id = employee.employee_id
+        WHERE car.in_use = TRUE
+    </select>
 
-    <insert id="insert" userGeneratedKeys="true" keyProperty="carId">
-        INSERT INTO car (name, employee_id, car_id, milage, last_serviced, to_service, need_to_service_date, last_insurance_renewal, insurance_expire_date,
-        to_renew_insurance, in_use, created_at, updated_at)
-        VALUES VALUES (#{name}, #{employee_id}, #{car_id}, #{milage}, #{last_serviced}, #{to_service}, #{need_to_service_date},
-        #{last_insurance_renewal}, #{insurance_expire_date}, NOW(), NOW())
+    <select id="findToService" resultMap="EmployeeCarMap">
+        SELECT car.*, employee.name AS employee_name
+        FROM car
+        LEFT JOIN employee ON car.employee_id = employee.employee_id
+        WHERE car.to_service = TRUE
+    </select>
+
+    <select id="findToRenewInsurance" resultMap="EmployeeCarMap">
+        SELECT car.*, employee.name AS employee_name
+        FROM car
+        LEFT JOIN employee ON car.employee_id = employee.employee_id
+        WHERE car.to_renew_insurance = TRUE
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="carId">
+        INSERT INTO car (car_year, milage, last_serviced, to_service, need_to_service_date,
+                         last_insurance_renewal, insurance_expire_date, to_renew_insurance,
+                         in_use, employee_id, created_at, updated_at)
+        VALUES (#{carYear}, #{milage}, #{lastServiced}, #{toService}, #{needToServiceDate},
+                #{lastInsuranceRenewal}, #{insuranceExpireDate}, #{toRenewInsurance},
+                #{inUse}, #{employeeId}, NOW(), NOW())
     </insert>
+
+    <update id="update">
+        UPDATE car SET
+            car_year               = #{carYear},
+            milage                 = #{milage},
+            last_serviced          = #{lastServiced},
+            to_service             = #{toService},
+            need_to_service_date   = #{needToServiceDate},
+            last_insurance_renewal = #{lastInsuranceRenewal},
+            insurance_expire_date  = #{insuranceExpireDate},
+            to_renew_insurance     = #{toRenewInsurance},
+            in_use                 = #{inUse},
+            employee_id            = #{employeeId},
+            updated_at             = NOW()
+        WHERE car_id = #{carId}
+    </update>
 
     <delete id="delete">
         DELETE FROM car WHERE car_id = #{carId}
     </delete>
+
+</mapper>

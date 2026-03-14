@@ -25,7 +25,84 @@
 </resultMap>
 
 
-    <!--To impliment select statements-->
+    <select id="findById" resultMap="LaptopWithEmployeeResultMap">
+        SELECT employee.name AS employee_name, 
+        employee.employee_id,
+        laptop.laptop_id,
+        laptop.os_version,
+        laptop.need_to_update,
+        laptop.laptop_year,
+        laptop.to_renew,
+        laptop.in_use,
+        laptop.employee_id,
+        laptop.created_at,
+        laptop.updated_at
+        FROM Laptop LEFT JOIN Employee ON employee.employee_id = laptop.employee_id
+        WHERE laptop_id = #{laptopId}
+    </select>
+
+    <select id="findAll" resultMap="LaptopWithEmployeeResultMap">
+        SELECT employee.name AS employee_name, 
+        employee.employee_id,
+        laptop.laptop_id,
+        laptop.os_version,
+        laptop.need_to_update,
+        laptop.laptop_year,
+        laptop.to_renew,
+        laptop.in_use,
+        laptop.employee_id,
+        laptop.created_at,
+        laptop.updated_at
+        FROM Laptop LEFT JOIN Employee ON employee.employee_id = laptop.employee_id
+    </select>
+
+    <select id="findNeedToUpdate" resultMap="LaptopWithEmployeeResultMap">
+        SELECT employee.name AS employee_name, 
+        employee.employee_id,
+        laptop.laptop_id,
+        laptop.os_version,
+        laptop.need_to_update,
+        laptop.laptop_year,
+        laptop.to_renew,
+        laptop.in_use,
+        laptop.employee_id,
+        laptop.created_at,
+        laptop.updated_at
+        FROM Laptop LEFT JOIN Employee ON employee.employee_id = laptop.employee_id
+        WHERE laptop.need_to_update = TRUE
+    </select>
+
+    <select id="findInUse" resultMap="LaptopWithEmployeeResultMap">
+        SELECT employee.name AS employee_name, 
+        employee.employee_id,
+        laptop.laptop_id,
+        laptop.os_version,
+        laptop.need_to_update,
+        laptop.laptop_year,
+        laptop.to_renew,
+        laptop.in_use,
+        laptop.employee_id,
+        laptop.created_at,
+        laptop.updated_at
+        FROM Laptop LEFT JOIN Employee ON employee.employee_id = laptop.employee_id
+        WHERE laptop.in_use = TRUE
+    </select>
+
+    <select id="findToRenew" resultMap="LaptopWithEmployeeResultMap">
+        SELECT employee.name AS employee_name, 
+        employee.employee_id,
+        laptop.laptop_id,
+        laptop.os_version,
+        laptop.need_to_update,
+        laptop.laptop_year,
+        laptop.to_renew,
+        laptop.in_use,
+        laptop.employee_id,
+        laptop.created_at,
+        laptop.updated_at
+        FROM Laptop LEFT JOIN Employee ON employee.employee_id = laptop.employee_id
+        WHERE laptop.to_renew = True
+    </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="laptopId">
         INSERT INTO laptop (os_version, need_to_update, laptop_year, to_renew, in_use, employee_id, created_at, updated_at)

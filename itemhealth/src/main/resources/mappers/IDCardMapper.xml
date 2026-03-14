@@ -23,7 +23,40 @@
         </association>
     </resultMap>
 
-    <!--To impliment select statements-->
+    <select id="findById" resultMap="IdCardWithEmployeeResultMap">
+        SELECT id_card.*,
+               employee.name  AS employee_name,
+               employee.title AS employee_title
+        FROM id_card
+        LEFT JOIN employee ON id_card.employee_id = employee.employee_id
+        WHERE id_card.id_card_id = #{idCardId}
+    </select>
+
+    <select id="findAll" resultMap="IdCardWithEmployeeResultMap">
+        SELECT id_card.*,
+               employee.name  AS employee_name,
+               employee.title AS employee_title
+        FROM id_card
+        LEFT JOIN employee ON id_card.employee_id = employee.employee_id
+    </select>
+
+    <select id="findInUse" resultMap="IdCardWithEmployeeResultMap">
+        SELECT id_card.*,
+               employee.name  AS employee_name,
+               employee.title AS employee_title
+        FROM id_card
+        LEFT JOIN employee ON id_card.employee_id = employee.employee_id
+        WHERE id_card.in_use = TRUE
+    </select>
+
+    <select id="findToRenew" resultMap="IdCardWithEmployeeResultMap">
+        SELECT id_card.*,
+               employee.name  AS employee_name,
+               employee.title AS employee_title
+        FROM id_card
+        LEFT JOIN employee ON id_card.employee_id = employee.employee_id
+        WHERE id_card.to_renew = TRUE
+    </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="idCardId">
         INSERT INTO id_card (employee_id, last_renewed_date, need_to_renew_date, in_use, to_renew, created_at, updated_at)
