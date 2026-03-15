@@ -61,6 +61,13 @@
         WHERE car.to_renew_insurance = TRUE
     </select>
 
+    <select id="findByEmployeeId" resultMap="EmployeeCarMap">
+        SELECT car.*, employee.name AS employee_name
+        FROM car
+        LEFT JOIN employee ON car.employee_id = employee.employee_id
+        WHERE employee.employee_id = #{employee_id}
+    </select>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="carId">
         INSERT INTO car (car_year, milage, last_serviced, to_service, need_to_service_date,
                          last_insurance_renewal, insurance_expire_date, to_renew_insurance,

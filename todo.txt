@@ -1,0 +1,29 @@
+
+1. make er chart, architecture diagram
+
+2. project initialization spring boots and docker
+
+3. db script migration make
+
+4. db models make
+
+* I am here *
+5. service layer logic make (look into strategy pattern)
+
+6. authentication, input validation setup
+
+7. make unit test 
+
+8. make cronjob script
+
+9. integration tests to api points
+
+10. Logging setup
+
+11. frontend build
+
+12. ci/cd 
+
+13. Deployment
+
+14. documentation, deployment instructions, api documentation (swagger?)

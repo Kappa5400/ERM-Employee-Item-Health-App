@@ -1,12 +1,16 @@
 package com.healthapp.itemhealth.mapper;
 
-import com.healthapp.itemhealth.model.Car;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.healthapp.itemhealth.model.Car;
 
 @Mapper
 public interface CarMapper {
   Car findById(Long carId);
+
+  Car findByEmployeeId(Long employeeId);
 
   List<Car> findAll();
 
