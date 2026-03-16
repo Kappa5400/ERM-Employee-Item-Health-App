@@ -9,6 +9,7 @@
 
 * I am here *
 5. service layer logic make (look into strategy pattern)
+need to go through healths, check for each item each column status changes ect...
 
 6. authentication, input validation setup
 
