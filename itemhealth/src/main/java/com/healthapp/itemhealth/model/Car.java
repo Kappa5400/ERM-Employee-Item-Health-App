@@ -15,6 +15,7 @@ public class Car {
   private long car_id;
   private int car_year;
   private int milage;
+  private boolean to_replace;
   private Date last_serviced;
   private boolean to_service;
   private Date need_to_service_date;

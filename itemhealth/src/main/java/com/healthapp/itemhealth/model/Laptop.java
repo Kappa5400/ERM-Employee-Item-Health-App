@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Laptop {
   private long laptop_id;
-  private String os_version;
+  private int os_version;
+  private LocalDateTime last_os_update;
   private boolean need_to_update;
   private int laptop_year;
   private boolean to_renew;

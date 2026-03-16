@@ -8,6 +8,7 @@
         <id     property="carId"                column="car_id"/>
         <result property="carYear"              column="car_year"/>
         <result property="milage"               column="milage"/>
+        <result property="toReplace"            column="to_replace"/>
         <result property="lastServiced"         column="last_serviced"/>
         <result property="toService"            column="to_service"/>
         <result property="needToServiceDate"    column="need_to_service_date"/>

@@ -7,6 +7,7 @@
     <resultMap id="LaptopResultMap" type="Laptop">
     <id     property="laptopId"     column="laptop_id"/>
     <result property="osVersion"    column="os_version"/>
+    <result property="lastOSUpdate"    column="last_os_update"/>
     <result property="needToUpdate" column="need_to_update"/>
     <result property="laptopYear"   column="laptop_year"/>
     <result property="toRenew"      column="to_renew"/>
