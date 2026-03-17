@@ -3,6 +3,7 @@ package com.healthapp.itemhealth.mapper;
 import com.healthapp.itemhealth.model.IDCard;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface IDCardMapper {
@@ -16,7 +17,7 @@ public interface IDCardMapper {
 
   List<IDCard> findToRenew();
 
-  void setRenew(@Param Long idCardId, @Param Boolean state);
+  void setRenew(@Param("idCardId") Long idCardId, @Param("state") Boolean state);
 
   void insert(IDCard idCard);
 

@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Laptop {
-  private long laptop_id;
-  private int os_version;
-  private LocalDateTime last_os_update;
-  private boolean need_to_update;
-  private int laptop_year;
-  private boolean to_renew;
-  private boolean in_use;
-  private long employee_ID;
-  private LocalDateTime created_at;
-  private LocalDateTime updated_at;
+  private long laptopId;
+  private int osVersion;
+  private LocalDateTime lastOsUpdate;
+  private boolean needToUpdate;
+  private int laptopYear;
+  private boolean toRenew;
+  private boolean inUse;
+  private long employeeId;
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
 }

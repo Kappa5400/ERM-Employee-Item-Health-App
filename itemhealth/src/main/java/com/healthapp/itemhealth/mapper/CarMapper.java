@@ -1,10 +1,9 @@
 package com.healthapp.itemhealth.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-
 import com.healthapp.itemhealth.model.Car;
+import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface CarMapper {
@@ -20,11 +19,11 @@ public interface CarMapper {
 
   List<Car> findToRenewInsurance();
 
-  void setInsurance(@Param Long carId,@Param boolean state);
+  void setInsurance(@Param("carId") Long carId, @Param("state") boolean state);
 
-  void setService(@Param Long carId,@Param boolean state);
+  void setService(@Param("carId") Long carId, @Param("state") boolean state);
 
-  void setReplace(@Param Long carId,@Param boolean state);
+  void setReplace(@Param("carId") Long carId, @Param("state") boolean state);
 
   void insert(Car car);
 

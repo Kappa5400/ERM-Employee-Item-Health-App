@@ -3,6 +3,7 @@ package com.healthapp.itemhealth.mapper;
 import com.healthapp.itemhealth.model.Laptop;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface LaptopMapper {
@@ -20,7 +21,9 @@ public interface LaptopMapper {
 
   void insert(Laptop laptop);
 
-  void setRenew(@Param long LaptopId, @Param boolean state);
+  void setRenew(@Param("LaptopId") long LaptopId, @Param("state") boolean state);
+
+  void setOSUpdate(@Param("LaptopId") long LaptopId, @Param("state") boolean state);
 
   void update(Laptop laptop);
 
