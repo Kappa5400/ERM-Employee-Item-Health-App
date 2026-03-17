@@ -16,6 +16,8 @@ public interface IDCardMapper {
 
   List<IDCard> findToRenew();
 
+  void setRenew(@Param Long idCardId, @Param Boolean state);
+
   void insert(IDCard idCard);
 
   void update(IDCard idCard);

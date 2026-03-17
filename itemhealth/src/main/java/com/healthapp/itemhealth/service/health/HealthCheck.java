@@ -4,5 +4,4 @@ public interface HealthCheck <T>{
 
     public boolean checkUpdate(T item);
     void performUpdate(T item);
-
 }

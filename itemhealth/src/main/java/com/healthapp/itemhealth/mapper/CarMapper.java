@@ -20,6 +20,12 @@ public interface CarMapper {
 
   List<Car> findToRenewInsurance();
 
+  void setInsurance(@Param Long carId,@Param boolean state);
+
+  void setService(@Param Long carId,@Param boolean state);
+
+  void setReplace(@Param Long carId,@Param boolean state);
+
   void insert(Car car);
 
   void update(Car car);

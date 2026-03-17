@@ -3,9 +3,12 @@ package com.healthapp.itemhealth.service.health;
 import java.time.LocalDate;
 import org.springframework.stereotype.Component;
 import com.healthapp.itemhealth.model.IDCard;
+import com.healthapp.itemhealth.mapper.IDCardMapper;
 
 @Component
 public class IDCardHealth implements HealthCheck<ICard> {
+
+    IDCardMapper idMapper;
 
     @Override
     public boolean checkUpdate(IDCard item){
@@ -14,7 +17,7 @@ public class IDCardHealth implements HealthCheck<ICard> {
 
     @Override
     public void performUpdate(IDCard item) {
-        if (renewCheck(item)) item.setToRenew(true);
+        if (renewCheck(item)) idMapper.setRenew(item.getId_card_id(), true);
     }
 
     

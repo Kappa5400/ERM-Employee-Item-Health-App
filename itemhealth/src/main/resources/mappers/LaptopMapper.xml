@@ -122,6 +122,20 @@
         WHERE laptop_id = #{laptopId}
     </update>
 
+    <update id="setRenew">
+        UPDATE laptop SET
+            to_renew       = #{state},
+            updated_at     = NOW()
+        WHERE laptop_id = #{laptopId}
+    </update>
+
+    <update id="setOSUpdate">
+        UPDATE laptop SET
+            need_to_update = #{state},
+            updated_at     = NOW()
+        WHERE laptop_id = #{laptopId}
+    </update>
+
     <delete id="delete">
         DELETE FROM laptop WHERE laptop_id = #{laptopId}
     </delete>

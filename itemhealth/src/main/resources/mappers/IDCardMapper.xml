@@ -74,6 +74,13 @@
         WHERE id_card_id = #{idCardId}
     </update>
 
+    <update id="setRenew">
+        UPDATE id_card SET
+            to_renew           = #{state},
+            updated_at         = NOW()
+        WHERE id_card_id = #{idCardId}
+    </update>
+
     <delete id="delete">
         DELETE FROM id_card WHERE id_card_id = #{idCardId}
     </delete>

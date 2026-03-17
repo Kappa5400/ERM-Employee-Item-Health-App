@@ -94,8 +94,31 @@
         WHERE car_id = #{carId}
     </update>
 
+    <update id="setService">
+        UPDATE car SET
+            to_service = #{state}
+            updated_at = NOW()
+        WHERE car_id = #{carId}
+    </update>
+
+    <update id="setInsurance">
+        UPDATE car SET
+            to_renew_insurance = #{state}
+            updated_at = NOW()
+        WHERE car_id = #{carId}
+    </update>
+
+    <update id="setReplace">
+        UPDATE car SET
+            to_replace = #{state}
+            updated_at = NOW()
+        WHERE car_id = #{carId}
+    </update>
+    
+
     <delete id="delete">
         DELETE FROM car WHERE car_id = #{carId}
     </delete>
+
 
 </mapper>

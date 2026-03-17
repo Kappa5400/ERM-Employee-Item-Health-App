@@ -20,6 +20,8 @@ public interface LaptopMapper {
 
   void insert(Laptop laptop);
 
+  void setRenew(@Param long LaptopId, @Param boolean state);
+
   void update(Laptop laptop);
 
   void delete(Long laptopId);
