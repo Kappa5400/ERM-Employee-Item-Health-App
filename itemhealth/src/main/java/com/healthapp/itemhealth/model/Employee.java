@@ -11,12 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
-  private long employee_id;
-  private String name;
-  private String title;
-  private long boss_user_id;
-  private boolean boss_role;
-  private boolean has_boss;
-  private LocalDateTime created_at;
-  private LocalDateTime updated_at;
+  private Long employeeId;      
+    private String name;
+    private String title;
+    private Long bossUserId;      
+    private boolean bossRole;     
+    private boolean hasBoss;     
+    private LocalDateTime createdAt; 
+    private LocalDateTime updatedAt;
+
+    private Boss boss;
 }

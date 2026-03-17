@@ -21,4 +21,5 @@ public class Laptop {
   private long employeeId;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
+  private Employee employee;
 }

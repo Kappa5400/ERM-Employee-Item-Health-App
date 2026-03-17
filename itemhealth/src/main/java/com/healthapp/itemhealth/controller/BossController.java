@@ -28,7 +28,7 @@ public class BossController {
     return ResponseEntity.ok(bossService.findById(bossId));
   }
 
-  @GetMapping("/all")
+  @GetMapping
   public ResponseEntity<List<Boss>> findAll() {
     return ResponseEntity.ok(bossService.findAll());
   }

@@ -20,4 +20,5 @@ public class IDCard {
   private boolean toRenew;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
+  private Employee employee;
 }

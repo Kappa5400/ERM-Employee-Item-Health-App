@@ -36,9 +36,22 @@
     </select>
 
     <select id="findAll" resultMap="EmployeeCarMap">
-        SELECT car.*, employee.name AS employee_name
-        FROM car
-        LEFT JOIN employee ON car.employee_id = employee.employee_id
+    SELECT 
+        car.car_id, 
+        car.car_year, 
+        car.milage, 
+        car.to_replace, 
+        car.last_serviced, 
+        car.to_service, 
+        car.need_to_service_date, 
+        car.last_insurance_renewal, 
+        car.insurance_expire_date, 
+        car.to_renew_insurance, 
+        car.in_use, 
+        car.employee_id,
+        employee.name AS employee_name
+    FROM car
+    LEFT JOIN employee ON car.employee_id = employee.employee_id
     </select>
 
     <select id="findInUse" resultMap="EmployeeCarMap">

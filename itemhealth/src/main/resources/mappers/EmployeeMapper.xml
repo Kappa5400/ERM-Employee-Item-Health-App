@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.healthapp.mapper.EmployeeMapper">
+<mapper namespace="com.healthapp.itemhealth.mapper.EmployeeMapper">
     <resultMap id="EmployeeResultMap" type="Employee">
         <id property="employeeId" column="employee_id"/>
         <result property="name" column="name"/>
         <result property="title" column="title"/>
-        <result property="bossId" column="boss_id"/>
         <result property="bossRole" column="boss_role"/>
         <result property="hasBoss" column="has_boss"/>
         <result property="createdAt"  column="created_at"/>
@@ -16,41 +15,87 @@
 
     <resultMap id="EmployeeBossMap" type="Employee" extends="EmployeeResultMap">
         <association property="boss" javaType="Boss">
+            <result property="bossId" column="boss_id"/>
             <result property="name" column="boss_name"/>
             <result property="employeeId" column="boss_employee_id"/>
         </association>
     </resultMap>
 
-    <select id="findById" resultMap="EmployeeResultMap">
-        SELECT employee_id, name, title, boss_id, boss_role, has_boss, created_at, updated_at
+    <select id="findById" resultMap="EmployeeBossMap">
+        SELECT 
+            employee.employee_id, 
+            employee.name, 
+            employee.title, 
+            employee.boss_role, 
+            employee.has_boss, 
+            employee.created_at, 
+            employee.updated_at,
+            boss.boss_id, 
+            boss_employee.name AS boss_name, 
+            boss_employee.employee_id AS boss_employee_id
         FROM employee
-        WHERE employee_id = #{employeeId}
+        LEFT JOIN boss_subordinates ON employee.employee_id = boss_subordinates.subordinate_id
+        LEFT JOIN boss ON boss_subordinates.boss_id = boss.boss_id
+        LEFT JOIN employee AS boss_employee ON boss.employee_id = boss_employee.employee_id
+        WHERE employee.employee_id = #{employeeId}
     </select>
 
     <select id="findAllEmployees" resultMap="EmployeeResultMap">
-        SELECT employee_id, name, title, boss_id, boss_role, has_boss, created_at, updated_at
+        SELECT employee_id, name, title, boss_role, has_boss, created_at, updated_at
         FROM employee
     </select>
 
     <select id="findAllEmployeesBoss" resultMap="EmployeeBossMap">
-        SELECT employee.employee_id, employee.name, employee.title, employee.boss_id, be.name AS boss_name, be.employee_id AS boss_employee_id
+        SELECT 
+            employee.employee_id, 
+            employee.name, 
+            employee.title, 
+            boss.boss_id,             
+            be.name AS boss_name, 
+            be.employee_id AS boss_employee_id
         FROM employee
-        LEFT JOIN boss ON employee.boss_id = boss.boss_id
-        LEFT JOIN employee be ON boss.employee_id  = be.employee_id
+        LEFT JOIN boss_subordinates bs ON employee.employee_id = bs.subordinate_id
+        LEFT JOIN boss ON bs.boss_id = boss.boss_id
+        LEFT JOIN employee be ON boss.employee_id = be.employee_id
     </select>
 
 
     <select id="findBossByEmployeeId" resultMap="EmployeeBossMap">
-        SELECT employee.employee_id, employee.name, employee.title, employee.boss_id, be.name AS boss_name, be.employee_id AS boss_employee_id
+        SELECT 
+            employee.employee_id, 
+            employee.name, 
+            employee.title, 
+            employee.boss_role, 
+            employee.has_boss, 
+            employee.created_at, 
+            employee.updated_at,
+            boss.boss_id, 
+            boss_employee.name AS boss_name, 
+            boss_employee.employee_id AS boss_employee_id
         FROM employee
-        LEFT JOIN boss ON employee.boss_id = boss.boss_id
-        LEFT JOIN employee be ON boss.employee_id  = be.employee_id
+        LEFT JOIN boss_subordinates ON employee.employee_id = boss_subordinates.subordinate_id
+        LEFT JOIN boss ON boss_subordinates.boss_id = boss.boss_id
+        LEFT JOIN employee AS boss_employee ON boss.employee_id = boss_employee.employee_id
         WHERE employee.employee_id = #{employeeId}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="employeeId">
-        INSERT INTO employee (name, title, boss_id, boss_role, has_boss, created_at, updated_at)
-        VALUES (#{name}, #{title}, #{bossId}, #{bossRole}, #{hasBoss}, NOW(), NOW())
+        INSERT INTO employee (
+            name, 
+            title, 
+            boss_role, 
+            has_boss, 
+            created_at, 
+            updated_at
+        )
+        VALUES (
+            #{name}, 
+            #{title}, 
+            #{bossRole}, 
+            #{hasBoss}, 
+            NOW(), 
+            NOW()
+        )
     </insert>
 
     <delete id="delete">

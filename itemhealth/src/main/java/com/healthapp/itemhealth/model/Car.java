@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Car {
   private long carId;
   private int carYear;
-  private int mileage;
+  private int milage;
   private boolean toReplace;
   private LocalDate lastServiced;
   private boolean toService;
@@ -26,4 +26,5 @@ public class Car {
   private long employeeId;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
+  private Employee employee;
 }

@@ -52,7 +52,7 @@ public class HealthCheckService {
     log.info("Looping through employees...");
 
     for (Employee employee : allEmployees) {
-      Long employeeId = employee.getEmployee_id();
+      Long employeeId = employee.getEmployeeId();
 
       Laptop laptop = laptopService.getByEmployeeId(employeeId);
       Car car = carService.getByEmployeeId(employeeId);
