@@ -44,16 +44,18 @@
 
     <select id="findAll" resultMap="LaptopWithEmployeeResultMap">
         SELECT employee.name AS employee_name, 
-        employee.employee_id,
-        laptop.laptop_id,
-        laptop.os_version,
-        laptop.need_to_update,
-        laptop.laptop_year,
-        laptop.to_renew,
-        laptop.in_use,
-        laptop.employee_id,
-        laptop.created_at,
-        laptop.updated_at
+            laptop.laptop_id,
+            laptop.os_version,
+            laptop.last_os_update,
+            laptop.need_to_update,
+            laptop.laptop_year,
+            laptop.to_renew,
+            laptop.in_use,
+            laptop.employee_id,
+            laptop.created_at,
+            laptop.updated_at,
+            employee.name AS employee_name,
+            employee.title AS employee_title
         FROM Laptop LEFT JOIN Employee ON employee.employee_id = laptop.employee_id
     </select>
 
@@ -103,6 +105,22 @@
         laptop.updated_at
         FROM Laptop LEFT JOIN Employee ON employee.employee_id = laptop.employee_id
         WHERE laptop.to_renew = True
+    </select>
+
+        <select id="findByEmployeeId" resultMap="LaptopWithEmployeeResultMap">
+        SELECT employee.name AS employee_name, 
+            employee.employee_id,
+            laptop.laptop_id,
+            laptop.os_version,
+            laptop.need_to_update,
+            laptop.laptop_year,
+            laptop.to_renew,
+            laptop.in_use,
+            laptop.employee_id,
+            laptop.created_at,
+            laptop.updated_at
+        FROM Laptop LEFT JOIN Employee ON employee.employee_id = laptop.employee_id
+        WHERE employee.employee_id = #{employeeId}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="laptopId">

@@ -29,6 +29,6 @@ public class LaptopHealth implements HealthCheck<Laptop> {
   }
 
   private boolean osUpdateCheck(Laptop item) {
-    return item.getLastOsUpdate().getYear() <= LocalDate.now().getYear() - MAX_OS_AGE;
+    return item.getLastOSUpdate().getYear() <= LocalDate.now().getYear() - MAX_OS_AGE;
   }
 }

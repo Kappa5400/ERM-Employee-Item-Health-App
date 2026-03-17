@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.healthapp.itemhealth.mapper.IdCardMapper">
+<mapper namespace="com.healthapp.itemhealth.mapper.IDCardMapper">
 
-    <resultMap id="IdCardResultMap" type="IdCard">
+    <resultMap id="IdCardResultMap" type="IDCard">
         <id     property="idCardId"        column="id_card_id"/>
         <result property="employeeId"      column="employee_id"/>
         <result property="lastRenewedDate" column="last_renewed_date"/>
@@ -15,7 +15,7 @@
         <result property="updatedAt"       column="updated_at"/>
     </resultMap>
 
-    <resultMap id="IdCardWithEmployeeResultMap" type="IdCard" extends="IdCardResultMap">
+    <resultMap id="IdCardWithEmployeeResultMap" type="IDCard" extends="IdCardResultMap">
         <association property="employee" javaType="Employee">
             <id     property="employeeId" column="employee_id"/>
             <result property="name"       column="employee_name"/>
@@ -24,18 +24,34 @@
     </resultMap>
 
     <select id="findById" resultMap="IdCardWithEmployeeResultMap">
-        SELECT id_card.*,
-               employee.name  AS employee_name,
-               employee.title AS employee_title
+        SELECT 
+            id_card.id_card_id, 
+            id_card.employee_id, 
+            id_card.last_renewed_date, 
+            id_card.need_to_renew_date, 
+            id_card.in_use, 
+            id_card.to_renew, 
+            id_card.created_at, 
+            id_card.updated_at,
+            employee.name  AS employee_name,
+            employee.title AS employee_title
         FROM id_card
         LEFT JOIN employee ON id_card.employee_id = employee.employee_id
         WHERE id_card.id_card_id = #{idCardId}
     </select>
 
     <select id="findAll" resultMap="IdCardWithEmployeeResultMap">
-        SELECT id_card.*,
-               employee.name  AS employee_name,
-               employee.title AS employee_title
+        SELECT 
+            id_card.id_card_id, 
+            id_card.employee_id, 
+            id_card.last_renewed_date, 
+            id_card.need_to_renew_date, 
+            id_card.in_use, 
+            id_card.to_renew, 
+            id_card.created_at, 
+            id_card.updated_at,
+            employee.name  AS employee_name,
+            employee.title AS employee_title
         FROM id_card
         LEFT JOIN employee ON id_card.employee_id = employee.employee_id
     </select>
@@ -56,6 +72,23 @@
         FROM id_card
         LEFT JOIN employee ON id_card.employee_id = employee.employee_id
         WHERE id_card.to_renew = TRUE
+    </select>
+
+        <select id="getByEmployeeId" resultMap="IdCardWithEmployeeResultMap">
+         SELECT 
+            id_card.id_card_id, 
+            id_card.employee_id, 
+            id_card.last_renewed_date, 
+            id_card.need_to_renew_date, 
+            id_card.in_use, 
+            id_card.to_renew, 
+            id_card.created_at, 
+            id_card.updated_at,
+            employee.name  AS employee_name,
+            employee.title AS employee_title
+        FROM id_card
+        LEFT JOIN employee ON id_card.employee_id = employee.employee_id
+        WHERE employee.employee_id = #{employeeId}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="idCardId">

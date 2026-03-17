@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.healthapp.itemhealth.model.Employee;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Laptop {
   private long laptopId;
   private int osVersion;
-  private LocalDateTime lastOsUpdate;
+  private LocalDateTime lastOSUpdate;
   private boolean needToUpdate;
   private int laptopYear;
   private boolean toRenew;

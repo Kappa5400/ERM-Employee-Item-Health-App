@@ -23,7 +23,7 @@ public class IDCardService {
   }
 
   public IDCard getByEmployeeId(Long employeeId) {
-    return idCardMapper.findByEmployeeId(employeeId);
+    return idCardMapper.getByEmployeeId(employeeId);
   }
 
   public List<IDCard> getInUse() {

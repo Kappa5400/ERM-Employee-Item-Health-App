@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.healthapp.itemhealth.model.Employee;
+
 @Data
 @Builder
 @NoArgsConstructor
