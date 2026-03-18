@@ -11,7 +11,7 @@ public interface IDCardMapper {
 
   List<IDCard> findAll();
 
-  IDCard getByEmployeeId(@Param("employeeId")Long employeeId);
+  IDCard getByEmployeeId(@Param("employeeId") Long employeeId);
 
   List<IDCard> findInUse();
 

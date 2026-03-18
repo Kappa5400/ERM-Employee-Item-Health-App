@@ -1,13 +1,17 @@
 package com.healthapp.itemhealth.service;
 
+import java.util.List;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.healthapp.itemhealth.mapper.EmployeeMapper;
 import com.healthapp.itemhealth.model.Employee;
-import java.util.List;
-import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService {
 
+  private PasswordEncoder passwordEncoder;
   private final EmployeeMapper employeeMapper;
 
   public EmployeeService(EmployeeMapper employeeMapper) {
@@ -37,4 +41,18 @@ public class EmployeeService {
   public void delete(Long employeeId) {
     employeeMapper.delete(employeeId);
   }
+
+  public void update(Employee employee){
+    employeeMapper.update(employee);
+  }
+
+  public Employee findByUsername(String username){
+    return employeeMapper.login(username);
+  }
+
+  public void updatePassword(Long employeeId, String raw_password){
+    String hashed_password = passwordEncoder.encode(raw_password);
+    employeeMapper.updatePassword(employeeId, hashed_password);
+  }
+
 }
