@@ -3,6 +3,8 @@ package com.healthapp.itemhealth.service;
 import com.healthapp.itemhealth.mapper.IDCardMapper;
 import com.healthapp.itemhealth.model.IDCard;
 import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,14 +36,17 @@ public class IDCardService {
     return idCardMapper.findToRenew();
   }
 
+  @PreAuthorize("HasRole'BOSS")
   public void create(IDCard idCard) {
     idCardMapper.insert(idCard);
   }
 
+  @PreAuthorize("HasRole'BOSS")
   public void update(IDCard idCard) {
     idCardMapper.update(idCard);
   }
 
+  @PreAuthorize("HasRole'BOSS")
   public void delete(Long idCardId) {
     idCardMapper.delete(idCardId);
   }

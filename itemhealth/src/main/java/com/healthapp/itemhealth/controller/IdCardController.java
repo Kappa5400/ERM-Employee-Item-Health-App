@@ -2,10 +2,20 @@ package com.healthapp.itemhealth.controller;
 
 import com.healthapp.itemhealth.model.IDCard;
 import com.healthapp.itemhealth.service.IDCardService;
+
+import jakarta.validation.Valid;
+
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,54 +25,70 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/id-cards")
+@Validated
 public class IdCardController {
 
-  private final IDCardService idCardService;
+    private static final Logger log = LoggerFactory.getLogger(IdCardController.class);
+    private final IDCardService idCardService;
 
-  public IdCardController(IDCardService idCardService) {
-    this.idCardService = idCardService;
-  }
+    public IdCardController(IDCardService idCardService) {
+        this.idCardService = idCardService;
+    }
 
-  @GetMapping("/{idCardId}")
-  public ResponseEntity<IDCard> getById(@PathVariable Long idCardId) {
-    return ResponseEntity.ok(idCardService.getById(idCardId));
-  }
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        StringTrimmerEditor stringTrimmer = new StringTrimmerEditor(true);
+        binder.registerCustomEditor(String.class, stringTrimmer);
+    }
 
-  @GetMapping
-  public ResponseEntity<List<IDCard>> getAll() {
-    return ResponseEntity.ok(idCardService.getAll());
-  }
+    @GetMapping("/{idCardId}")
+    public ResponseEntity<IDCard> getById(@PathVariable Long idCardId) {
+        log.info("Fetching ID card with ID: {}", idCardId);
+        return ResponseEntity.ok(idCardService.getById(idCardId));
+    }
 
-  @GetMapping("/employee/{employeeId}")
-  public ResponseEntity<IDCard> getByEmployeeId(@PathVariable Long employeeId) {
-    return ResponseEntity.ok(idCardService.getByEmployeeId(employeeId));
-  }
+    @GetMapping
+    public ResponseEntity<List<IDCard>> getAll() {
+        log.info("Fetching all ID cards");
+        return ResponseEntity.ok(idCardService.getAll());
+    }
 
-  @GetMapping("/in-use")
-  public ResponseEntity<List<IDCard>> getInUse() {
-    return ResponseEntity.ok(idCardService.getInUse());
-  }
+    @GetMapping("/employee/{employeeId}")
+    public ResponseEntity<IDCard> getByEmployeeId(@PathVariable Long employeeId) {
+        log.info("Fetching ID card for employee ID: {}", employeeId);
+        return ResponseEntity.ok(idCardService.getByEmployeeId(employeeId));
+    }
 
-  @GetMapping("/to-renew")
-  public ResponseEntity<List<IDCard>> getToRenew() {
-    return ResponseEntity.ok(idCardService.getToRenew());
-  }
+    @GetMapping("/in-use")
+    public ResponseEntity<List<IDCard>> getInUse() {
+        log.info("Fetching all ID cards currently in use");
+        return ResponseEntity.ok(idCardService.getInUse());
+    }
 
-  @PostMapping
-  public ResponseEntity<Void> create(@RequestBody IDCard idCard) {
-    idCardService.create(idCard);
-    return ResponseEntity.status(201).build();
-  }
+    @GetMapping("/to-renew")
+    public ResponseEntity<List<IDCard>> getToRenew() {
+        log.info("Fetching ID cards requiring renewal");
+        return ResponseEntity.ok(idCardService.getToRenew());
+    }
 
-  @PatchMapping
-  public ResponseEntity<Void> update(@RequestBody IDCard idCard) {
-    idCardService.update(idCard);
-    return ResponseEntity.ok().build();
-  }
+    @PostMapping
+    public ResponseEntity<Void> create(@Valid @RequestBody IDCard idCard) {
+        log.info("Creating new ID card: {}", idCard);
+        idCardService.create(idCard);
+        return ResponseEntity.status(201).build();
+    }
 
-  @DeleteMapping("/{idCardId}")
-  public ResponseEntity<Void> delete(@PathVariable Long idCardId) {
-    idCardService.delete(idCardId);
-    return ResponseEntity.noContent().build();
-  }
+    @PatchMapping
+    public ResponseEntity<Void> update(@Valid @RequestBody IDCard idCard) {
+        log.info("Updating ID card: {}", idCard);
+        idCardService.update(idCard);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{idCardId}")
+    public ResponseEntity<Void> delete(@PathVariable Long idCardId) {
+        log.info("Deleting ID card with ID: {}", idCardId);
+        idCardService.delete(idCardId);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -3,6 +3,8 @@ package com.healthapp.itemhealth.service;
 import com.healthapp.itemhealth.mapper.LaptopMapper;
 import com.healthapp.itemhealth.model.Laptop;
 import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,14 +40,17 @@ public class LaptopService {
     return laptopMapper.findToRenew();
   }
 
+  @PreAuthorize("HasRole'BOSS")
   public void create(Laptop laptop) {
     laptopMapper.insert(laptop);
   }
 
+  @PreAuthorize("HasRole'BOSS")
   public void update(Laptop laptop) {
     laptopMapper.update(laptop);
   }
 
+  @PreAuthorize("HasRole'BOSS")
   public void delete(Long laptopId) {
     laptopMapper.delete(laptopId);
   }

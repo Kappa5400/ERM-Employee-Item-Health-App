@@ -1,12 +1,12 @@
 package com.healthapp.itemhealth.service;
 
-import java.util.List;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import com.healthapp.itemhealth.mapper.EmployeeMapper;
 import com.healthapp.itemhealth.model.Employee;
+import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService {
@@ -34,25 +34,28 @@ public class EmployeeService {
     return employeeMapper.findBossByEmployeeId(employeeId);
   }
 
+  @PreAuthorize("HasRole'BOSS")
   public void insert(Employee employee) {
     employeeMapper.insert(employee);
   }
 
+  @PreAuthorize("HasRole'BOSS")
   public void delete(Long employeeId) {
     employeeMapper.delete(employeeId);
   }
 
-  public void update(Employee employee){
+  @PreAuthorize("HasRole'BOSS")
+  public void update(Employee employee) {
     employeeMapper.update(employee);
   }
 
-  public Employee findByUsername(String username){
+  public Employee findByUsername(String username) {
     return employeeMapper.login(username);
   }
 
-  public void updatePassword(Long employeeId, String raw_password){
+  @PreAuthorize("HasRole'BOSS")
+  public void updatePassword(Long employeeId, String raw_password) {
     String hashed_password = passwordEncoder.encode(raw_password);
     employeeMapper.updatePassword(employeeId, hashed_password);
   }
-
 }

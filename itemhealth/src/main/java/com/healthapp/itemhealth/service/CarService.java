@@ -3,6 +3,8 @@ package com.healthapp.itemhealth.service;
 import com.healthapp.itemhealth.mapper.CarMapper;
 import com.healthapp.itemhealth.model.Car;
 import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,14 +40,17 @@ public class CarService {
     return carMapper.findToRenewInsurance();
   }
 
+  @PreAuthorize("HasRole'BOSS")
   public void create(Car car) {
     carMapper.insert(car);
   }
 
+  @PreAuthorize("HasRole'BOSS")
   public void update(Car car) {
     carMapper.update(car);
   }
 
+  @PreAuthorize("HasRole'BOSS")
   public void delete(Long carId) {
     carMapper.delete(carId);
   }

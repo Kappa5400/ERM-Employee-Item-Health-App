@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+
 @Mapper
 public interface LaptopMapper {
   Laptop findById(Long LaptopId);
@@ -25,7 +26,9 @@ public interface LaptopMapper {
 
   void setOSUpdate(@Param("LaptopId") long LaptopId, @Param("state") boolean state);
 
+
   void update(Laptop laptop);
+ 
 
   void delete(Long laptopId);
 }

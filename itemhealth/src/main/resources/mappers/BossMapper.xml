@@ -38,8 +38,8 @@
 
    
     <insert id="insert" useGeneratedKeys="true" keyProperty="bossId">
-        INSERT INTO boss (employee_id, created_at, updated_at)
-        VALUES (#{employeeId}, NOW(), NOW())
+        INSERT INTO boss (employee_id, name, created_at, updated_at)
+        VALUES (#{employeeId}, #{name}, NOW(), NOW())
     </insert>
 
    

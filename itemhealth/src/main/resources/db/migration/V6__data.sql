@@ -1,7 +1,7 @@
 -- 1. Employee
-INSERT INTO employee (name, title, boss, boss_role, has_boss) VALUES ('Alice Tanaka', 'CEO', 'None', TRUE, FALSE);
-INSERT INTO employee (name, title, boss, boss_role, has_boss) VALUES ('Bob Smith', 'Manager', 'Alice Tanaka', TRUE, TRUE);
-INSERT INTO employee (name, title, boss, boss_role, has_boss) VALUES ('Charlie Day', 'Engineer', 'Bob Smith', FALSE, TRUE);
+INSERT INTO employee (name, title, boss, boss_role, has_boss, username, password) VALUES ('Alice Tanaka', 'CEO', 'None', TRUE, FALSE, 'test', '$2a$10$oFUYWKahTh1lnQ79cCF4IOu4Q9l9aHfmbdnz5VnAFCPTqcWADY6aS');
+INSERT INTO employee (name, title, boss, boss_role, has_boss, username, password) VALUES ('Bob Smith', 'Manager', 'Alice Tanaka', TRUE, TRUE, 'test2', '$2a$10$oFUYWKahTh1lnQ79cCF4IOu4Q9l9aHfmbdnz5VnAFCPTqcWADY6aS');
+INSERT INTO employee (name, title, boss, boss_role, has_boss, username, password) VALUES ('Charlie Day', 'Engineer', 'Bob Smith', FALSE, TRUE, 'test3', '$2a$10$oFUYWKahTh1lnQ79cCF4IOu4Q9l9aHfmbdnz5VnAFCPTqcWADY6aS');
 
 -- 2. Boss
 INSERT INTO boss (employee_id) VALUES (1);

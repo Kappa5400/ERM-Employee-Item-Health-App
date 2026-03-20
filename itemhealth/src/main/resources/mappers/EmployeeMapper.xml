@@ -7,10 +7,12 @@
         <id property="employeeId" column="employee_id"/>
         <result property="name" column="name"/>
         <result property="title" column="title"/>
-        <result property="bossRole" column="boss_role"/>
+        <result property="bossRole" column="boss_role" javaType="boolean"/>
         <result property="hasBoss" column="has_boss"/>
         <result property="createdAt"  column="created_at"/>
         <result property="updatedAt"  column="updated_at"/>
+        <result property="username"  column="username"/>
+        <result property="password"  column="password"/>
     </resultMap>
 
     <resultMap id="EmployeeBossMap" type="Employee" extends="EmployeeResultMap">
@@ -79,6 +81,18 @@
         WHERE employee.employee_id = #{employeeId}
     </select>
 
+    <select id="login" resultMap="EmployeeResultMap">
+        SELECT
+            employee_id,
+            username,
+            password,
+            boss_role
+        FROM employee
+        WHERE username = #{username}
+
+
+    </select>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="employeeId">
         INSERT INTO employee (
             name, 
@@ -86,7 +100,9 @@
             boss_role, 
             has_boss, 
             created_at, 
-            updated_at
+            updated_at,
+            username,
+            password
         )
         VALUES (
             #{name}, 
@@ -94,7 +110,9 @@
             #{bossRole}, 
             #{hasBoss}, 
             NOW(), 
-            NOW()
+            NOW(),
+            #{username},
+            #{password}
         )
     </insert>
 

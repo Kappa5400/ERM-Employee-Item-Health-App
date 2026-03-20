@@ -13,28 +13,21 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity // This allows you to use @PreAuthorize on your Services
+@EnableMethodSecurity
 public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http
-        // In a real SIer project, CSRF is usually enabled,
-        // but for initial API testing, we disable it.
-        .csrf(csrf -> csrf.disable())
+    http.csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(
             auth ->
-                auth
-                    // Allow anyone to VIEW items (Standard SIer "Read-Only" access)
-                    .requestMatchers(HttpMethod.GET, "/api/**")
+                auth.requestMatchers("/login")
                     .permitAll()
-
-                    // Everything else (POST, PUT, DELETE) requires login
+                    .requestMatchers(HttpMethod.GET, "/api/public/**")
+                    .permitAll()
                     .anyRequest()
                     .authenticated())
-        // Use Basic Auth for easy testing in Postman/Browser
         .httpBasic(Customizer.withDefaults())
-        // Also enable the standard login form
         .formLogin(Customizer.withDefaults());
 
     return http.build();
@@ -42,7 +35,7 @@ public class SecurityConfig {
 
   @Bean
   public PasswordEncoder passwordEncoder() {
-    // This is the SIer standard for password hashing
+
     return new BCryptPasswordEncoder();
   }
 }

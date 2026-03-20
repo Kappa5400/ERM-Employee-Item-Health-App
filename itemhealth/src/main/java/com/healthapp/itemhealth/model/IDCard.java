@@ -2,6 +2,8 @@ package com.healthapp.itemhealth.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class IDCard {
+  @NotBlank
   private long idCardId;
+  @NotBlank
   private long employeeId;
   private LocalDate lastRenewedDate;
   private LocalDate needToRenewDate;

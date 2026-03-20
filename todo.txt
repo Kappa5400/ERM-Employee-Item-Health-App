@@ -13,6 +13,11 @@ need to go through healths, check for each item each column status changes ect..
 
 need to add boss update methods to service, xml, health strategy
 
+(is this front end api or backend problem?)
+also need to configure sql auto id handling for objects, employees, bosses, ect...
+so that ids are not manually entered
+
+
 6. authentication, input validation setup
 
 7. make unit test 
