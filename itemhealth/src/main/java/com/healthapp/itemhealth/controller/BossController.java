@@ -2,10 +2,13 @@ package com.healthapp.itemhealth.controller;
 
 import com.healthapp.itemhealth.model.Boss;
 import com.healthapp.itemhealth.service.BossService;
+import jakarta.validation.Valid;
 import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import jakarta.validation.Valid;
-import org.springframework.validation.annotation.Validated;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/boss")
@@ -36,10 +34,10 @@ public class BossController {
   }
 
   @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        StringTrimmerEditor stringTrimmer = new StringTrimmerEditor(true);
-        binder.registerCustomEditor(String.class, stringTrimmer);
-    }
+  public void initBinder(WebDataBinder binder) {
+    StringTrimmerEditor stringTrimmer = new StringTrimmerEditor(true);
+    binder.registerCustomEditor(String.class, stringTrimmer);
+  }
 
   @GetMapping("/{bossId}")
   public ResponseEntity<Boss> getById(@PathVariable Long bossId) {
@@ -69,7 +67,7 @@ public class BossController {
   @PostMapping("/sub/{bossId}/{subordinateId}")
   public ResponseEntity<Void> insertSubordinate(
       @PathVariable Long bossId, @PathVariable Long subordinateId) {
-        log.info("Getting boss by subordinate ID: {}", subordinateId);
+    log.info("Getting boss by subordinate ID: {}", subordinateId);
     bossService.insertSubordinate(bossId, subordinateId);
     return ResponseEntity.status(201).build();
   }

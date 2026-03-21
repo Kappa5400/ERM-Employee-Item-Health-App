@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-
 @Mapper
 public interface IDCardMapper {
   IDCard findById(Long idCardId);
@@ -20,12 +19,9 @@ public interface IDCardMapper {
 
   void setRenew(@Param("idCardId") Long idCardId, @Param("state") Boolean state);
 
-
   void insert(IDCard idCard);
 
-
   void update(IDCard idCard);
-
 
   void delete(Long idCardId);
 }

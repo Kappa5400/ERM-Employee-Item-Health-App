@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-
 @Mapper
 public interface EmployeeMapper {
   Employee findById(Long employeeId);
@@ -16,12 +15,9 @@ public interface EmployeeMapper {
 
   Employee findBossByEmployeeId(Long employeeId);
 
-
   void insert(Employee employee);
 
-
   void delete(Long employeeId);
-
 
   void update(Employee employee);
 

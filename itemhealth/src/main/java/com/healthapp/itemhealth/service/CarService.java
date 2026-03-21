@@ -3,7 +3,6 @@ package com.healthapp.itemhealth.service;
 import com.healthapp.itemhealth.mapper.CarMapper;
 import com.healthapp.itemhealth.model.Car;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;

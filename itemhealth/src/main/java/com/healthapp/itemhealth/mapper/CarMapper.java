@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-
 @Mapper
 public interface CarMapper {
   Car findById(Long carId);
@@ -26,12 +25,9 @@ public interface CarMapper {
 
   void setReplace(@Param("carId") Long carId, @Param("state") boolean state);
 
-
   void insert(Car car);
 
-
   void update(Car car);
-
 
   void delete(Long carId);
 }

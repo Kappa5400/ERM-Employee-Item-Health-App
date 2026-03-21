@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Subordinate {
-  @NotBlank
-  private Long bossId;
-  @NotBlank
-  private Long subordinateId;
+  @NotBlank private Long bossId;
+  @NotBlank private Long subordinateId;
 }

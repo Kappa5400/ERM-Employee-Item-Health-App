@@ -1,8 +1,7 @@
 package com.healthapp.itemhealth.model;
 
-import java.time.LocalDateTime;
-
 import jakarta.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,10 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Laptop {
-  @NotBlank
-  private long laptopId;
-  @NotBlank
-  private int osVersion;
+  @NotBlank private long laptopId;
+  @NotBlank private int osVersion;
   private LocalDateTime lastOSUpdate;
   private boolean needToUpdate;
   private int laptopYear;
