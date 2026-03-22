@@ -7,6 +7,7 @@ import com.healthapp.itemhealth.model.Laptop;
 import com.healthapp.itemhealth.service.health.CarHealth;
 import com.healthapp.itemhealth.service.health.IDCardHealth;
 import com.healthapp.itemhealth.service.health.LaptopHealth;
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +25,6 @@ public class HealthCheckService {
   private final LaptopHealth laptopHealth;
   private final CarHealth carHealth;
   private final IDCardHealth idCardHealth;
-
-  List updateItems;
 
   public HealthCheckService(
       EmployeeService employeeService,
@@ -45,6 +44,8 @@ public class HealthCheckService {
   }
 
   public void runHealthCheck() {
+
+    List updateItems = new ArrayList<>();
     log.info("Starting health check");
     log.info("Fetching all employees...");
     List<Employee> allEmployees = employeeService.findAllEmployees();

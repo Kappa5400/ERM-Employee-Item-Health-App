@@ -25,6 +25,8 @@ public class SecurityConfig {
                     .permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/public/**")
                     .permitAll()
+                    .requestMatchers("/api/employee/**")
+                    .hasRole("BOSS")
                     .anyRequest()
                     .authenticated())
         .httpBasic(Customizer.withDefaults())

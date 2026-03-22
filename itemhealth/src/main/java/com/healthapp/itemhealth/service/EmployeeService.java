@@ -14,11 +14,12 @@ public class EmployeeService {
 
   private static final Logger log = LoggerFactory.getLogger(EmployeeService.class);
 
-  private PasswordEncoder passwordEncoder;
+  private final PasswordEncoder passwordEncoder;
   private final EmployeeMapper employeeMapper;
 
-  public EmployeeService(EmployeeMapper employeeMapper) {
+  public EmployeeService(EmployeeMapper employeeMapper, PasswordEncoder passwordEncoder) {
     this.employeeMapper = employeeMapper;
+    this.passwordEncoder = passwordEncoder;
   }
 
   public Employee getById(long employeeId) {
