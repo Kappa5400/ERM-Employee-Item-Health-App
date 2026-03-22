@@ -1,6 +1,6 @@
 package com.healthapp.itemhealth.model;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class IDCard {
-  @NotBlank private long idCardId;
-  @NotBlank private long employeeId;
+  @NotNull private long idCardId;
+  @NotNull private long employeeId;
   private LocalDate lastRenewedDate;
   private LocalDate needToRenewDate;
   private boolean inUse;

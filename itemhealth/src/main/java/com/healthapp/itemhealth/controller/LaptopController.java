@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/laptops")
+@RequestMapping("/api/laptop")
 @Validated
 public class LaptopController {
 
@@ -76,7 +76,12 @@ public class LaptopController {
 
   @PostMapping
   public ResponseEntity<Void> create(@Valid @RequestBody Laptop laptop) {
-    log.info("Creating new laptop record: {}", laptop);
+
+    if (laptop == null) {
+      return ResponseEntity.badRequest().build();
+    }
+
+    // log.info("Creating new laptop record: {}", laptop);
     laptopService.create(laptop);
     return ResponseEntity.status(201).build();
   }
