@@ -31,6 +31,8 @@ public class SecurityConfig {
                     .hasRole("BOSS")
                     .requestMatchers("/api/id-card/**")
                     .hasRole("BOSS")
+                    .requestMatchers("/api/car/**")
+                    .hasRole("BOSS")
                     .anyRequest()
                     .authenticated())
         .httpBasic(Customizer.withDefaults())

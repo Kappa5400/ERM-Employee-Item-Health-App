@@ -1,6 +1,5 @@
 package com.healthapp.itemhealth.model;
 
-import jakarta.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -14,17 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Car {
   private long carId;
-
-  @Pattern(
-      regexp = "^[a-zA-Z0-9 ]*$",
-      message = "Only alphanumeric characters and spaces are allowed")
   private int carYear;
-
-  @Pattern(
-      regexp = "^[a-zA-Z0-9 ]*$",
-      message = "Only alphanumeric characters and spaces are allowed")
   private int milage;
-
   private boolean toReplace;
   private LocalDate lastServiced;
   private boolean toService;
