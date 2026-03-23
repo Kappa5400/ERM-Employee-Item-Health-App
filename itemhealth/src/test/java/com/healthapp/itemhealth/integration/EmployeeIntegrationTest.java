@@ -1,9 +1,13 @@
 package com.healthapp.itemhealth.integration;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.healthapp.itemhealth.model.Boss;
@@ -84,7 +88,7 @@ public class EmployeeIntegrationTest {
         .perform(get("/api/employee/" + createdId))
         .andDo(print()) // This will show you exactly what the server sends back
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.name").value("test"));
+        .andExpect(jsonPath("$.name").value("test10"));
   }
 
   @Test
