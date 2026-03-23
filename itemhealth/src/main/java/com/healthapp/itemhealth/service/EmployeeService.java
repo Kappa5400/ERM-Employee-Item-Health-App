@@ -42,19 +42,19 @@ public class EmployeeService {
     return employeeMapper.findBossByEmployeeId(employeeId);
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void insert(Employee employee) {
     log.info("Inserting new employee: {}", employee.getUsername());
     employeeMapper.insert(employee);
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void delete(Long employeeId) {
     log.info("Deleting employee with ID: {}", employeeId);
     employeeMapper.delete(employeeId);
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void update(Employee employee) {
     log.info("Updating employee record for: {}", employee.getUsername());
     employeeMapper.update(employee);
@@ -65,7 +65,7 @@ public class EmployeeService {
     return employeeMapper.login(username);
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void updatePassword(Long employeeId, String raw_password) {
     log.info("Updating password for employee ID: {}", employeeId);
     String hashed_password = passwordEncoder.encode(raw_password);

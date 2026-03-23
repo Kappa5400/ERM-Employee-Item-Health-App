@@ -62,10 +62,10 @@ public class EmployeeController {
   }
 
   @PostMapping()
-  public ResponseEntity<Void> insert(@Valid @RequestBody Employee employee) {
+  public ResponseEntity<Employee> insert(@Valid @RequestBody Employee employee) {
     log.info("Inserting new employee: {}", employee.getUsername());
     employeeService.insert(employee);
-    return ResponseEntity.status(201).build();
+    return ResponseEntity.status(201).body(employee);
   }
 
   @DeleteMapping("/{id}")
