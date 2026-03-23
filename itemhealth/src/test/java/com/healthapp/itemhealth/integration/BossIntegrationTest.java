@@ -1,0 +1,104 @@
+package com.healthapp.itemhealth.integration;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.healthapp.itemhealth.model.Boss;
+import com.healthapp.itemhealth.model.Employee;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
+@Transactional
+public class BossIntegrationTest {
+
+  @Autowired private MockMvc mockMvc;
+  private final ObjectMapper objectMapper =
+      new ObjectMapper().registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
+
+  @Autowired private WebApplicationContext context;
+
+  @BeforeEach
+  void setUp() {
+    mockMvc =
+        MockMvcBuilders.webAppContextSetup(context)
+            .apply(
+                org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers
+                    .springSecurity())
+            .build();
+  }
+
+  @Test
+  @WithMockUser(roles = "BOSS")
+  @DisplayName("Integration: Create Boss from existing Employee and Verify")
+  void testCreateBossAndVerifySubordinates() throws Exception {
+    // 1. Arrange: Create the base Employee first
+    Employee employee =
+        Employee.builder()
+            .name("Boss Candidate")
+            .title("Manager")
+            .username("boss_user_" + System.currentTimeMillis())
+            .password("secure123")
+            .bossRole(false)
+            .hasBoss(false)
+            .build();
+
+    String empJson =
+        mockMvc
+            .perform(
+                post("/api/employee")
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(employee)))
+            .andExpect(status().isCreated())
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+
+    Long employeeId =
+        ((Number) com.jayway.jsonpath.JsonPath.read(empJson, "$.employeeId")).longValue();
+
+    // 2. Act: Create a Boss record for this Employee
+    Boss boss = Boss.builder().employeeId(employeeId).name("Boss Candidate").build();
+
+    String bossJson =
+        mockMvc
+            .perform(
+                post("/api/boss")
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(boss)))
+            .andExpect(status().isCreated())
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+
+    Long bossId = ((Number) com.jayway.jsonpath.JsonPath.read(bossJson, "$.bossId")).longValue();
+
+    // 3. Assert: Verify the Boss exists and is linked correctly
+    mockMvc
+        .perform(get("/api/boss/" + bossId))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.employeeId").value(employeeId))
+        .andExpect(jsonPath("$.name").value("Boss Candidate"));
+  }
+}

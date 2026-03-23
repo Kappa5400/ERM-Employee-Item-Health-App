@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Boss {
-  @NotNull private Long bossId;
+  private Long bossId;
 
   @NotNull private Long employeeId;
 

@@ -58,10 +58,10 @@ public class BossController {
   }
 
   @PostMapping
-  public ResponseEntity<Void> insert(@Valid @RequestBody Boss boss) {
+  public ResponseEntity<Boss> insert(@Valid @RequestBody Boss boss) {
     log.info("Inserting boss object: {}", boss);
     bossService.insert(boss);
-    return ResponseEntity.status(201).build();
+    return ResponseEntity.status(201).body(boss);
   }
 
   @PostMapping("/sub/{bossId}/{subordinateId}")
