@@ -1,9 +1,28 @@
+version: "3.8"
+
 services:
+  db:
+    image: postgres:10
+    container_name: itemhealth-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: itemhealth
+    ports:
+      - "5432:5432"
+
   app:
     build: .
+    container_name: itemhealth-app
     ports:
       - "8080:8080"
     command: ./mvnw spring-boot:run
     volumes:
       - .:/app
       - ~/.m2:/root/.m2
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+    depends_on:
+      - db
