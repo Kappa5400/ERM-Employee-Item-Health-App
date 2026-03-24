@@ -69,10 +69,10 @@ public class IDCardController {
   }
 
   @PostMapping
-  public ResponseEntity<Void> create(@Valid @RequestBody IDCard idCard) {
+  public ResponseEntity<IDCard> create(@Valid @RequestBody IDCard idCard) {
     log.info("Creating new ID card: {}", idCard);
     idCardService.create(idCard);
-    return ResponseEntity.status(201).build();
+    return ResponseEntity.status(201).body(idCard);
   }
 
   @PatchMapping

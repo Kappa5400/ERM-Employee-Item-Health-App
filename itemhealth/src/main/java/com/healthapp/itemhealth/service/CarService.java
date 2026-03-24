@@ -49,19 +49,19 @@ public class CarService {
     return carMapper.findToRenewInsurance();
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void create(Car car) {
     log.info("Creating car record for employee: {}", car.getEmployeeId());
     carMapper.insert(car);
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void update(Car car) {
     log.info("Updating car record with ID: {}", car.getCarId());
     carMapper.update(car);
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void delete(Long carId) {
     log.info("Deleting car record with ID: {}", carId);
     carMapper.delete(carId);

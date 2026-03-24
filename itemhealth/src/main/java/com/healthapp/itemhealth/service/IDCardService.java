@@ -44,19 +44,19 @@ public class IDCardService {
     return idCardMapper.findToRenew();
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void create(IDCard idCard) {
     log.info("Creating new ID card for employee ID: {}", idCard.getEmployeeId());
     idCardMapper.insert(idCard);
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void update(IDCard idCard) {
     log.info("Updating ID card with ID: {}", idCard.getIdCardId());
     idCardMapper.update(idCard);
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void delete(Long idCardId) {
     log.info("Deleting ID card with ID: {}", idCardId);
     idCardMapper.delete(idCardId);

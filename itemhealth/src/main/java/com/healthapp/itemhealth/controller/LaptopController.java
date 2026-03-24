@@ -75,15 +75,15 @@ public class LaptopController {
   }
 
   @PostMapping
-  public ResponseEntity<Void> create(@Valid @RequestBody Laptop laptop) {
+  public ResponseEntity<Laptop> create(@Valid @RequestBody Laptop laptop) {
 
     if (laptop == null) {
       return ResponseEntity.badRequest().build();
     }
 
-    // log.info("Creating new laptop record: {}", laptop);
+    log.info("Creating new laptop record: {}", laptop);
     laptopService.create(laptop);
-    return ResponseEntity.status(201).build();
+    return ResponseEntity.status(201).body(laptop);
   }
 
   @PatchMapping

@@ -75,10 +75,10 @@ public class CarController {
   }
 
   @PostMapping
-  public ResponseEntity<Void> create(@Valid @RequestBody Car car) {
+  public ResponseEntity<Car> create(@Valid @RequestBody Car car) {
     log.info("Creating new car record: {}", car);
     carService.create(car);
-    return ResponseEntity.status(201).build();
+    return ResponseEntity.status(201).body(car);
   }
 
   @PatchMapping

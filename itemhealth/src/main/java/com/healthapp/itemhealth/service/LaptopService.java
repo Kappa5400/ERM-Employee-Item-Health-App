@@ -49,19 +49,19 @@ public class LaptopService {
     return laptopMapper.findToRenew();
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void create(Laptop laptop) {
     log.info("Creating new laptop record for employee ID: {}", laptop.getEmployeeId());
     laptopMapper.insert(laptop);
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void update(Laptop laptop) {
     log.info("Updating laptop record with ID: {}", laptop.getLaptopId());
     laptopMapper.update(laptop);
   }
 
-  @PreAuthorize("HasRole'BOSS")
+  @PreAuthorize("hasRole('BOSS')")
   public void delete(Long laptopId) {
     log.info("Deleting laptop record with ID: {}", laptopId);
     laptopMapper.delete(laptopId);

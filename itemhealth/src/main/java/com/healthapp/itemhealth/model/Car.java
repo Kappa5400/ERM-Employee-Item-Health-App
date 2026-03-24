@@ -1,5 +1,6 @@
 package com.healthapp.itemhealth.model;
 
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class Car {
   private LocalDate insuranceExpireDate;
   private boolean toRenewInsurance;
   private boolean inUse;
-  private long employeeId;
+  @NotNull private long employeeId;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
   private Employee employee;
