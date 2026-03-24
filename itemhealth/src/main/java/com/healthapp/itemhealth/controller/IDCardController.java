@@ -76,10 +76,10 @@ public class IDCardController {
   }
 
   @PatchMapping
-  public ResponseEntity<Void> update(@Valid @RequestBody IDCard idCard) {
+  public ResponseEntity<IDCard> update(@Valid @RequestBody IDCard idCard) {
     log.info("Updating ID card: {}", idCard);
     idCardService.update(idCard);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok().body(idCard);
   }
 
   @DeleteMapping("/{idCardId}")

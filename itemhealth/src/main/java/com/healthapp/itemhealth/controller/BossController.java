@@ -73,10 +73,10 @@ public class BossController {
   }
 
   @PatchMapping()
-  public ResponseEntity<Void> update(@Valid @RequestBody Boss boss) {
+  public ResponseEntity<Boss> update(@Valid @RequestBody Boss boss) {
     log.info("Updating boss: ", boss);
     bossService.update(boss);
-    return ResponseEntity.status(200).build();
+    return ResponseEntity.status(200).body(boss);
   }
 
   @DeleteMapping("/{bossId}")

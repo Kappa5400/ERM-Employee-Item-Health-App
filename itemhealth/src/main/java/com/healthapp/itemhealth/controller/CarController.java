@@ -82,10 +82,10 @@ public class CarController {
   }
 
   @PatchMapping
-  public ResponseEntity<Void> update(@Valid @RequestBody Car car) {
+  public ResponseEntity<Car> update(@Valid @RequestBody Car car) {
     log.info("Updating car record: {}", car);
     carService.update(car);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok().body(car);
   }
 
   @DeleteMapping("/{carId}")

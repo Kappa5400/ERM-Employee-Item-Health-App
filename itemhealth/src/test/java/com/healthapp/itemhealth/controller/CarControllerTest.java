@@ -8,6 +8,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -82,9 +83,26 @@ public class CarControllerTest {
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(sampleCar)))
-        .andExpect(status().isCreated());
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.employeeId").isNotEmpty());
 
     verify(carService, times(1)).create(any(Car.class));
+  }
+
+  @Test
+  @WithMockUser(roles = "BOSS")
+  @DisplayName("PATCH /api/car - Success")
+  void patch_Success() throws Exception {
+    mockMvc
+        .perform(
+            patch("/api/car")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(sampleCar)))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.employeeId").isNotEmpty());
+
+    verify(carService, times(1)).update(any(Car.class));
   }
 
   @Test

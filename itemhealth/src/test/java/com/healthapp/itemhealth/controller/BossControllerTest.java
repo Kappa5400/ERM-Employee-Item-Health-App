@@ -77,7 +77,8 @@ public class BossControllerTest {
                 .with(csrf()) // Required for POST/PATCH/DELETE
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(boss)))
-        .andExpect(status().isCreated());
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.employeeId").isNotEmpty());
 
     verify(bossService, times(1)).insert(any(Boss.class));
   }
@@ -96,7 +97,8 @@ public class BossControllerTest {
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(boss)))
-        .andExpect(status().isOk());
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.employeeId").isNotEmpty());
 
     verify(bossService).update(any(Boss.class));
   }

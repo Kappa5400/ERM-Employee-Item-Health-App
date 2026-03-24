@@ -40,17 +40,28 @@ public class IDCardControllerTest {
       new ObjectMapper().registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
   private IDCard sampleCard;
+  private IDCard sampleCard2;
 
   @BeforeEach
   void setUp() {
-    // Initialize MockMvc with Spring Security filters to catch 401/403/400
     mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
 
-    sampleCard = new IDCard();
-    sampleCard.setIdCardId(1L);
-    sampleCard.setEmployeeId(101L);
-    sampleCard.setLastRenewedDate(LocalDate.now().minusMonths(6));
-    sampleCard.setInUse(true);
+    sampleCard =
+        IDCard.builder()
+            .idCardId(1L)
+            .employeeId(101L)
+            .lastRenewedDate(LocalDate.now().minusMonths(6))
+            // Note: needToRenewDate will be auto-calculated if @Builder.Default is set
+            .inUse(true)
+            .build();
+
+    sampleCard2 =
+        IDCard.builder()
+            .idCardId(2L)
+            .employeeId(201L)
+            .lastRenewedDate(LocalDate.now().minusMonths(6))
+            .inUse(true)
+            .build();
   }
 
   // --- 1. SUCCESS PATHS (正常系) ---
@@ -69,11 +80,12 @@ public class IDCardControllerTest {
   @WithMockUser(roles = "BOSS")
   @DisplayName("GET /api/id-card - Success")
   void getAll_Success() throws Exception {
-    when(idCardService.getAll()).thenReturn(Arrays.asList(sampleCard));
+    when(idCardService.getAll()).thenReturn(Arrays.asList(sampleCard, sampleCard2));
     mockMvc
         .perform(get("/api/id-card"))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$[0].idCardId").value(1));
+        .andExpect(jsonPath("$[0].idCardId").value(1))
+        .andExpect(jsonPath("$[1].idCardId").value(2));
   }
 
   @Test
@@ -110,7 +122,8 @@ public class IDCardControllerTest {
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(sampleCard)))
-        .andExpect(status().isCreated());
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.employeeId").isNotEmpty());
   }
 
   @Test
@@ -123,7 +136,8 @@ public class IDCardControllerTest {
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(sampleCard)))
-        .andExpect(status().isOk());
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.employeeId").isNotEmpty());
   }
 
   @Test

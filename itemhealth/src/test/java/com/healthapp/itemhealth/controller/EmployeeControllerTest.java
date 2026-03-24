@@ -97,7 +97,8 @@ public class EmployeeControllerTest {
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(sampleEmployee)))
-        .andExpect(status().isCreated());
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.employeeId").isNotEmpty());
 
     verify(employeeService, times(1)).insert(any(Employee.class));
   }
