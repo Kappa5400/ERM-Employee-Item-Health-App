@@ -16,7 +16,7 @@ public class IDCard {
   @NotNull private long idCardId;
   @NotNull private long employeeId;
   private LocalDate lastRenewedDate;
-  private LocalDate needToRenewDate;
+  @Builder.Default private LocalDate needToRenewDate = LocalDate.now().plusYears(2);
   private boolean inUse;
   private boolean toRenew;
   private LocalDateTime createdAt;

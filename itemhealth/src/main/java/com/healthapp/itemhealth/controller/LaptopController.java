@@ -87,10 +87,10 @@ public class LaptopController {
   }
 
   @PatchMapping
-  public ResponseEntity<Void> update(@Valid @RequestBody Laptop laptop) {
+  public ResponseEntity<Laptop> update(@Valid @RequestBody Laptop laptop) {
     log.info("Updating laptop record: {}", laptop);
     laptopService.update(laptop);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok().body(laptop);
   }
 
   @DeleteMapping("/{laptopId}")

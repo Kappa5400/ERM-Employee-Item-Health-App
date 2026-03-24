@@ -17,7 +17,8 @@ public class Laptop {
   @Positive private int osVersion;
   private LocalDateTime lastOSUpdate;
   private boolean needToUpdate;
-  private int laptopYear;
+  // make default for laptopYear so not null for health logic
+  @NotNull private int laptopYear;
   private boolean toRenew;
   private boolean inUse;
   @NotNull private long employeeId;

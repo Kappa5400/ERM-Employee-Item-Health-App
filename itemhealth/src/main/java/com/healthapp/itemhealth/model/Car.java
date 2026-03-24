@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Car {
   private long carId;
-  private int carYear;
+  @NotNull private int carYear;
   private int milage;
   private boolean toReplace;
   private LocalDate lastServiced;
   private boolean toService;
-  private LocalDate needToServiceDate;
+  @Builder.Default private LocalDate needToServiceDate = LocalDate.now().plusYears(2);
   private LocalDate lastInsuranceRenewal;
-  private LocalDate insuranceExpireDate;
+  @Builder.Default private LocalDate insuranceExpireDate = LocalDate.now().plusYears(2);
   private boolean toRenewInsurance;
   private boolean inUse;
   @NotNull private long employeeId;
