@@ -30,4 +30,5 @@ public class Employee {
   private String password;
 
   private Boss boss;
+  private String email;
 }

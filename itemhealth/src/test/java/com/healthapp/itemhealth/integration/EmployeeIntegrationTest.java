@@ -66,6 +66,7 @@ public class EmployeeIntegrationTest {
             .hasBoss(false)
             .username("test10")
             .password("secure123")
+            .email("integrationtest@gmail.com")
             .build();
 
     // 2. Act: Send POST request to the real Controller -> Service -> Mapper -> H2

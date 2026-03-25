@@ -9,5 +9,6 @@ CREATE TABLE employee (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     username VARCHAR(50) UNIQUE,
     password VARCHAR(255),
-    boss_id BIGINT
+    boss_id BIGINT,
+    email TEXT DEFAULT 'fake@gmail.com'
 );

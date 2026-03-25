@@ -48,6 +48,14 @@ public class EmployeeServiceTest {
   }
 
   @Test
+  void getEmail_Positive() {
+    when(employeeMapper.getEmail(99L)).thenReturn("test@gmail.com");
+    String res = employeeService.getEmail(99L);
+    assertEquals("test@gmail.com", res);
+    verify(employeeMapper).getEmail(99L);
+  }
+
+  @Test
   void findAllEmployees_Positive_ReturnsList() {
     List<Employee> list = List.of(new Employee(), new Employee());
     when(employeeMapper.findAllEmployees()).thenReturn(list);
@@ -96,12 +104,12 @@ public class EmployeeServiceTest {
   @Test
   void findByUsername_Positive_ReturnsEmployee() {
     Employee emp = new Employee();
-    emp.setUsername("colin");
-    when(employeeMapper.login("colin")).thenReturn(emp);
+    emp.setUsername("test");
+    when(employeeMapper.login("test")).thenReturn(emp);
 
-    Employee result = employeeService.findByUsername("colin");
+    Employee result = employeeService.findByUsername("test");
 
-    assertEquals("colin", result.getUsername());
+    assertEquals("test", result.getUsername());
   }
 
   @Test

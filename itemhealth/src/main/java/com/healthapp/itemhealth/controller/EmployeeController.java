@@ -74,4 +74,10 @@ public class EmployeeController {
     employeeService.delete(id);
     return ResponseEntity.noContent().build();
   }
+
+  @GetMapping("/email/{id}")
+  public ResponseEntity<String> get(@PathVariable Long id) {
+    log.info("Getting email of employee ID {}", id);
+    return ResponseEntity.ok(employeeService.getEmail(id));
+  }
 }

@@ -13,6 +13,7 @@
         <result property="updatedAt"  column="updated_at"/>
         <result property="username"  column="username"/>
         <result property="password"  column="password"/>
+        <result property="email" column="email"/>
     </resultMap>
 
     <resultMap id="EmployeeBossMap" type="Employee" extends="EmployeeResultMap">
@@ -32,6 +33,7 @@
             employee.has_boss, 
             employee.created_at, 
             employee.updated_at,
+            employee.email,
             boss.boss_id, 
             boss_employee.name AS boss_name, 
             boss_employee.employee_id AS boss_employee_id
@@ -102,7 +104,8 @@
             created_at, 
             updated_at,
             username,
-            password
+            password,
+            email
         )
         VALUES (
             #{name}, 
@@ -112,12 +115,31 @@
             NOW(), 
             NOW(),
             #{username},
-            #{password}
+            #{password},
+            #{email}
         )
     </insert>
+
+    <update id="update" useGeneratedKeys="true" keyProperty="employeeId">
+        UPDATE employee 
+        SET
+            name = #{name}, 
+            title = #{title}, 
+            boss_role = #{bossRole}, 
+            has_boss = #{hasBoss}, 
+            updated_at = NOW(),
+            username = #{username},
+            password = #{password},
+            email = #{email}
+        WHERE employee_id = #{employee_id}
+    </update>
 
     <delete id="delete">
         DELETE FROM employee WHERE employee_id = #{employeeId}
     </delete>
+
+    <select id="getEmail" resultMap="EmployeeResultMap">
+        SELECT email from employee WHERE employee_id = #{employeeId}
+    </select>
 
 </mapper>

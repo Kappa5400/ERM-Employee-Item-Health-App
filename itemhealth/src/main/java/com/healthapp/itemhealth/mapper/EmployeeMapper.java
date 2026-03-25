@@ -24,4 +24,6 @@ public interface EmployeeMapper {
   Employee login(@Param("username") String username);
 
   void updatePassword(Long employeeId, String password);
+
+  String getEmail(Long emplyoeeId);
 }

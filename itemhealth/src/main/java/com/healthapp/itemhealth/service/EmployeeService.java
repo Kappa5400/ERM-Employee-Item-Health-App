@@ -71,4 +71,9 @@ public class EmployeeService {
     String hashed_password = passwordEncoder.encode(raw_password);
     employeeMapper.updatePassword(employeeId, hashed_password);
   }
+
+  public String getEmail(Long employeeID) {
+    log.info("Attempting to retrieve employee " + employeeID + " email...");
+    return employeeMapper.getEmail(employeeID);
+  }
 }
