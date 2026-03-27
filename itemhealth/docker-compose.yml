@@ -2,14 +2,21 @@ version: "3.8"
 
 services:
   db:
-    image: postgres:10
+    image: postgres:15 # Recommended to use 15+ for modern Spring Boot/MyBatis
     container_name: itemhealth-db
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: itemhealth
     ports:
-      - "5432:5432"
+      - "5432:5432" # Fixed indentation: ports must be inside the 'db' service
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025" # SMTP port
+      - "8025:8025" # Web UI port
 
   app:
     build: .
@@ -20,9 +27,14 @@ services:
     volumes:
       - .:/app
       - ~/.m2:/root/.m2
+    working_dir: /app # Added to ensure mvnw runs in the correct folder
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
       - SPRING_DATASOURCE_USERNAME=user
       - SPRING_DATASOURCE_PASSWORD=password
+      # Added MailHog config for container-to-container communication
+      - SPRING_MAIL_HOST=mailhog
+      - SPRING_MAIL_PORT=1025
     depends_on:
       - db
+      - mailhog
