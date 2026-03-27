@@ -1,5 +1,6 @@
 package com.healthapp.itemhealth.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +37,7 @@ public class EmailService {
     }
 
     public String formatEmailSubject(){
-        return "Hi";
+        return "Alert for " + LocalDateTime.now();
     }
 
 
