@@ -1,19 +1,18 @@
 package com.healthapp.itemhealth.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 import com.healthapp.itemhealth.model.Car;
 import com.healthapp.itemhealth.model.Employee;
 import com.healthapp.itemhealth.model.IDCard;
 import com.healthapp.itemhealth.model.Laptop;
+import com.healthapp.itemhealth.model.HealthReport;
 import com.healthapp.itemhealth.service.health.CarHealth;
 import com.healthapp.itemhealth.service.health.IDCardHealth;
 import com.healthapp.itemhealth.service.health.LaptopHealth;
+import java.util.ArrayList;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 @Service
 public class HealthCheckService {
@@ -28,7 +27,6 @@ public class HealthCheckService {
   private final LaptopHealth laptopHealth;
   private final CarHealth carHealth;
   private final IDCardHealth idCardHealth;
-
 
   public HealthCheckService(
       EmailService emailService,
@@ -51,7 +49,7 @@ public class HealthCheckService {
 
   public void runHealthCheck() {
 
-    List updateItems = new ArrayList<>();
+    
     log.info("Starting health check");
     log.info("Fetching all employees...");
     List<Employee> allEmployees = employeeService.findAllEmployees();
@@ -60,6 +58,8 @@ public class HealthCheckService {
 
     for (Employee employee : allEmployees) {
       Long employeeId = employee.getEmployeeId();
+
+      List<HealthReport> updateItems = new ArrayList<>();
 
       Laptop laptop = laptopService.getByEmployeeId(employeeId);
       Car car = carService.getByEmployeeId(employeeId);
@@ -71,8 +71,13 @@ public class HealthCheckService {
         if (laptopHealth.checkUpdate(laptop)) {
           log.info("To update laptop found. Performing update...");
           laptopHealth.performUpdate(laptop);
-          updateItems.add(
-              "Laptop ID: " + laptop.getLaptopId() + "Employee ID:" + laptop.getEmployeeId());
+          updateItems.add(HealthReport.builder()
+          .employee(employee)
+          .laptop(laptop)
+          .itemType("Laptop")
+          .build()
+        );
+          
         }
       }
       log.info("Laptop check done.");
@@ -81,7 +86,12 @@ public class HealthCheckService {
         if (carHealth.checkUpdate(car)) {
           log.info("To update car found. Performing update...");
           carHealth.performUpdate(car);
-          updateItems.add("Car ID: " + car.getCarId() + "Employee ID:" + car.getEmployeeId());
+          updateItems.add(HealthReport.builder()
+          .employee(employee)
+          .car(car)
+          .itemType("Car")
+          .build()
+        );
         }
       }
       log.info("Car check done.");
@@ -90,8 +100,12 @@ public class HealthCheckService {
         if (idCardHealth.checkUpdate(idCard)) {
           log.info("To update ID found. Performing update...");
           idCardHealth.performUpdate(idCard);
-          updateItems.add(
-              "ID card ID: " + idCard.getIdCardId() + "Employee ID:" + idCard.getEmployeeId());
+          updateItems.add(HealthReport.builder()
+          .employee(employee)
+          .idCard(idCard)
+          .itemType("IDCard")
+          .build()
+        );
         }
       }
       log.info("ID check done.");
@@ -101,8 +115,8 @@ public class HealthCheckService {
       if (updateItems.size() != 0) {
 
         log.info("Getting boss email...");
-        String emailAddress = emailService.getBossEmail();
-        String emailSubject = emailService.formatEmailSubject();
+        String emailAddress = emailService.getBossEmail(employee);
+        String emailSubject = emailService.formatEmailSubject(employee);
         String emailBody = emailService.formatEmailBody(updateItems);
 
         log.info("Sending email...");
@@ -111,6 +125,7 @@ public class HealthCheckService {
       } else {
         log.info("No items to update.");
       }
+
 
       log.info("Healthcheck finished.");
     }
