@@ -5,11 +5,13 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RestControllerAdvice
+@ControllerAdvice
 public class GlobalExceptionHandler {
   private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
@@ -31,6 +33,17 @@ public class GlobalExceptionHandler {
             });
 
     return ResponseEntity.badRequest().body(errors);
+  }
+
+  @ExceptionHandler(AccessDeniedException.class)
+  public String handleAccessDeniedException(
+      AccessDeniedException ex, RedirectAttributes redirectAttributes) {
+    // This adds a temporary message to the next page
+    redirectAttributes.addFlashAttribute(
+        "message", "Access Denied: You do not have Boss privileges.");
+
+    // Redirect to the standard dashboard instead of showing an error page
+    return "redirect:/";
   }
 
   @ExceptionHandler(Exception.class)

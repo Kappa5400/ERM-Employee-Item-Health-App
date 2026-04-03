@@ -35,6 +35,7 @@ public class SecurityConfig {
                     .hasRole("BOSS")
                     .anyRequest()
                     .authenticated())
+        .exceptionHandling(exception -> exception.accessDeniedPage("/"))
         .httpBasic(Customizer.withDefaults())
         .formLogin(Customizer.withDefaults());
 

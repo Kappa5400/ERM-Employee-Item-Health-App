@@ -30,6 +30,7 @@ public class HealthCheckServiceTest {
   @Mock private LaptopHealth laptopHealth;
   @Mock private CarHealth carHealth;
   @Mock private IDCardHealth idCardHealth;
+  @Mock private EmailService emailService;
 
   @InjectMocks private HealthCheckService healthCheckService;
 

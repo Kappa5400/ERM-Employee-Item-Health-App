@@ -1,17 +1,14 @@
 package com.healthapp.itemhealth.service;
 
+import com.healthapp.itemhealth.model.Boss;
+import com.healthapp.itemhealth.model.Employee;
+import com.healthapp.itemhealth.model.HealthReport;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
-import com.healthapp.itemhealth.model.Employee;
-import com.healthapp.itemhealth.model.Boss;
-import com.healthapp.itemhealth.model.HealthReport;
-
 
 @Service
 public class EmailService {
@@ -47,8 +44,8 @@ public class EmailService {
   }
 
   public String formatEmailSubject(Employee employee) {
-    String name = employee.getName() ;
-    return "Alert, expiring items for " + name + " " +  LocalDateTime.now();
+    String name = employee.getName();
+    return "Alert, expiring items for " + name + " " + LocalDateTime.now();
   }
 
   public String formatEmailBody(List<HealthReport> items) {
@@ -56,29 +53,30 @@ public class EmailService {
 
     // Get the employee info from the first report
     Employee emp = items.get(0).getEmployee();
-    
+
     StringBuilder sb = new StringBuilder();
     sb.append("Alert for: ").append(emp.getName()).append("\n");
     sb.append("------------------------------------------\n");
 
     for (HealthReport report : items) {
-        String id = "N/A";
+      String id = "N/A";
 
-        // Logic to retrieve the ID based on the item type
-        if (report.getLaptop() != null) {
-            id = String.valueOf(report.getLaptop().getLaptopId());
-        } else if (report.getCar() != null) {
-            id = String.valueOf(report.getCar().getCarId());
-        } else if (report.getIdCard() != null) {
-            id = String.valueOf(report.getIdCard().getIdCardId());
-        }
+      // Logic to retrieve the ID based on the item type
+      if (report.getLaptop() != null) {
+        id = String.valueOf(report.getLaptop().getLaptopId());
+      } else if (report.getCar() != null) {
+        id = String.valueOf(report.getCar().getCarId());
+      } else if (report.getIdCard() != null) {
+        id = String.valueOf(report.getIdCard().getIdCardId());
+      }
 
-        sb.append("- ")
+      sb.append("- ")
           .append(report.getItemType())
-          .append(" (ID: ").append(id).append(") needs to be updated.\n");
+          .append(" (ID: ")
+          .append(id)
+          .append(") needs to be updated.\n");
     }
 
     return sb.toString();
-
   }
 }

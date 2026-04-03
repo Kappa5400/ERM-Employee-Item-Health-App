@@ -2,9 +2,9 @@ package com.healthapp.itemhealth.service;
 
 import com.healthapp.itemhealth.model.Car;
 import com.healthapp.itemhealth.model.Employee;
+import com.healthapp.itemhealth.model.HealthReport;
 import com.healthapp.itemhealth.model.IDCard;
 import com.healthapp.itemhealth.model.Laptop;
-import com.healthapp.itemhealth.model.HealthReport;
 import com.healthapp.itemhealth.service.health.CarHealth;
 import com.healthapp.itemhealth.service.health.IDCardHealth;
 import com.healthapp.itemhealth.service.health.LaptopHealth;
@@ -49,7 +49,6 @@ public class HealthCheckService {
 
   public void runHealthCheck() {
 
-    
     log.info("Starting health check");
     log.info("Fetching all employees...");
     List<Employee> allEmployees = employeeService.findAllEmployees();
@@ -71,13 +70,8 @@ public class HealthCheckService {
         if (laptopHealth.checkUpdate(laptop)) {
           log.info("To update laptop found. Performing update...");
           laptopHealth.performUpdate(laptop);
-          updateItems.add(HealthReport.builder()
-          .employee(employee)
-          .laptop(laptop)
-          .itemType("Laptop")
-          .build()
-        );
-          
+          updateItems.add(
+              HealthReport.builder().employee(employee).laptop(laptop).itemType("Laptop").build());
         }
       }
       log.info("Laptop check done.");
@@ -86,12 +80,8 @@ public class HealthCheckService {
         if (carHealth.checkUpdate(car)) {
           log.info("To update car found. Performing update...");
           carHealth.performUpdate(car);
-          updateItems.add(HealthReport.builder()
-          .employee(employee)
-          .car(car)
-          .itemType("Car")
-          .build()
-        );
+          updateItems.add(
+              HealthReport.builder().employee(employee).car(car).itemType("Car").build());
         }
       }
       log.info("Car check done.");
@@ -100,12 +90,8 @@ public class HealthCheckService {
         if (idCardHealth.checkUpdate(idCard)) {
           log.info("To update ID found. Performing update...");
           idCardHealth.performUpdate(idCard);
-          updateItems.add(HealthReport.builder()
-          .employee(employee)
-          .idCard(idCard)
-          .itemType("IDCard")
-          .build()
-        );
+          updateItems.add(
+              HealthReport.builder().employee(employee).idCard(idCard).itemType("IDCard").build());
         }
       }
       log.info("ID check done.");
@@ -125,7 +111,6 @@ public class HealthCheckService {
       } else {
         log.info("No items to update.");
       }
-
 
       log.info("Healthcheck finished.");
     }
