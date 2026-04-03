@@ -1,0 +1,16 @@
+<div
+  th:fragment="not-found(message)"
+  th:if="${employee == null}"
+  class="alert alert-warning"
+>
+  <span th:text="${message ?: 'Data could not be found.'}"
+    >Default warning</span
+  >
+</div>
+
+<div
+  th:fragment="flash-message"
+  th:if="${message}"
+  class="alert alert-info"
+  th:text="${message}"
+></div>

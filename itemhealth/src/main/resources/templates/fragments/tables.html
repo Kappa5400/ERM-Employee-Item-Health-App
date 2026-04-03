@@ -1,0 +1,49 @@
+<div th:fragment="employee-list(employees, showActions)">
+  <table class="table table-hover border">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th th:if="${showActions}">Management</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="emp : ${employees}">
+        <td th:text="${emp.employeeId}"></td>
+        <td th:text="${emp.name}"></td>
+        <td th:if="${showActions}">
+          <a
+            th:href="@{/view/employee/{id}(id=${emp.employeeId})}"
+            class="btn btn-sm btn-info"
+            >Manage</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div th:fragment="bossemployee-list(employees, showActions)">
+  <table class="table table-hover border">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th th:if="${showActions}">Management</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="emp : ${employees}">
+        <td th:text="${emp.employeeId}"></td>
+        <td th:text="${emp.name}"></td>
+        <td th:if="${showActions}">
+          <a
+            th:href="@{/view/boss/{id}(id=${emp.employeeId})}"
+            class="btn btn-sm btn-info"
+            >Manage</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

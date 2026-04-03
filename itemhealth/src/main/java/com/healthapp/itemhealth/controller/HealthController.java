@@ -62,6 +62,39 @@ public class HealthController {
     return "employeepage";
   }
 
+  @GetMapping("/view/boss/{id}")
+  @PreAuthorize("hasRole('BOSS')")
+  public String bossEmployeePage(@PathVariable Long id, Model model) {
+
+    Employee emp = employeeService.getById(id);
+    Laptop lap = laptopService.getByEmployeeId(id);
+    Car car = carService.getByEmployeeId(id);
+    IDCard idcard = idCardService.getByEmployeeId(id);
+
+    model.addAttribute("employee", emp);
+    model.addAttribute("laptop", lap);
+    model.addAttribute("car", car);
+    model.addAttribute("idcard", idcard);
+
+    return "bossemployeepage";
+  }
+
+  @GetMapping("/{type}/edit/{id}")
+  @PreAuthorize("hasRole('BOSS')")
+  public String itemedit(@PathVariable String type, @PathVariable Long id, Model model) {
+
+    Object item =
+        switch (type) {
+          case "laptop" -> laptopService.getById(id);
+          case "car" -> carService.getById(id);
+          case "idcard" -> idCardService.getById(id);
+          default -> null;
+        };
+
+    model.addAttribute("item", item);
+    return "itemedit";
+  }
+
   // to add: add employee, add boss, add item pages
   // delete, update, edit pages
 

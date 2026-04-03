@@ -1,0 +1,22 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/layout :: common-head('Employee Details')}"
+  ></head>
+  <body class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 th:text="${employee?.name ?: 'Unknown Employee'}">Employee Name</h2>
+      <a th:href="@{/}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <div th:replace="~{fragments/alerts :: flash-message}"></div>
+
+    <div
+      th:replace="~{fragments/cards :: asset-management${employee}, ${laptop}, ${car}, ${idcard})}"
+    ></div>
+
+    <div
+      th:replace="~{fragments/alerts :: not-found('Employee details were not found in our records.')}"
+    ></div>
+  </body>
+</html>
