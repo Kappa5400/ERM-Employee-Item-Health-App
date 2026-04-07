@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+  <div th:fragment="laptop-fields(item)" class="mb-3">
+    <label class="form-label">OS Version</label>
+    <input type="number" name="osVersion" class="form-control" th:value="${item?.osVersion}" />
+    <label class="form-label mt-2">Model Year</label>
+    <input type="number" name="laptopYear" class="form-control" th:value="${item?.laptopYear}" />
+  </div>
+
+  <div th:fragment="car-fields(item)" class="mb-3">
+    <label class="form-label">Mileage</label>
+    <input type="number" name="milage" class="form-control" th:value="${item?.milage}" />
+    <label class="form-label mt-2">Car Year</label>
+    <input type="number" name="carYear" class="form-control" th:value="${item?.carYear}" />
+  </div>
+
+  <div th:fragment="idcard-fields(item)" class="mb-3">
+    <label class="form-label">Needs Renewal Date</label>
+    <input type="date" name="needToRenewDate" class="form-control" th:value="${item?.needToRenewDate}" />
+  </div>
+
+</body>
+</html>

@@ -73,6 +73,13 @@
             </button>
           </form>
         </div>
+        <div th:unless="${laptop != null}">
+          <a
+            th:href="@{/laptop/create(employeeId=${employee.employeeId})}"
+            class="btn btn-sm btn-success"
+            >Create</a
+          >
+        </div>
       </li>
 
       <li
@@ -102,6 +109,13 @@
             </button>
           </form>
         </div>
+        <div th:unless="${car != null}">
+          <a
+            th:href="@{/car/create(employeeId=${employee.employeeId})}"
+            class="btn btn-sm btn-success"
+            >Create</a
+          >
+        </div>
       </li>
 
       <li
@@ -130,6 +144,13 @@
               Delete
             </button>
           </form>
+        </div>
+        <div th:unless="${idcard != null}">
+          <a
+            th:href="@{/idcard/create(employeeId=${employee.employeeId})}"
+            class="btn btn-sm btn-success"
+            >Create</a
+          >
         </div>
       </li>
     </ul>

@@ -12,7 +12,7 @@
     <div th:replace="~{fragments/alerts :: flash-message}"></div>
 
     <div
-      th:replace="~{fragments/cards :: asset-management${employee}, ${laptop}, ${car}, ${idcard})}"
+      th:replace="~{fragments/cards :: asset-management(${employee}, ${laptop}, ${car}, ${idcard})}"
     ></div>
 
     <div
