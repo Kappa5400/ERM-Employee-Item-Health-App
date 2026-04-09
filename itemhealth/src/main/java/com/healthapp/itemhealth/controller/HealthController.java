@@ -106,6 +106,14 @@ public class HealthController {
     return "itemcreate";
   }
 
+  @GetMapping("employee/create")
+  @PreAuthorize("hasRole('BOSS')")
+  public String employeecreate(Model model) {
+    model.addAttribute("employee", new Employee());
+    model.addAttribute("isCreate", true);
+    return "employeecreate";
+  }
+
   // to add: add employee, add boss
 
   // make update create page same make template or fragment
