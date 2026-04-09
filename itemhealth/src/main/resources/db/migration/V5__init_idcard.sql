@@ -11,4 +11,4 @@ CREATE TABLE id_card (
         FOREIGN KEY (employee_id) 
         REFERENCES employee(employee_id) 
         ON DELETE CASCADE
-);
+);https://stunning-computing-machine-6947x464pxwqc4ppp-8080.app.github.dev/view/employee/4
