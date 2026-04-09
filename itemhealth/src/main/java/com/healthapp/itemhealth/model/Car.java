@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Car {
-  private long carId;
+  @NotNull private long carId;
   @NotNull private int carYear;
   private int milage;
   private boolean toReplace;

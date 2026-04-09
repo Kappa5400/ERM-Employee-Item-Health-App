@@ -87,7 +87,7 @@ public class HealthController {
         switch (type) {
           case "laptop" -> laptopService.getById(id);
           case "car" -> carService.getById(id);
-          case "idcard" -> idCardService.getById(id);
+          case "id-card" -> idCardService.getById(id);
           default -> null;
         };
 

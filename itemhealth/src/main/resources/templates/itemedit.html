@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head
-    th:replace="~{fragments/layout :: common-head('Edit ' + ${type})}"
+    th:replace="~{fragments/layout :: common-head('Edit ' + ${#strings.capitalize(type)})}"
   ></head>
   <body class="container mt-5">
     <div class="card shadow">
@@ -10,19 +10,66 @@
       </div>
       <div class="card-body">
         <form id="edit-form">
-  <input type="hidden" id="item-id" 
-         th:value="${type == 'laptop' ? item.laptopId : (type == 'car' ? item.carId : item.idCardId)}" />
-  
-  <input type="hidden" id="item-type" th:value="${type}" />
+          <input type="hidden" id="item-type" th:value="${type}" />
 
-  <div th:replace="~{fragments/forms :: __${type}__-fields(${item})}"></div>
+          <input
+            type="hidden"
+            id="item-id"
+            th:value="${type == 'laptop' ? item.laptopId : (type == 'car' ? item.carId : (type == 'id-card' ? item.idCardId : ''))}"
+          />
 
-  <div class="mt-4">
-    <button type="button" onclick="saveData()" class="btn btn-success">Save Changes</button>
-    <a th:href="@{/bossdashboard}" class="btn btn-secondary">Cancel</a>
-  </div>
-</form>
+          <input
+            type="hidden"
+            id="emp-boss-role"
+            th:value="${item?.employee?.bossRole ?: false}"
+          />
+          <input
+            type="hidden"
+            id="emp-has-boss"
+            th:value="${item?.employee?.hasBoss ?: false}"
+          />
+          <input
+            type="hidden"
+            id="employee-id"
+            th:value="${item?.employee?.employeeId}"
+          />
 
-<script th:src="@{/js/item_handler.js}"></script>
+          <th:block th:if="${type == 'laptop'}">
+            <div
+              th:replace="~{fragments/forms :: laptop-fields(${item})}"
+            ></div>
+          </th:block>
+
+          <th:block th:if="${type == 'car'}">
+            <div th:replace="~{fragments/forms :: car-fields(${item})}"></div>
+          </th:block>
+
+          <th:block th:if="${type == 'id-card'}">
+            <div
+              th:replace="~{fragments/forms :: id_card_fields(${item})}"
+            ></div>
+          </th:block>
+
+          <div class="mt-4">
+            <button type="button" onclick="saveData()" class="btn btn-success">
+              Save Changes
+            </button>
+            <a th:href="@{/bossdashboard}" class="btn btn-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script th:src="@{/js/item_handler.js}"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log(
+          "Edit form loaded for type:",
+          document.getElementById("item-type").value,
+        );
+        console.log("Editing ID:", document.getElementById("item-id").value);
+      });
+    </script>
   </body>
 </html>

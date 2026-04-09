@@ -125,14 +125,15 @@
           <strong>ID Card:</strong>
           <span th:text="${idcard != null ? idcard : 'None assigned'}"></span>
         </div>
+
         <div th:if="${idcard != null}" class="btn-group">
           <a
-            th:href="@{/idcard/edit/{id}(id=${idcard.idCardId})}"
+            th:href="@{/id-card/edit/{id}(id=${idcard.idCardId})}"
             class="btn btn-sm btn-outline-primary"
             >Update</a
           >
           <form
-            th:action="@{/idcard/delete/{id}(id=${idcard.idCardId})}"
+            th:action="@{/id-card/delete/{id}(id=${idcard.idCardId})}"
             method="post"
             class="ms-1"
           >
@@ -145,9 +146,10 @@
             </button>
           </form>
         </div>
+
         <div th:unless="${idcard != null}">
           <a
-            th:href="@{/idcard/create(employeeId=${employee.employeeId})}"
+            th:href="@{/id-card/create(employeeId=${employee.employeeId})}"
             class="btn btn-sm btn-success"
             >Create</a
           >
