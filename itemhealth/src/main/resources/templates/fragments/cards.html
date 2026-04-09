@@ -142,8 +142,17 @@
               >
             </div>
           </li>
-        </ul>
+          <li class="list-group-item py-3 bg-light">
+            <button
+                type="button"
+                class="btn btn-sm btn-outline-danger ms-1"
+                th:onclick="deleteEmployee([[${employee.employeeId}]], [[${employee.name}]])"
+            >
+                <i class="bi bi-person-x"></i> Delete Employee
+            </button>
+        </li>
       </div>
     </div>
+    <script th:src="@{/js/item_handler.js}"></script>
   </body>
 </html>

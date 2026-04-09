@@ -11,97 +11,97 @@
 
       <div class="card-body">
         <form id="employee-form">
+          <input
+            type="hidden"
+            name="_csrf"
+            th:if="${_csrf}"
+            th:value="${_csrf.token}"
+          />
           <input type="hidden" id="isCreate" value="true" />
-          <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 
-          <div class="row g-3">
-            <div class="col-md-12">
-              <label class="form-label">Full Name</label>
-              <input
-                type="text"
-                id="emp-name"
-                class="form-control"
-                placeholder="e.g. Colin Burdett"
-                required
-              />
-            </div>
+          <div class="col-md-6">
+  <label class="form-label fw-bold">Full Name</label>
+  <input type="text" id="emp-name" class="form-control" placeholder="" required />
+</div>
+
+<div class="col-md-6">
+  <label class="form-label fw-bold">Job Title</label>
+  <input type="text" id="emp-title" class="form-control" placeholder="" required />
+</div>
+
+<div class="col-md-6">
+  <label class="form-label fw-bold">Username</label>
+  <div class="input-group">
+    <span class="input-group-text"><i class="bi bi-person"></i></span>
+    <input type="text" id="username" class="form-control" placeholder="Login username" required />
+  </div>
+</div>
+
+<div class="col-md-6">
+  <label class="form-label fw-bold">Password</label>
+  <div class="input-group">
+    <span class="input-group-text"><i class="bi bi-key"></i></span>
+    <input type="password" id="password" class="form-control" placeholder="Login password" required />
+  </div>
+</div>
+
+<div class="col-12">
+  <label class="form-label fw-bold">Email Address</label>
+  <input type="email" id="emp-email" class="form-control" placeholder="name@company.com" required />
+</div>
 
             <div class="col-md-6">
-              <div class="form-check form-switch mt-4">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="emp-boss-role"
-                />
-                <label class="form-check-label" for="emp-boss-role"
-                  >Boss Privileges (Role: BOSS)</label
+              <div class="card p-3 bg-light h-100">
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="emp-boss-role"
+                  />
+                  <label class="form-check-label fw-bold" for="emp-boss-role"
+                    >Boss Privileges</label
+                  >
+                </div>
+                <small class="text-muted"
+                  >Enables access to the Boss Dashboard and CRUD actions.</small
                 >
               </div>
             </div>
 
             <div class="col-md-6">
-              <div class="form-check form-switch mt-4">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="emp-has-boss"
-                  checked
-                />
-                <label class="form-check-label" for="emp-has-boss"
-                  >Reports to a Boss</label
+              <div class="card p-3 bg-light h-100">
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="emp-has-boss"
+                    checked
+                  />
+                  <label class="form-check-label fw-bold" for="emp-has-boss"
+                    >Reports to Boss</label
+                  >
+                </div>
+                <small class="text-muted"
+                  >If off, this employee is considered the "Top Boss".</small
                 >
               </div>
             </div>
           </div>
 
-          <div class="mt-4 border-top pt-3">
+          <div class="mt-4 border-top pt-3 d-flex justify-content-end gap-2">
+            <a th:href="@{/bossdashboard}" class="btn btn-secondary">Cancel</a>
             <button
               type="button"
               onclick="saveEmployee()"
-              class="btn btn-primary"
+              class="btn btn-primary px-4"
             >
               Create Employee
             </button>
-            <a th:href="@{/bossdashboard}" class="btn btn-secondary">Cancel</a>
           </div>
         </form>
       </div>
     </div>
 
     <script th:src="@{/js/item_handler.js}"></script>
-
-    <script>
-      async function saveEmployee() {
-        const name = document.getElementById("emp-name").value;
-        const isBoss = document.getElementById("emp-boss-role").checked;
-        const hasBoss = document.getElementById("emp-has-boss").checked;
-        const token = document.querySelector('input[name="_csrf"]')?.value;
-
-        const payload = {
-          name: name,
-          bossRole: isBoss,
-          hasBoss: hasBoss,
-        };
-
-        try {
-          const response = await fetch("/api/employee", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-CSRF-TOKEN": token,
-            },
-            body: JSON.stringify(payload),
-          });
-
-          if (response.ok) {
-            window.location.href = "/bossdashboard";
-          } else {
-            alert("Error creating employee.");
-          }
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    </script>
   </body>
 </html>

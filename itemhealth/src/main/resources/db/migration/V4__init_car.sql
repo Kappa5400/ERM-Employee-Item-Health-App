@@ -10,7 +10,11 @@ CREATE TABLE car (
     insurance_expire_date DATE,
     to_renew_insurance BOOLEAN NOT NULL DEFAULT FALSE,
     in_use BOOLEAN NOT NULL DEFAULT true,
-    employee_ID BIGINT REFERENCES employee(employee_id),
+    employee_ID BIGINT,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT car_employee_id_fkey 
+        FOREIGN KEY (employee_id) 
+        REFERENCES employee(employee_id) 
+        ON DELETE CASCADE
 )

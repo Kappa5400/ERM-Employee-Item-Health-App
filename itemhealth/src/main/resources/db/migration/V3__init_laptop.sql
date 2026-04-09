@@ -6,7 +6,11 @@ CREATE TABLE laptop (
     laptop_year     INT         NOT NULL,
     to_renew        BOOLEAN     NOT NULL DEFAULT FALSE,
     in_use          BOOLEAN     NOT NULL DEFAULT FALSE,
-    employee_id     BIGINT      REFERENCES employee(employee_id),
+    employee_id     BIGINT,
     created_at      TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at      TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updated_at      TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT laptop_employee_id_fkey 
+        FOREIGN KEY (employee_id) 
+        REFERENCES employee(employee_id) 
+        ON DELETE CASCADE
 );
