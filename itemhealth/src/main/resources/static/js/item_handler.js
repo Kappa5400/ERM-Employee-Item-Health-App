@@ -1,10 +1,12 @@
 async function saveData() {
-  const type = document.getElementById("item-type").value; // This will now be "laptop", "car", or "id-card"
+  const type = document.getElementById("item-type").value;
   const id = document.getElementById("item-id").value;
   const employeeIdValue = document.getElementById("employee-id").value;
   const bossRoleValue =
     document.getElementById("emp-boss-role").value === "true";
   const hasBossValue = document.getElementById("emp-has-boss").value === "true";
+
+  const isCreate = document.getElementById("isCreate")?.value === "true";
 
   const payload = {
     employeeId: Number(employeeIdValue),
@@ -16,7 +18,10 @@ async function saveData() {
   };
 
   if (type === "laptop") {
-    payload.laptopId = Number(id);
+    if (isCreate == false) {
+      payload.laptopId = Number(id);
+    }
+
     payload.osVersion = Number(
       document.querySelector('input[name="osVersion"]').value,
     );
@@ -29,7 +34,8 @@ async function saveData() {
   }
 
   if (type === "car") {
-    payload.carId = Number(id);
+    if (!isCreate) payload.carId = Number(id);
+
     payload.milage = Number(
       document.querySelector('input[name="milage"]').value,
     );
@@ -42,9 +48,10 @@ async function saveData() {
     payload.toReplace = false;
   }
 
-  // Use "id-card" to match the kebab-case you set in the HTML
   if (type === "id-card") {
-    payload.idCardId = Number(id);
+    if (!isCreate) {
+      payload.idCardId = Number(id);
+    }
     payload.needToRenewDate = document.querySelector(
       'input[name="needToRenewDate"]',
     ).value;
@@ -58,8 +65,10 @@ async function saveData() {
 
   console.log("Sending to:", `/api/${type}`, "Payload:", payload);
 
+  const method = isCreate ? "POST" : "PATCH";
+
   const response = await fetch(`/api/${type}`, {
-    method: "PATCH",
+    method: method,
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
@@ -70,5 +79,36 @@ async function saveData() {
     const errorMsg = await response.text();
     console.error("Server Error:", errorMsg);
     alert("Failed to save. Check the console for: " + errorMsg);
+  }
+}
+
+async function deleteItem(type, id) {
+  if (!confirm(`Are you sure you want to delete this ${type}?`)) return;
+
+  // CSRF token is mandatory for DELETE requests in Spring Security
+  const csrfToken = document.querySelector('input[name="_csrf"]')?.value;
+
+  // Construct URL to match @DeleteMapping("/{type}/{id}")
+  const url = `/api/${type}/${id}`;
+
+  console.log(`Sending DELETE to: ${url}`);
+
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-TOKEN": csrfToken,
+      },
+    });
+
+    if (response.ok) {
+      window.location.reload();
+    } else {
+      const errorText = await response.text();
+      console.error("Delete Error:", errorText);
+      alert("Delete failed. Check server console.");
+    }
+  } catch (error) {
+    console.error("Network error:", error);
   }
 }

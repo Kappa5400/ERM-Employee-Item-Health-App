@@ -1,0 +1,67 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/layout :: common-head('Create New ' + ${#strings.capitalize(type)})}"
+  ></head>
+  <body class="container mt-5">
+    <div class="card shadow">
+      <div class="card-header bg-success text-white">
+        <h3 th:text="'Create New ' + ${#strings.capitalize(type)}">Create</h3>
+      </div>
+
+      <div class="card-body">
+        <form id="create-form">
+          <input type="hidden" id="item-type" th:value="${type}" />
+
+          <input type="hidden" id="item-id" value="0" />
+
+          <input
+            type="hidden"
+            id="emp-boss-role"
+            th:value="${item?.employee?.bossRole ?: false}"
+          />
+          <input
+            type="hidden"
+            id="emp-has-boss"
+            th:value="${item?.employee?.hasBoss ?: false}"
+          />
+          <input type="hidden" id="employee-id" th:value="${employeeId}" />
+
+          <input type="hidden" id="isCreate" th:value="true" />
+
+          <th:block th:if="${type == 'laptop'}">
+            <div
+              th:replace="~{fragments/forms :: laptop-fields(${item})}"
+            ></div>
+          </th:block>
+
+          <th:block th:if="${type == 'car'}">
+            <div th:replace="~{fragments/forms :: car-fields(${item})}"></div>
+          </th:block>
+
+          <th:block th:if="${type == 'id-card'}">
+            <div
+              th:replace="~{fragments/forms :: id_card_fields(${item})}"
+            ></div>
+          </th:block>
+
+          <div class="mt-4">
+            <button type="button" onclick="saveData()" class="btn btn-primary">
+              Create [[${#strings.capitalize(type)}]]
+            </button>
+            <a th:href="@{/bossdashboard}" class="btn btn-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script th:src="@{/js/item_handler.js}"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("Creation mode initialized for:", "[[${type}]]");
+        console.log("Target Employee ID:", "[[${employeeId}]]");
+      });
+    </script>
+  </body>
+</html>

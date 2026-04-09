@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class IDCard {
-  @NotNull private long idCardId;
-  @NotNull private long employeeId;
+  private Long idCardId;
+  @NotNull private Long employeeId;
   @Builder.Default private LocalDate lastRenewedDate = LocalDate.now();
   @Builder.Default private LocalDate needToRenewDate = LocalDate.now().plusYears(2);
   private boolean inUse;

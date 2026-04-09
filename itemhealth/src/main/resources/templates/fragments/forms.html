@@ -7,7 +7,7 @@
         type="number"
         name="osVersion"
         class="form-control"
-        th:value="${item.osVersion}"
+        th:value="${item?.osVersion}"
       />
 
       <label class="form-label mt-2">Model Year</label>
@@ -15,7 +15,7 @@
         type="number"
         name="laptopYear"
         class="form-control"
-        th:value="${item.laptopYear}"
+        th:value="${item?.laptopYear}"
       />
     </div>
 
@@ -25,7 +25,7 @@
         type="number"
         name="milage"
         class="form-control"
-        th:value="${item.milage}"
+        th:value="${item?.milage}"
       />
 
       <label class="form-label mt-2">Car Year</label>
@@ -33,7 +33,7 @@
         type="number"
         name="carYear"
         class="form-control"
-        th:value="${item.carYear}"
+        th:value="${item?.carYear}"
       />
     </div>
 
@@ -43,7 +43,7 @@
         type="date"
         name="needToRenewDate"
         class="form-control"
-        th:value="${item.needToRenewDate}"
+        th:value="${item?.needToRenewDate}"
       />
     </div>
   </body>

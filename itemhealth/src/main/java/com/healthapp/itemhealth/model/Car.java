@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Car {
-  @NotNull private long carId;
+  private Long carId;
   @NotNull private int carYear;
   private int milage;
   private boolean toReplace;
@@ -24,7 +24,7 @@ public class Car {
   @Builder.Default private LocalDate insuranceExpireDate = LocalDate.now().plusYears(2);
   private boolean toRenewInsurance;
   private boolean inUse;
-  @NotNull private long employeeId;
+  @NotNull private Long employeeId;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
   private Employee employee;

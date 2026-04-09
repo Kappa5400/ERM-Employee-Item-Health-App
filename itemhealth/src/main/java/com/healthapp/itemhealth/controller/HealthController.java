@@ -95,8 +95,18 @@ public class HealthController {
     return "itemedit";
   }
 
-  // to add: add employee, add boss, add item pages
-  // delete, update, edit pages
+  @GetMapping("{type}/create/{empid}")
+  @PreAuthorize("hasRole('BOSS')")
+  public String itemcreate(@PathVariable String type, @PathVariable Long empid, Model model) {
+    Employee emp = employeeService.getById(empid);
+    model.addAttribute("type", type);
+    model.addAttribute("employeeId", empid);
+    model.addAttribute("employee", emp);
+    model.addAttribute("item", null);
+    return "itemcreate";
+  }
+
+  // to add: add employee, add boss
 
   // make update create page same make template or fragment
   // one page shows each employee each item, button

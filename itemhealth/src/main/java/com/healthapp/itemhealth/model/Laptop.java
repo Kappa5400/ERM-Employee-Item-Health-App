@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Laptop {
-  @NotNull private long laptopId;
+  private Long LaptopId;
   @Positive private int osVersion;
   private LocalDateTime lastOSUpdate;
   private boolean needToUpdate;

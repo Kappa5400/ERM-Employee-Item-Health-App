@@ -1,4 +1,10 @@
 
+currently on item create attributes are null
+exe
+employee=Employee(employeeId=3, name=Charlie Day, title=Engineer, 
+bossUserId=null, bossRole=false, hasBoss=false, createdAt=null, updatedAt=null, 
+username=null, password=null, boss=null, email=null))
+
 1. make er chart, architecture diagram
 
 2. project initialization spring boots and docker
