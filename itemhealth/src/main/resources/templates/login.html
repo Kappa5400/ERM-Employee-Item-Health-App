@@ -1,0 +1,32 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>ItemHealth - Login</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Employee Login</h2>
+
+      <div th:if="${param.error}" style="color: red">
+        Invalid username or password.
+      </div>
+
+      <div th:if="${param.logout}" style="color: green">
+        You have been logged out.
+      </div>
+
+      <form th:action="@{/login}" method="post">
+        <div>
+          <label>Username:</label>
+          <input type="text" name="username" required autofocus />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input type="password" name="password" required />
+        </div>
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+  </body>
+</html>

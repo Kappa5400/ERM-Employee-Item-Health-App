@@ -22,7 +22,7 @@ services:
     build: .
     container_name: itemhealth-app
     ports:
-      - "8080:8080"
+      - "9090:9090"
     command: ./mvnw spring-boot:run
     volumes:
       - .:/app

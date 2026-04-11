@@ -18,13 +18,26 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.csrf(csrf -> csrf.disable())
+    http
+        // 1. Disable CSRF for development (Allows H2 and POST requests to work easily)
+        .csrf(csrf -> csrf.disable())
+
+        // 2. Configure Frame Options so the H2 Console can display in your browser
+        .headers(headers -> headers.frameOptions(f -> f.sameOrigin()))
+
+        // 3. Authorization Rules (ORDER MATTERS: Specific to General)
         .authorizeHttpRequests(
             auth ->
-                auth.requestMatchers("/login")
+                auth
+                    // Publicly accessible paths
+                    .requestMatchers("/h2-console/**")
+                    .permitAll()
+                    .requestMatchers("/login", "/css/**", "/js/**")
                     .permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/public/**")
                     .permitAll()
+
+                    // Role-based paths
                     .requestMatchers("/api/employee/**")
                     .hasRole("BOSS")
                     .requestMatchers("/api/laptop/**")
@@ -33,18 +46,23 @@ public class SecurityConfig {
                     .hasRole("BOSS")
                     .requestMatchers("/api/car/**")
                     .hasRole("BOSS")
+
+                    // Everything else requires authentication
                     .anyRequest()
                     .authenticated())
+
+        // 4. Custom Error Handling
         .exceptionHandling(exception -> exception.accessDeniedPage("/"))
+
+        // 5. Authentication Mechanisms
         .httpBasic(Customizer.withDefaults())
-        .formLogin(Customizer.withDefaults());
+        .formLogin(org.springframework.security.config.Customizer.withDefaults());
 
     return http.build();
   }
 
   @Bean
   public PasswordEncoder passwordEncoder() {
-
     return new BCryptPasswordEncoder();
   }
 }

@@ -45,6 +45,8 @@ public class EmployeeService {
   @PreAuthorize("hasRole('BOSS')")
   public void insert(Employee employee) {
     log.info("Inserting new employee: {}", employee.getUsername());
+    String hashed_password = passwordEncoder.encode(employee.getPassword());
+    employee.setPassword(hashed_password);
     employeeMapper.insert(employee);
   }
 

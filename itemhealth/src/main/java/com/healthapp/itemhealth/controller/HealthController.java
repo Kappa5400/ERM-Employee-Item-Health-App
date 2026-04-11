@@ -114,6 +114,12 @@ public class HealthController {
     return "employeecreate";
   }
 
+  @GetMapping("/login")
+  public String login() {
+
+    return "login";
+  }
+
   // to add: add employee, add boss
 
   // make update create page same make template or fragment
