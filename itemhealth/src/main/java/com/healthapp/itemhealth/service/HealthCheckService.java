@@ -102,6 +102,10 @@ public class HealthCheckService {
 
         log.info("Getting boss email...");
         String emailAddress = emailService.getBossEmail(employee);
+        if (emailAddress == null) {
+          log.info("No boss, skipping");
+          continue;
+        }
         String emailSubject = emailService.formatEmailSubject(employee);
         String emailBody = emailService.formatEmailBody(updateItems);
 

@@ -3,12 +3,14 @@ package com.healthapp.itemhealth.service.health;
 import com.healthapp.itemhealth.mapper.IDCardMapper;
 import com.healthapp.itemhealth.model.IDCard;
 import java.time.LocalDate;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class IDCardHealth implements HealthCheck<IDCard> {
 
-  IDCardMapper idMapper;
+  private final IDCardMapper idMapper;
 
   @Override
   public boolean checkUpdate(IDCard item) {

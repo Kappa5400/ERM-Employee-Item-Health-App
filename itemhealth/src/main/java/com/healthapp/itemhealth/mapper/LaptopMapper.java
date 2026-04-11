@@ -21,9 +21,9 @@ public interface LaptopMapper {
 
   void insert(Laptop laptop);
 
-  void setRenew(@Param("LaptopId") long LaptopId, @Param("state") boolean state);
+  void setRenew(@Param("laptopId") long LaptopId, @Param("state") boolean state);
 
-  void setOSUpdate(@Param("LaptopId") long LaptopId, @Param("state") boolean state);
+  void setOSUpdate(@Param("laptopId") long LaptopId, @Param("state") boolean state);
 
   void update(Laptop laptop);
 

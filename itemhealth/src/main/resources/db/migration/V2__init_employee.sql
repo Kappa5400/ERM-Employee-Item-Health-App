@@ -10,5 +10,5 @@ CREATE TABLE employee (
     username VARCHAR(50) UNIQUE,
     password VARCHAR(255),
     boss_id BIGINT,
-    email TEXT DEFAULT 'fake@gmail.com'
+    email TEXT NOT NULL DEFAULT 'fake@gmail.com'
 );

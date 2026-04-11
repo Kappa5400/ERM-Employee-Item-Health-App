@@ -3,12 +3,14 @@ package com.healthapp.itemhealth.service.health;
 import com.healthapp.itemhealth.mapper.LaptopMapper;
 import com.healthapp.itemhealth.model.Laptop;
 import java.time.LocalDate;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class LaptopHealth implements HealthCheck<Laptop> {
 
-  LaptopMapper laptopMapper;
+  private final LaptopMapper laptopMapper;
 
   private static final int MAX_AGE = 5;
   private static final int MAX_OS_AGE = 1;

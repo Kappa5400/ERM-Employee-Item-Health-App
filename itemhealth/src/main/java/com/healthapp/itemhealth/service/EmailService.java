@@ -37,9 +37,13 @@ public class EmailService {
   public String getBossEmail(Employee employee) {
 
     Boss boss = employee.getBoss();
+    if (boss == null) {
+      return null;
+    }
     Long bossEmpId = boss.getEmployeeId();
     Employee bossEmp = employeeService.getById(bossEmpId);
     String bossEmail = bossEmp.getEmail();
+
     return bossEmail;
   }
 

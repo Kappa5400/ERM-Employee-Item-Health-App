@@ -3,14 +3,16 @@ package com.healthapp.itemhealth.service.health;
 import com.healthapp.itemhealth.mapper.CarMapper;
 import com.healthapp.itemhealth.model.Car;
 import java.time.LocalDate;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class CarHealth implements HealthCheck<Car> {
 
   private static final int CAR_MAX_AGE = 10;
   private static final int CAR_SERVICE_FREQUENCY = 3;
-  CarMapper carMapper;
+  private final CarMapper carMapper;
 
   @Override
   public boolean checkUpdate(Car item) {

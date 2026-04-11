@@ -6,6 +6,7 @@ import com.healthapp.itemhealth.model.IDCard;
 import com.healthapp.itemhealth.model.Laptop;
 import com.healthapp.itemhealth.service.CarService;
 import com.healthapp.itemhealth.service.EmployeeService;
+import com.healthapp.itemhealth.service.HealthCheckService;
 import com.healthapp.itemhealth.service.IDCardService;
 import com.healthapp.itemhealth.service.LaptopService;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,6 +26,7 @@ public class HealthController {
   private final LaptopService laptopService;
   private final CarService carService;
   private final IDCardService idCardService;
+  private final HealthCheckService healthCheckService;
 
   @GetMapping("/")
   public String showDashboard(Model model) {
@@ -120,12 +123,10 @@ public class HealthController {
     return "login";
   }
 
-  // to add: add employee, add boss
-
-  // make update create page same make template or fragment
-  // one page shows each employee each item, button
-  // button to add, edit, update employee
-  // button to crud items
-  // add employee page dynamic, shows all items in possesion and all employee data
-
+  @GetMapping("/runmail")
+  @ResponseBody
+  public String runmail() {
+    healthCheckService.runHealthCheck();
+    return "runmail";
+  }
 }
