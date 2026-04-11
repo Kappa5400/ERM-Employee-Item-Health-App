@@ -1,40 +1,8 @@
 
-currently on item create attributes are null
-exe
-employee=Employee(employeeId=3, name=Charlie Day, title=Engineer, 
-bossUserId=null, bossRole=false, hasBoss=false, createdAt=null, updatedAt=null, 
-username=null, password=null, boss=null, email=null))
-
-1. make er chart, architecture diagram
-
-2. project initialization spring boots and docker
-
-3. db script migration make
-
-4. db models make
-
-* I am here *
-5. service layer logic make (look into strategy pattern)
-need to go through healths, check for each item each column status changes ect...
-
-need to add boss update methods to service, xml, health strategy
-
-(is this front end api or backend problem?)
-also need to configure sql auto id handling for objects, employees, bosses, ect...
-so that ids are not manually entered
-
-
-6. authentication, input validation setup
-
-7. make unit test 
-
-8. make cronjob script
-
-9. integration tests to api points
-
-10. Logging setup
-
-11. frontend build
+Test cron job works
+retest all website manualy works
+add excel downlaod
+edge case fixes (dealeting big boss ect)
 
 12. ci/cd 
 
