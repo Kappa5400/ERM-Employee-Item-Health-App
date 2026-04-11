@@ -3,28 +3,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.healthapp.itemhealth.mapper.EmployeeMapper">
-    <resultMap id="EmployeeResultMap" type="Employee">
-        <id property="employeeId" column="employee_id"/>
-        <result property="name" column="name"/>
-        <result property="title" column="title"/>
-        <result property="bossRole" column="boss_role" javaType="boolean"/>
-        <result property="hasBoss" column="has_boss"/>
+
+    <resultMap id="EmployeeResultMap" type="com.healthapp.itemhealth.model.Employee">
+        <id     property="employeeId" column="employee_id"/>
+        <result property="name"       column="name"/>
+        <result property="title"      column="title"/>
+        <result property="bossRole"   column="boss_role" javaType="boolean"/>
+        <result property="hasBoss"    column="has_boss"/>
         <result property="createdAt"  column="created_at"/>
         <result property="updatedAt"  column="updated_at"/>
-        <result property="username"  column="username"/>
-        <result property="password"  column="password"/>
-        <result property="email" column="email"/>
-    </resultMap>
-
-    <resultMap id="EmployeeBossMap" type="Employee" extends="EmployeeResultMap">
-        <association property="boss" javaType="Boss">
-            <result property="bossId" column="boss_id"/>
-            <result property="name" column="boss_name"/>
-            <result property="employeeId" column="boss_employee_id"/>
+        <result property="username"   column="username"/>
+        <result property="password"   column="password"/>
+        <result property="email"      column="email"/>
+        
+        <association property="boss" javaType="com.healthapp.itemhealth.model.Boss">
+            <id property="employeeId" column="boss_id"/>
         </association>
     </resultMap>
 
-    <select id="findById" resultMap="EmployeeBossMap">
+    <select id="findById" resultMap="EmployeeResultMap">
         SELECT 
             employee.employee_id, 
             employee.name, 
@@ -45,11 +42,20 @@
     </select>
 
     <select id="findAllEmployees" resultMap="EmployeeResultMap">
-        SELECT employee_id, name, title, boss_role, has_boss, created_at, updated_at
-        FROM employee
+        SELECT 
+            e.employee_id, 
+            e.name, 
+            e.title, 
+            e.boss_role, 
+            e.has_boss, 
+            e.email,
+            b.employee_id AS boss_id
+        FROM employee e
+        LEFT JOIN boss_subordinates bs ON e.employee_id = bs.subordinate_id
+        LEFT JOIN boss b ON bs.boss_id = b.employee_id
     </select>
 
-    <select id="findAllEmployeesBoss" resultMap="EmployeeBossMap">
+    <select id="findAllEmployeesBoss" resultMap="EmployeeResultMap">
         SELECT 
             employee.employee_id, 
             employee.name, 
@@ -64,7 +70,7 @@
     </select>
 
 
-    <select id="findBossByEmployeeId" resultMap="EmployeeBossMap">
+    <select id="findBossByEmployeeId" resultMap="EmployeeResultMap">
         SELECT 
             employee.employee_id, 
             employee.name, 
