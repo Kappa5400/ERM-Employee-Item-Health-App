@@ -18,16 +18,15 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # 1. Navigate to the project folder
             cd /home/${{ secrets.SSH_USER }}/ERM-Employee-Item-Health-App
-
-            # 2. Update code from GitHub
             git pull origin master
 
-            # 3. Inject database secrets into the session
+            # List files to verify docker-compose.yml exists
+            ls -la
+
             export DB_USERNAME=${{ secrets.DB_USERNAME }}
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
 
-            # 4. Use absolute path to Docker for the deployment
-            /usr/bin/docker compose down
-            /usr/bin/docker compose up -d --build
+            # Use the -f flag to be 100% explicit about the file location
+            /usr/bin/docker compose -f docker-compose.yml down
+            /usr/bin/docker compose -f docker-compose.yml up -d --build
