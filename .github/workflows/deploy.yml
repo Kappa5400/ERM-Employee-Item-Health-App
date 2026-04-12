@@ -21,7 +21,7 @@ jobs:
           script: |
             cd /home/deployer
 
-            # 1. Clone the repo if it's the first time, otherwise just pull
+            # 1. Clone the repo if 's the first time, otherwise just pull
             if [ ! -d "ERM-Employee-Item-Health-App" ]; then
               git clone https://github.com/Kappa5400/ERM-Employee-Item-Health-App.git
             fi
