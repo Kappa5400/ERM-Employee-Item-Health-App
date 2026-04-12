@@ -2,39 +2,41 @@ version: "3.8"
 
 services:
   db:
-    image: postgres:15 # Recommended to use 15+ for modern Spring Boot/MyBatis
+    image: postgres:15
     container_name: itemhealth-db
+    restart: always
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: itemhealth
-    ports:
-      - "5432:5432" # Fixed indentation: ports must be inside the 'db' service
+    deploy:
+      resources:
+        limits:
+          memory: 512M # Prevents DB from eating all 2GB RAM
 
   mailhog:
     image: mailhog/mailhog
     container_name: mailhog
-    ports:
-      - "1025:1025" # SMTP port
-      - "8025:8025" # Web UI port
+    restart: always
+    # Ports 1025/8025 don't need to be exposed to the internet
+    # if you only use them internally.
 
   app:
     build: .
     container_name: itemhealth-app
+    restart: always
     ports:
-      - "9090:9090"
-    command: ./mvnw spring-boot:run
-    volumes:
-      - .:/app
-      - ~/.m2:/root/.m2
-    working_dir: /app # Added to ensure mvnw runs in the correct folder
+      - "8080:8080" # Match this to your Nginx proxy_pass
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
-      - SPRING_DATASOURCE_USERNAME=user
-      - SPRING_DATASOURCE_PASSWORD=password
-      # Added MailHog config for container-to-container communication
-      - SPRING_MAIL_HOST=mailhog
-      - SPRING_MAIL_PORT=1025
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/itemhealth
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_MAIL_HOST: mailhog
+      SPRING_MAIL_PORT: 1025
     depends_on:
       - db
       - mailhog
+    deploy:
+      resources:
+        limits:
+          memory: 1G # Leave room for the OS and DB
