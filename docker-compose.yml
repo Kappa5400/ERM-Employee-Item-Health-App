@@ -26,13 +26,11 @@ services:
     container_name: itemhealth-app
     restart: always
     ports:
-      - "8080:8080" # Match this to your Nginx proxy_pass
+      - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/itemhealth
-      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
-      SPRING_MAIL_HOST: mailhog
-      SPRING_MAIL_PORT: 1025
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
     depends_on:
       - db
       - mailhog
