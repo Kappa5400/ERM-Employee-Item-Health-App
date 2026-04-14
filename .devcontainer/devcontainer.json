@@ -2,7 +2,7 @@
   "name": "Spring Boot Dev",
   "dockerComposeFile": "../docker-compose.yml",
   "service": "app",
-  "workspaceFolder": "/app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "remoteEnv": {
     "DB_USERNAME": "${localEnv:DB_USERNAME}",
     "DB_PASSWORD": "${localEnv:DB_PASSWORD}"
