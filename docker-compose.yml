@@ -26,6 +26,7 @@ services:
     container_name: itemhealth-app
     volumes:
       - .:/app
+    command: sleep infinity
     restart: always
     ports:
       - "8080:8080"
