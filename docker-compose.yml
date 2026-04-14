@@ -24,6 +24,8 @@ services:
   app:
     build: .
     container_name: itemhealth-app
+    volumes:
+      - .:/app
     restart: always
     ports:
       - "8080:8080"
