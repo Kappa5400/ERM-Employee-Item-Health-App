@@ -3,6 +3,10 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/app",
+  "remoteEnv": {
+    "DB_USERNAME": "${localEnv:DB_USERNAME}",
+    "DB_PASSWORD": "${localEnv:DB_PASSWORD}"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
