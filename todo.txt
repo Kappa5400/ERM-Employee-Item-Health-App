@@ -1,11 +1,16 @@
 
+Fix broken update
+fix new car not working
+on login add dummy stuff so people can get in and Test
+make tables show people in id order
+on employee creation add input boss and other attribute options
+
 Test cron job works
 retest all website manualy works
+fix creation page malforming
+
 add excel downlaod
 edge case fixes (dealeting big boss ect)
 
-12. ci/cd 
-
-13. Deployment
 
 14. documentation, deployment instructions, api documentation (swagger?)
