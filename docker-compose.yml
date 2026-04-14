@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:15
+    container_name: itemhealth-db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: itemhealth
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d itemhealth"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    restart: always
+
+  app:
+    build: .
+    container_name: itemhealth-app
+    restart: always
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+      mailhog:
+        condition: service_started
