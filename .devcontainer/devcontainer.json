@@ -10,12 +10,9 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "vmware.vscode-spring-boot",
         "vscjava.vscode-java-pack",
-        "vscjava.vscode-spring-initializr",
-        "vscjava.vscode-spring-boot-dashboard"
+        "vmware.vscode-spring-boot"
       ]
     }
-  },
-  "forwardPorts": [8080]
+  }
 }
