@@ -3,8 +3,8 @@ services:
   db:
     image: postgres:15
     container_name: itemhealth-db
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+    - "5432:5432"
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -18,12 +18,20 @@ services:
   mailhog:
     image: mailhog/mailhog
     container_name: mailhog
+    ports:
+    - "8025:8025"
+    - "1025:1025"
 
   app:
     build: .
     container_name: itemhealth-app
+    ports:
+    - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
     environment:
+      - DOCKER_API_VERSION=1.43
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
