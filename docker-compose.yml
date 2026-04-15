@@ -20,8 +20,7 @@ services:
   app:
     build: .
     container_name: itemhealth-app
-    # This keeps the container from crashing so you can enter the terminal
-    command: sleep infinity
+
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
       - DB_USERNAME=${DB_USERNAME}
