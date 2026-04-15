@@ -1,50 +1,138 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
   <body>
-    <div th:fragment="laptop-fields(item)" class="mb-3">
-      <label class="form-label">OS Version</label>
-      <input
-        type="number"
-        name="osVersion"
-        class="form-control"
-        th:value="${item?.osVersion}"
-      />
+    <div th:fragment="car-fields(item)" class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Model Year</label>
+        <input
+          type="number"
+          id="carYear"
+          name="carYear"
+          class="form-control"
+          th:value="${item?.carYear}"
+          placeholder="e.g. 2024"
+          required
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Mileage</label>
+        <input
+          type="number"
+          id="milage"
+          name="milage"
+          class="form-control"
+          th:value="${item?.milage}"
+          placeholder="Current mileage"
+          required
+        />
+      </div>
 
-      <label class="form-label mt-2">Model Year</label>
-      <input
-        type="number"
-        name="laptopYear"
-        class="form-control"
-        th:value="${item?.laptopYear}"
-      />
-    </div>
+      <div class="col-md-6">
+        <label class="form-label">Last Serviced Date</label>
+        <input
+          type="date"
+          id="lastServiced"
+          name="lastServiced"
+          class="form-control"
+          th:value="${item?.lastServiced}"
+          required
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Next Service Due</label>
+        <input
+          type="date"
+          id="needToServiceDate"
+          name="needToServiceDate"
+          class="form-control"
+          th:value="${item?.needToServiceDate}"
+          required
+        />
+      </div>
 
-    <div th:fragment="car-fields(item)" class="mb-3">
-      <label class="form-label">Mileage</label>
-      <input
-        type="number"
-        name="milage"
-        class="form-control"
-        th:value="${item?.milage}"
-      />
+      <div class="col-md-6">
+        <label class="form-label">Last Insurance Renewal</label>
+        <input
+          type="date"
+          id="lastInsuranceRenewal"
+          name="lastInsuranceRenewal"
+          class="form-control"
+          th:value="${item?.lastInsuranceRenewal}"
+          required
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Insurance Expiry Date</label>
+        <input
+          type="date"
+          id="insuranceExpireDate"
+          name="insuranceExpireDate"
+          class="form-control"
+          th:value="${item?.insuranceExpireDate}"
+          required
+        />
+      </div>
 
-      <label class="form-label mt-2">Car Year</label>
-      <input
-        type="number"
-        name="carYear"
-        class="form-control"
-        th:value="${item?.carYear}"
-      />
-    </div>
-
-    <div th:fragment="id_card_fields(item)" class="mb-3">
-      <label class="form-label">Needs Renewal Date</label>
-      <input
-        type="date"
-        name="needToRenewDate"
-        class="form-control"
-        th:value="${item?.needToRenewDate}"
-      />
+      <div class="col-12 mt-4">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="toService"
+                name="toService"
+                th:checked="${item?.toService}"
+              />
+              <label class="form-check-label" for="toService"
+                >Needs Service</label
+              >
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="toRenewInsurance"
+                name="toRenewInsurance"
+                th:checked="${item?.toRenewInsurance}"
+              />
+              <label class="form-check-label" for="toRenewInsurance"
+                >Renew Insurance</label
+              >
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="toReplace"
+                name="toReplace"
+                th:checked="${item?.toReplace}"
+              />
+              <label class="form-check-label" for="toReplace"
+                >Replace Car</label
+              >
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="inUse"
+                name="inUse"
+                th:checked="${item?.inUse ?: true}"
+              />
+              <label class="form-check-label" for="inUse"
+                >Currently In Use</label
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
