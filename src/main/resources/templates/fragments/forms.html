@@ -134,5 +134,138 @@
         </div>
       </div>
     </div>
+      <div th:fragment="id_card_fields(item)" class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Last Renewed Date</label>
+      <input
+        type="date"
+        id="lastRenewedDate"
+        name="lastRenewedDate"
+        class="form-control"
+        th:value="${item?.lastRenewedDate ?: #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"
+        required
+      />
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Next Renewal Due</label>
+      <input
+        type="date"
+        id="needToRenewDate"
+        name="needToRenewDate"
+        class="form-control"
+        th:value="${item?.needToRenewDate ?: #temporals.format(#temporals.createNow().plusYears(2), 'yyyy-MM-dd')}"
+        required
+      />
+    </div>
+
+    <div class="col-12 mt-3">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="toRenew"
+              name="toRenew"
+              th:checked="${item?.toRenew}"
+            />
+            <label class="form-check-label" for="toRenew">Mark for Renewal</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="inUse"
+              name="inUse"
+              th:checked="${item?.inUse ?: true}"
+            />
+            <label class="form-check-label" for="inUse">Card Active/In Use</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div th:fragment="laptop-fields(item)" class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Laptop Model Year</label>
+      <input
+        type="number"
+        id="laptopYear"
+        name="laptopYear"
+        class="form-control"
+        th:value="${item?.laptopYear ?: #temporals.year(#temporals.createNow())}"
+        placeholder="e.g. 2023"
+        required
+      />
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">OS Version</label>
+      <input
+        type="number"
+        id="osVersion"
+        name="osVersion"
+        class="form-control"
+        th:value="${item?.osVersion ?: 1}"
+        min="1"
+        placeholder="e.g. 11"
+        required
+      />
+    </div>
+
+    <div class="col-md-12">
+      <label class="form-label">Last OS Update Timestamp</label>
+      <input
+        type="datetime-local"
+        id="lastOSUpdate"
+        name="lastOSUpdate"
+        class="form-control"
+        th:value="${item?.lastOSUpdate ?: #temporals.format(#temporals.createNow(), 'yyyy-MM-dd''T''HH:mm')}"
+        required
+      />
+    </div>
+
+    <div class="col-12 mt-3">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="needToUpdate"
+              name="needToUpdate"
+              th:checked="${item?.needToUpdate}"
+            />
+            <label class="form-check-label" for="needToUpdate">Needs Update</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="toRenew"
+              name="toRenew"
+              th:checked="${item?.toRenew}"
+            />
+            <label class="form-check-label" for="toRenew">Renew Lease/Plan</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="inUse"
+              name="inUse"
+              th:checked="${item?.inUse ?: true}"
+            />
+            <label class="form-check-label" for="inUse">Currently In Use</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   </body>
 </html>
