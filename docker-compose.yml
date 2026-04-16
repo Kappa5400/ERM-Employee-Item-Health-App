@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   db:
     image: postgres:15
@@ -6,15 +7,15 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: ${DB_USERNAME:-postgres} # 未設定時のデフォルト値を追加
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
       POSTGRES_DB: itemhealth
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d itemhealth"]
-      interval: 5s # 間隔を短くして早く検知
+      interval: 5s
       timeout: 5s
-      retries: 10 # 回数を増やして粘る
-      start_period: 15s # 起動直後の猶予期間を追加（重要）
+      retries: 10
+      start_period: 15s
 
   mailhog:
     image: mailhog/mailhog
@@ -24,24 +25,24 @@ services:
       - "1025:1025"
 
   app:
-      build: .
-      container_name: itemhealth-app
-      user: root
-      ports:
-        - "8080:8080"
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-      # メモリ制限を追加して Codespaces 自体のクラッシュを防ぐ
-      deploy:
-        resources:
-          limits:
-            memory: 2G
-      environment:
-        - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
-        - DB_USERNAME=${DB_USERNAME:-postgres}
-        - DB_PASSWORD=${DB_PASSWORD:-password}
-        - DOCKER_API_VERSION=1.43
-      - MAVEN_OPTS=-Xmx1024m # Maven 自体の最大メモリを制限
+    build: .
+    container_name: itemhealth-app
+    user: root
+    ports:
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+      - DOCKER_API_VERSION=1.43
+      - MAVEN_OPTS=-Xmx1024m
     depends_on:
       db:
         condition: service_started
+    restart: on-failure
