@@ -23,7 +23,7 @@ services:
       - "8025:8025"
       - "1025:1025"
 
-  app:
+app:
     build: .
     container_name: itemhealth-app
     user: root
@@ -31,13 +31,17 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    # メモリ制限を追加して Codespaces 自体のクラッシュを防ぐ
+    deploy:
+      resources:
+        limits:
+          memory: 2G
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
       - DB_USERNAME=${DB_USERNAME:-postgres}
       - DB_PASSWORD=${DB_PASSWORD:-password}
       - DOCKER_API_VERSION=1.43
-    # 依存関係を少し緩める（厳格すぎると起動が遅れるため）
+      - MAVEN_OPTS=-Xmx1024m # Maven 自体の最大メモリを制限
     depends_on:
       db:
         condition: service_started
-    restart: on-failure # 失敗しても自動でリトライさせる
