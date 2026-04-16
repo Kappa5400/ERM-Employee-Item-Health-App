@@ -5,11 +5,7 @@
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   
   "features": {
-    // 公式のDocker-in-Docker機能を追加。これが最も安定します。
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {
-      "version": "latest",
-      "moby": true
-    }
+    
   },
 
   "remoteUser": "root",
