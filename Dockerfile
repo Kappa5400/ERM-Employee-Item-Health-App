@@ -1,20 +1,17 @@
-# Stage 1: Build the application
-FROM eclipse-temurin:21-jdk-alpine AS build
+
+FROM maven:3.9.6-eclipse-temurin-21-jammy AS build
 WORKDIR /app
-# Copy the maven wrapper and pom file
-COPY mvnw pom.xml ./
-COPY .mvn .mvn
-# Download dependencies (this layer is cached)
-RUN ./mvnw dependency:go-offline -q
-# Copy source code and build
+COPY pom.xml .
 COPY src ./src
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 # Stage 2: Run the application
-FROM eclipse-temurin:21-jre-alpine
-RUN apk add --no-cache docker-cli
+FROM eclipse-temurin:21-jdk-jammy
 WORKDIR /app
-RUN apk add --no-cache git
+RUN apt-get update && apt-get install -y \
+    docker.io \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 # Copy only the built JAR from the first stage
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
