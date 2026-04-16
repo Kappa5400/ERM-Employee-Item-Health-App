@@ -6,14 +6,15 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME:-postgres} # 未設定時のデフォルト値を追加
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
       POSTGRES_DB: itemhealth
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d itemhealth"]
-      interval: 10s
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d itemhealth"]
+      interval: 5s     # 間隔を短くして早く検知
       timeout: 5s
-      retries: 5
+      retries: 10      # 回数を増やして粘る
+      start_period: 15s # 起動直後の猶予期間を追加（重要）
 
   mailhog:
     image: mailhog/mailhog
@@ -25,17 +26,18 @@ services:
   app:
     build: .
     container_name: itemhealth-app
-    # 1. Ubuntu環境で docker.sock を叩くための権限設定
-    user: root 
+    user: root
     ports:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DOCKER_API_VERSION=1.43 # 2. APIバージョン不一致エラーの防止
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+      - DOCKER_API_VERSION=1.43
+    # 依存関係を少し緩める（厳格すぎると起動が遅れるため）
     depends_on:
       db:
-        condition: service_healthy
+        condition: service_started 
+    restart: on-failure # 失敗しても自動でリトライさせる
