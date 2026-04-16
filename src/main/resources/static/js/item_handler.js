@@ -80,3 +80,69 @@ async function saveData() {
     );
   }
 }
+
+/**
+ * アイテム（Laptop, Car, IDCard）の削除
+ */
+async function deleteItem(type, id) {
+  // 1. 確認ダイアログ
+  if (!confirm(`本当にこの ${type} を削除してもよろしいですか？`)) return;
+
+  // 2. CSRFトークンの取得
+  const csrfToken = document.querySelector('input[name="_csrf"]')?.value;
+
+  // 3. URLの構築 (REST APIの標準的な形式: /api/laptop/123)
+  const url = `/api/${type}/${id}`;
+
+  console.log(`Sending DELETE to: ${url}`);
+
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-TOKEN": csrfToken, // Spring Security対策
+      },
+    });
+
+    if (response.ok) {
+      // 削除成功：ダッシュボードをリロード
+      window.location.reload();
+    } else {
+      const errorText = await response.text();
+      console.error("Delete Error:", errorText);
+      alert("削除に失敗しました。サーバーログを確認してください。");
+    }
+  } catch (error) {
+    console.error("Network error:", error);
+    alert("通信エラーが発生しました。");
+  }
+}
+
+async function deleteEmployee(id, name) {
+  if (
+    !confirm(
+      `従業員 "${name}" を削除しますか？関連するアイテムも削除される可能性があります。`,
+    )
+  )
+    return;
+
+  const csrfToken = document.querySelector('input[name="_csrf"]')?.value;
+  const url = `/api/employee/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-TOKEN": csrfToken,
+      },
+    });
+
+    if (response.ok) {
+      window.location.href = "/bossdashboard";
+    } else {
+      alert("削除に失敗しました。");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}

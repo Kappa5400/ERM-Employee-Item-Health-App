@@ -3,6 +3,7 @@ test
 2. on login add dummy stuff so people can get in and test
 3. make tables show people in id order
 4. Test cron job works
+add email vis somehow
 5. retest all website manualy works
 6. add excel downlaod
 7. Fix logic edge cases (dealeting big boss ect)
