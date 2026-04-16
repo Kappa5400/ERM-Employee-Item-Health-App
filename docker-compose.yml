@@ -31,7 +31,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
     environment:
-      - DOCKER_API_VERSION=1.43
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
