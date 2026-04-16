@@ -1,21 +1,32 @@
 {
-  "name": "Spring Boot Dev",
+  "name": "Spring Boot Alpine Dev",
   "dockerComposeFile": "../docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  "runArgs": ["--privileged", "--init"],
-  "mounts": [
-    "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock"
-  ],
+  
+  "features": {
+    // 公式のDocker-in-Docker機能を追加。これが最も安定します。
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "moby": true
+    }
+  },
+
+  "remoteUser": "root",
+  "runArgs": ["--init"],
+  
   "remoteEnv": {
     "DB_USERNAME": "${localEnv:DB_USERNAME}",
-    "DB_PASSWORD": "${localEnv:DB_PASSWORD}"
+    "DB_PASSWORD": "${localEnv:DB_PASSWORD}",
+    "DOCKER_API_VERSION": "1.43"
   },
+
   "customizations": {
     "vscode": {
       "extensions": [
         "vscjava.vscode-java-pack",
-        "vmware.vscode-spring-boot"
+        "vmware.vscode-spring-boot",
+        "vscjava.vscode-spring-boot-dashboard"
       ]
     }
   }
