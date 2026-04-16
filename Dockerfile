@@ -1,18 +1,21 @@
-# Stage 1: Build (Maven + Java 21 Alpine)
-FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
+# Stage 1: Build (Maven + Java 21 Bookworm)
+FROM maven:3.9.6-eclipse-temurin-21-bookworm AS builder
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
-# テストをスキップして高速ビルド
 RUN mvn clean package -DskipTests
 
-# Stage 2: Runtime (JRE 21 Alpine - 最小サイズ)
-FROM eclipse-temurin:21-jre-alpine AS runtime
+# Stage 2: Runtime (JRE 21 Bookworm Slim)
+FROM eclipse-temurin:21-jre-bookworm AS runtime
 WORKDIR /app
 
-# 必要なのは Docker CLI と curl だけ。
-# docker.io ではなく docker-cli を使うのがコツです。
-RUN apk add --no-cache docker-cli curl
+# Debian Slim環境を軽量に保つための設定
+# --no-install-recommends を使用して余計なパッケージを省きます
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    docker.io \
+    curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # ビルドした JAR をコピー
 COPY --from=builder /app/target/*.jar app.jar
