@@ -13,7 +13,7 @@ WORKDIR /app
 # git, docker-cli, curl をインストール
 # docker.io ではなく docker-cli を使うことで、
 # デーモンを含まない軽量なクライアントツールのみを導入します
-RUN apk add --no-cache git docker-cli curl
+RUN apk add --no-cache git docker-cli curl bash
 
 # ビルドした JAR をコピー
 COPY --from=builder /app/target/*.jar app.jar

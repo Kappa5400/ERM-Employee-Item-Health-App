@@ -11,9 +11,9 @@ services:
       POSTGRES_DB: itemhealth
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d itemhealth"]
-      interval: 5s     # 間隔を短くして早く検知
+      interval: 5s # 間隔を短くして早く検知
       timeout: 5s
-      retries: 10      # 回数を増やして粘る
+      retries: 10 # 回数を増やして粘る
       start_period: 15s # 起動直後の猶予期間を追加（重要）
 
   mailhog:
@@ -39,5 +39,5 @@ services:
     # 依存関係を少し緩める（厳格すぎると起動が遅れるため）
     depends_on:
       db:
-        condition: service_started 
+        condition: service_started
     restart: on-failure # 失敗しても自動でリトライさせる
