@@ -47,6 +47,7 @@
     </div>
 
     <div th:fragment="asset-management(employee, laptop, car, idcard)">
+      <script th:src="@{/js/item_handler.js}"></script>
       <div class="card shadow-sm border-warning" th:if="${employee != null}">
         <ul class="list-group list-group-flush">
           <li
@@ -153,6 +154,6 @@
         </li>
       </div>
     </div>
-    <script th:src="@{/js/item_handler.js}"></script>
+    
   </body>
 </html>
