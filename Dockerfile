@@ -1,16 +1,17 @@
-# Stage 1: Build (Maven + Java 21 Bookworm)
-FROM maven:3.9.6-eclipse-temurin-21-bookworm AS builder
+# Stage 1: Build (Maven + Java 21)
+# maven:3.9.6-eclipse-temurin-21 は Debian Bookworm ベースです
+FROM maven:3.9.6-eclipse-temurin-21 AS builder
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Stage 2: Runtime (JRE 21 Bookworm Slim)
-FROM eclipse-temurin:21-jre-bookworm AS runtime
+# Stage 2: Runtime (JRE 21 Debian)
+# eclipse-temurin:21-jre は標準で Debian Bookworm ベースになります
+FROM eclipse-temurin:21-jre AS runtime
 WORKDIR /app
 
-# Debian Slim環境を軽量に保つための設定
-# --no-install-recommends を使用して余計なパッケージを省きます
+# Docker CLI と curl をインストール (Debian 用)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     docker.io \
     curl \
