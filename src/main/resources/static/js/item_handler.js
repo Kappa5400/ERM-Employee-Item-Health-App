@@ -146,3 +146,55 @@ async function deleteEmployee(id, name) {
     console.error("Error:", error);
   }
 }
+
+async function saveEmployee() {
+  // 1. 各入力を取得
+  const name = document.getElementById("emp-name").value;
+  const title = document.getElementById("emp-title").value;
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  const email = document.getElementById("emp-email").value;
+
+  // チェックボックスは .checked で真偽値を取得
+  const bossRole = document.getElementById("emp-boss-role").checked;
+  const hasBoss = document.getElementById("emp-has-boss").checked;
+
+  const csrfToken = document.querySelector('input[name="_csrf"]')?.value;
+
+  // 2. ペイロードの構築
+  const payload = {
+    name: name,
+    title: title,
+    username: username,
+    password: password,
+    email: email,
+    bossRole: bossRole,
+    hasBoss: hasBoss,
+  };
+
+  console.log("Creating Employee:", payload);
+
+  try {
+    // 3. APIリクエストの送信
+    const response = await fetch("/api/employee", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": csrfToken,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (response.ok) {
+      // 成功：ダッシュボードへ戻る
+      window.location.href = "/bossdashboard";
+    } else {
+      const errorMsg = await response.text();
+      console.error("Save Error:", errorMsg);
+      alert("従業員の保存に失敗しました: " + errorMsg);
+    }
+  } catch (error) {
+    console.error("Network error:", error);
+    alert("通信エラーが発生しました。");
+  }
+}
