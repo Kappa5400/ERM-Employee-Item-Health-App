@@ -1,25 +1,23 @@
-# Stage 1: ビルド (Maven + Java 21)
-FROM maven:3.9.6-eclipse-temurin-21-jammy AS builder
+# Stage 1: Build (Maven + Java 21 Alpine)
+FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
+# テストをスキップして高速ビルド
 RUN mvn clean package -DskipTests
 
-# Stage 2: 実行 (Codespaces 標準に近い Ubuntu 環境)
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04 AS runtime
+# Stage 2: Runtime (JRE 21 Alpine - 最小サイズ)
+FROM eclipse-temurin:21-jre-alpine AS runtime
 WORKDIR /app
 
-# Java 21 と Docker CLI のインストール
-RUN apt-get update && apt-get install -y \
-    openjdk-21-jre-headless \
-    docker.io \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+# 必要なのは Docker CLI と curl だけ。
+# docker.io ではなく docker-cli を使うのがコツです。
+RUN apk add --no-cache docker-cli curl
 
-# ビルドステージから JAR をコピー
+# ビルドした JAR をコピー
 COPY --from=builder /app/target/*.jar app.jar
 
-# Codespaces の Docker デーモンに合わせるための環境変数
+# Codespaces 互換設定
 ENV DOCKER_API_VERSION=1.43
 EXPOSE 8080
 
