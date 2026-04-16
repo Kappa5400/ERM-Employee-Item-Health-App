@@ -1,27 +1,24 @@
-# Stage 1: Build (Maven + Java 21)
-# maven:3.9.6-eclipse-temurin-21 は Debian Bookworm ベースです
-FROM maven:3.9.6-eclipse-temurin-21 AS builder
+# Stage 1: ビルド (Maven + Java 21 Alpine)
+FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
+# メモリ節約のため、テストをスキップしてビルド
 RUN mvn clean package -DskipTests
 
-# Stage 2: Runtime (JRE 21 Debian)
-# eclipse-temurin:21-jre は標準で Debian Bookworm ベースになります
-FROM eclipse-temurin:21-jre AS runtime
+# Stage 2: 実行 (JRE 21 Alpine)
+FROM eclipse-temurin:21-jre-alpine AS runtime
 WORKDIR /app
 
-# Docker CLI と curl をインストール (Debian 用)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    docker.io \
-    curl \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# git, docker-cli, curl をインストール
+# docker.io ではなく docker-cli を使うことで、
+# デーモンを含まない軽量なクライアントツールのみを導入します
+RUN apk add --no-cache git docker-cli curl
 
 # ビルドした JAR をコピー
 COPY --from=builder /app/target/*.jar app.jar
 
-# Codespaces 互換設定
+# Codespaces の Docker API バージョンに合わせる (1.43)
 ENV DOCKER_API_VERSION=1.43
 EXPOSE 8080
 
