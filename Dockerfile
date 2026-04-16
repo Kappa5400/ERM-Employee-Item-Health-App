@@ -3,7 +3,7 @@ FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests -T 1 -Dmaven.compiler.fork=false
 
 # Stage 2: Runtime (JRE 21 Alpine)
 FROM eclipse-temurin:21-jre-alpine
