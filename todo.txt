@@ -1,16 +1,11 @@
 
-Fix broken update
-fix new car not working
-on login add dummy stuff so people can get in and Test
-make tables show people in id order
-on employee creation add input boss and other attribute options
-
-Test cron job works
-retest all website manualy works
-fix creation page malforming
-
-add excel downlaod
-edge case fixes (dealeting big boss ect)
-
-
-14. documentation, deployment instructions, api documentation (swagger?)
+1. add params for adding, update forms, and hook up js to handle
+2. on login add dummy stuff so people can get in and test
+3. make tables show people in id order
+4. Test cron job works
+5. retest all website manualy works
+6. add excel downlaod
+7. Fix logic edge cases (dealeting big boss ect)
+8. facion.ico setup
+9. documentation, instructions, api documentation (swagger?)
+10. edge case fixes 
