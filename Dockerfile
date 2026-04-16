@@ -10,7 +10,7 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 # git, curl に加え、操作用の docker-cli とスクリプト用の bash をインストール
-RUN apk add --no-cache git docker-cli curl bash
+RUN apk add --no-cache git docker-cli docker-cli-compose curl bash
 
 COPY --from=builder /app/target/*.jar app.jar
 
