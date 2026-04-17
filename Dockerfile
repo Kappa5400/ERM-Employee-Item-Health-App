@@ -1,33 +1,38 @@
-# Stage 1: Build (Maven + Java 21 on Alpine)
+# Stage 1: Build
 FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
+ 
 WORKDIR /app
-
-# Copy pom.xml and source code
+ 
+# FIX: copy pom.xml first so Maven deps are cached as a separate layer —
+# source changes won't re-download dependencies
 COPY pom.xml .
+RUN mvn dependency:go-offline -B -T 1
+ 
 COPY src ./src
-
-# Build the application
-# -T 1: Uses a single thread to prevent memory spikes on 2-core machines
 RUN mvn clean package -DskipTests -T 1
-
-# Stage 2: Runtime (JRE 21 on Alpine)
+ 
+# Stage 2: Runtime
 FROM eclipse-temurin:21-jre-alpine
+ 
 WORKDIR /app
-
-# Install Docker CLI, Compose, Bash, and Git
-# Alpine needs bash specifically for VS Code server stability
+ 
+# bash: required for VS Code server stability on Alpine
+# docker-cli + docker-cli-compose: for docker compose up/down inside container
+# git: for VS Code source control
 RUN apk add --no-cache \
-    docker-cli \
-    docker-cli-compose \
     bash \
     curl \
-    git
-
-# Copy the JAR from the builder stage
+    git \
+    docker-cli \
+    docker-cli-compose
+ 
 COPY --from=builder /app/target/*.jar app.jar
-
-# Configuration for Docker-outside-of-Docker
+ 
 ENV DOCKER_API_VERSION=1.43
+# FIX: container-aware memory — respects the 2G limit set in compose
+ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
+ 
 EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ 
+# FIX: was missing JAVA_OPTS — the 2G compose limit was ignored
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
