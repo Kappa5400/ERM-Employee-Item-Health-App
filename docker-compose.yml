@@ -1,5 +1,5 @@
 version: "3.8"
-
+ 
 services:
   db:
     image: postgres:15
@@ -16,7 +16,7 @@ services:
       timeout: 5s
       retries: 10
       start_period: 15s
-
+ 
   app:
     build: .
     container_name: itemhealth-app
@@ -37,9 +37,11 @@ services:
       - MAVEN_OPTS=-Xmx1024m
     depends_on:
       db:
-        condition: service_started
+        # FIX: was service_started — app was connecting before postgres was
+        # accepting connections, causing random startup failures
+        condition: service_healthy
     restart: on-failure
-
+ 
   mailhog:
     image: mailhog/mailhog
     container_name: mailhog
