@@ -1,3 +1,51 @@
+document.addEventListener("DOMContentLoaded", () => {
+  loadBosses();
+});
+
+async function loadBosses() {
+  const selectElement = document.getElementById("bossUserId");
+  if (!selectElement) return;
+
+  try {
+    const response = await fetch("/api/bosses");
+    if (!response.ok) throw new Error("Network response was not ok");
+    const bosses = await response.json();
+
+    // Clear and fill
+    selectElement.innerHTML = '<option value="">-- Select a Boss --</option>';
+    bosses.forEach((boss) => {
+      const option = document.createElement("option");
+      option.value = boss.employeeId || boss.id;
+      option.textContent = `${boss.name} (${boss.title})`;
+      selectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Error fetching bosses:", error);
+  }
+}
+
+/**
+ * Logic Checkpoint 4:
+ * Always handle UI state. If 'Reports to Boss' is unchecked,
+ * the select menu should be hidden and its value cleared.
+ */
+function setupBossToggle() {
+  const hasBossCheckbox = document.getElementById("hasBoss");
+  const bossWrapper = document.getElementById("boss-selection-wrapper");
+  const bossSelect = document.getElementById("bossUserId");
+
+  if (hasBossCheckbox && bossWrapper) {
+    hasBossCheckbox.addEventListener("change", (e) => {
+      if (e.target.checked) {
+        bossWrapper.style.display = "block";
+      } else {
+        bossWrapper.style.display = "none";
+        bossSelect.value = ""; // Clear selection on hide
+      }
+    });
+  }
+}
+
 async function saveData() {
   const type = document.getElementById("item-type").value;
   const id = document.getElementById("item-id").value;
@@ -148,20 +196,24 @@ async function deleteEmployee(id, name) {
 }
 
 async function saveEmployee() {
-  // 1. 各入力を取得
-  const name = document.getElementById("emp-name").value;
-  const title = document.getElementById("emp-title").value;
+  // 1. Get inputs using the correct IDs from the HTML
+  const name = document.getElementById("name").value;
+  const title = document.getElementById("title").value;
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-  const email = document.getElementById("emp-email").value;
+  const email = document.getElementById("email").value;
+  const bossRole = document.getElementById("bossRole").checked;
+  const hasBoss = document.getElementById("hasBoss").checked;
 
-  // チェックボックスは .checked で真偽値を取得
-  const bossRole = document.getElementById("emp-boss-role").checked;
-  const hasBoss = document.getElementById("emp-has-boss").checked;
+  // 2. Capture the selected Boss ID
+  // If 'hasBoss' is false, we set this to null
+  const bossUserId = hasBoss
+    ? document.getElementById("bossUserId").value
+    : null;
 
   const csrfToken = document.querySelector('input[name="_csrf"]')?.value;
 
-  // 2. ペイロードの構築
+  // 3. Construct the payload
   const payload = {
     name: name,
     title: title,
@@ -170,12 +222,12 @@ async function saveEmployee() {
     email: email,
     bossRole: bossRole,
     hasBoss: hasBoss,
+    bossUserId: bossUserId ? Number(bossUserId) : null, // Ensure it's a number or null
   };
 
-  console.log("Creating Employee:", payload);
+  console.log("Creating Employee with Boss:", payload);
 
   try {
-    // 3. APIリクエストの送信
     const response = await fetch("/api/employee", {
       method: "POST",
       headers: {
@@ -186,15 +238,12 @@ async function saveEmployee() {
     });
 
     if (response.ok) {
-      // 成功：ダッシュボードへ戻る
       window.location.href = "/bossdashboard";
     } else {
       const errorMsg = await response.text();
-      console.error("Save Error:", errorMsg);
-      alert("従業員の保存に失敗しました: " + errorMsg);
+      alert("Failed to save employee: " + errorMsg);
     }
   } catch (error) {
     console.error("Network error:", error);
-    alert("通信エラーが発生しました。");
   }
 }

@@ -19,36 +19,50 @@
           />
           <input type="hidden" id="isCreate" value="true" />
 
-          <div class="col-md-6">
-  <label class="form-label fw-bold">Full Name</label>
-  <input type="text" id="emp-name" class="form-control" placeholder="" required />
-</div>
-
-<div class="col-md-6">
-  <label class="form-label fw-bold">Job Title</label>
-  <input type="text" id="emp-title" class="form-control" placeholder="" required />
-</div>
-
-<div class="col-md-6">
-  <label class="form-label fw-bold">Username</label>
-  <div class="input-group">
-    <span class="input-group-text"><i class="bi bi-person"></i></span>
-    <input type="text" id="username" class="form-control" placeholder="Login username" required />
-  </div>
-</div>
-
-<div class="col-md-6">
-  <label class="form-label fw-bold">Password</label>
-  <div class="input-group">
-    <span class="input-group-text"><i class="bi bi-key"></i></span>
-    <input type="password" id="password" class="form-control" placeholder="Login password" required />
-  </div>
-</div>
-
-<div class="col-12">
-  <label class="form-label fw-bold">Email Address</label>
-  <input type="email" id="emp-email" class="form-control" placeholder="name@company.com" required />
-</div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                class="form-control"
+                placeholder="John Doe"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Job Title</label>
+              <input
+                type="text"
+                id="title"
+                class="form-control"
+                placeholder="Software Engineer"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Username</label>
+              <input type="text" id="username" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Password</label>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-bold">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                placeholder="name@company.com"
+                required
+              />
+            </div>
 
             <div class="col-md-6">
               <div class="card p-3 bg-light h-100">
@@ -56,14 +70,14 @@
                   <input
                     class="form-check-input"
                     type="checkbox"
-                    id="emp-boss-role"
+                    id="bossRole"
                   />
-                  <label class="form-check-label fw-bold" for="emp-boss-role"
+                  <label class="form-check-label fw-bold" for="bossRole"
                     >Boss Privileges</label
                   >
                 </div>
                 <small class="text-muted"
-                  >Enables access to the Boss Dashboard and CRUD actions.</small
+                  >Enables access to the Boss Dashboard.</small
                 >
               </div>
             </div>
@@ -74,17 +88,32 @@
                   <input
                     class="form-check-input"
                     type="checkbox"
-                    id="emp-has-boss"
+                    id="hasBoss"
                     checked
                   />
-                  <label class="form-check-label fw-bold" for="emp-has-boss"
+                  <label class="form-check-label fw-bold" for="hasBoss"
                     >Reports to Boss</label
                   >
                 </div>
                 <small class="text-muted"
-                  >If off, this employee is considered the "Top Boss".</small
+                  >If off, this employee is a "Top Boss".test</small
                 >
               </div>
+            </div>
+
+            <div class="col-12 mt-3" id="boss-selection-wrapper">
+              <label class="form-label fw-bold">Assign Manager</label>
+              <div class="input-group">
+                <span class="input-group-text"
+                  ><i class="bi bi-person-badge"></i
+                ></span>
+                <select id="bossUserId" class="form-select">
+                  <option value="">-- Select a Boss --</option>
+                </select>
+              </div>
+              <small class="text-muted"
+                >Disabled if "Reports to Boss" is unchecked.</small
+              >
             </div>
           </div>
 
@@ -95,7 +124,7 @@
               onclick="saveEmployee()"
               class="btn btn-primary px-4"
             >
-              Create Employee
+              Create Employee test
             </button>
           </div>
         </form>
@@ -103,5 +132,32 @@
     </div>
 
     <script th:src="@{/js/item_handler.js}"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const hasBossToggle = document.getElementById("hasBoss");
+        const bossSelect = document.getElementById("bossUserId");
+
+        function syncState() {
+          // dropdown is disabled if checkbox is NOT checked
+          bossSelect.disabled = !hasBossToggle.checked;
+
+          // Optional: add a visual cue via Bootstrap classes
+          if (bossSelect.disabled) {
+            bossSelect.classList.add("bg-light");
+            bossSelect.value = "";
+          } else {
+            bossSelect.classList.remove("bg-light");
+          }
+        }
+
+        if (hasBossToggle && bossSelect) {
+          // Run once on load to set initial state
+          syncState();
+          // Run every time the toggle changes
+          hasBossToggle.addEventListener("change", syncState);
+        }
+      });
+    </script>
   </body>
 </html>
