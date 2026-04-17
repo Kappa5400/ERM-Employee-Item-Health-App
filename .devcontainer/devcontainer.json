@@ -3,6 +3,8 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+  "initializeCommand": "sudo sh -c 'mkdir -p /etc/docker && echo \"{\\\"iptables\\\": false}\\n\" > /etc/docker/daemon.json && (pkill dockerd || true) && sleep 2 && dockerd > /tmp/dockerd.log 2>&1 &' && sleep 3"
   
   "features": {
     
