@@ -24,7 +24,7 @@ public class Boss {
       regexp = "^[a-zA-Z0-9 ]*$",
       message = "Only alphanumeric characters and spaces are allowed")
   private String name;
-
+  private String title;
   private List<Long> subordinateIds;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;

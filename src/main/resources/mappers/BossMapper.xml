@@ -8,6 +8,7 @@
         <id     property="bossId"     column="boss_id"/>
         <result property="employeeId" column="employee_id"/>
         <result property="name" column="name"/>
+        <result property="title"      column="title"/> 
         <result property="createdAt"  column="created_at"/>
         <result property="updatedAt"  column="updated_at"/>
         <collection property="subordinateIds" ofType="Long">
@@ -24,9 +25,17 @@
     </select>
    
     <select id="findAll" resultMap="BossResultMap">
-        SELECT boss.*, subordinate.subordinate_id
-        FROM boss
-        LEFT JOIN boss_subordinates subordinate ON boss.boss_id = subordinate.boss_id
+        SELECT 
+            b.boss_id, 
+            b.employee_id, 
+            b.created_at, 
+            b.updated_at, 
+            e.name,   -- Fetched from employee table
+            e.title,  -- Fetched from employee table
+            s.subordinate_id
+        FROM boss b
+        LEFT JOIN employee e ON b.employee_id = e.employee_id
+        LEFT JOIN boss_subordinates s ON b.boss_id = s.boss_id
     </select>
 
  

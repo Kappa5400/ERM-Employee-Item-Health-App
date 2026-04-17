@@ -7,7 +7,7 @@ async function loadBosses() {
   if (!selectElement) return;
 
   try {
-    const response = await fetch("/api/bosses");
+    const response = await fetch("/api/boss");
     if (!response.ok) throw new Error("Network response was not ok");
     const bosses = await response.json();
 
@@ -15,8 +15,17 @@ async function loadBosses() {
     selectElement.innerHTML = '<option value="">-- Select a Boss --</option>';
     bosses.forEach((boss) => {
       const option = document.createElement("option");
-      option.value = boss.employeeId || boss.id;
-      option.textContent = `${boss.name} (${boss.title})`;
+      console.log(boss);
+      // Use a fallback logic: if 'employeeId' is missing, try 'id'
+      const id = boss.employeeId || boss.id;
+
+      // If 'name' is missing, try 'fullName'. If 'title' is missing, try 'jobTitle'
+      const displayName = boss.name || boss.fullName || "Unknown";
+      const displayTitle = boss.title || boss.jobTitle || "No Title";
+
+      option.value = id;
+      option.textContent = `${displayName} (${displayTitle})`;
+
       selectElement.appendChild(option);
     });
   } catch (error) {
