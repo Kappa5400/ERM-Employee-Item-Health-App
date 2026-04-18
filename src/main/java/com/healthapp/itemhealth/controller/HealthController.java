@@ -10,13 +10,18 @@ import com.healthapp.itemhealth.service.HealthCheckService;
 import com.healthapp.itemhealth.service.IDCardService;
 import com.healthapp.itemhealth.service.LaptopService;
 import java.util.List;
+import java.util.Map;
+
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 @Controller
 @RequiredArgsConstructor
@@ -129,4 +134,12 @@ public class HealthController {
     healthCheckService.runHealthCheck();
     return "runmail";
   }
+
+@GetMapping("/mail")
+  @ResponseBody
+  public String mail() {
+    
+    return "mail";
+  }
+
 }
