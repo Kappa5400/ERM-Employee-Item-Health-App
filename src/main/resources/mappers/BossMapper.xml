@@ -23,6 +23,13 @@
         LEFT JOIN boss_subordinates subordinate ON boss.boss_id = subordinate.boss_id
         WHERE boss.boss_id = #{bossId}
     </select>
+
+     <select id="findByempId" resultMap="BossResultMap">
+        SELECT boss.*, subordinate.subordinate_id
+        FROM boss
+        LEFT JOIN boss_subordinates subordinate ON boss.boss_id = subordinate.boss_id
+        WHERE boss.employee_id = #{employeeId}
+    </select>
    
     <select id="findAll" resultMap="BossResultMap">
         SELECT 

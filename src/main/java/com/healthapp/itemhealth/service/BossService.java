@@ -24,6 +24,11 @@ public class BossService {
     return bossMapper.findById(bossId);
   }
 
+  public Boss findByempId(Long empId) {
+    log.debug("Finding boss by employee ID: {}", empId);
+    return bossMapper.findByempId(empId);
+  }
+
   public List<Boss> findAll() {
     log.debug("Finding all bosses");
     return bossMapper.findAll();

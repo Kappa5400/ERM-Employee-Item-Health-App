@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface BossMapper {
   Boss findById(Long bossId);
+  
+  Boss findByempId(Long bossId);
 
   List<Boss> findAll();
 

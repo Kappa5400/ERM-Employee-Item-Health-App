@@ -1,7 +1,9 @@
 package com.healthapp.itemhealth.service;
 
 import com.healthapp.itemhealth.mapper.EmployeeMapper;
+import com.healthapp.itemhealth.mapper.BossMapper;
 import com.healthapp.itemhealth.model.Employee;
+import com.healthapp.itemhealth.model.Boss;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +18,12 @@ public class EmployeeService {
 
   private final PasswordEncoder passwordEncoder;
   private final EmployeeMapper employeeMapper;
+  private final BossMapper bossMapper;
 
-  public EmployeeService(EmployeeMapper employeeMapper, PasswordEncoder passwordEncoder) {
+  public EmployeeService(EmployeeMapper employeeMapper, BossMapper bossMapper,
+     PasswordEncoder passwordEncoder) {
     this.employeeMapper = employeeMapper;
+    this.bossMapper = bossMapper;
     this.passwordEncoder = passwordEncoder;
   }
 
@@ -48,10 +53,30 @@ public class EmployeeService {
     String hashed_password = passwordEncoder.encode(employee.getPassword());
     employee.setPassword(hashed_password);
     employeeMapper.insert(employee);
+    if (employee.isBossRole() == true) {
+      log.info("Turning employee object into boss...");
+      
+      Boss boss= new Boss();
+      boss.setEmployeeId(employee.getEmployeeId());
+      boss.setName(employee.getName());
+      boss.setTitle(employee.getTitle());
+      
+      bossMapper.insert(boss);
+    }
   }
 
   @PreAuthorize("hasRole('BOSS')")
   public void delete(Long employeeId) {
+    log.info("Checking if boss role...");
+    Employee emp = getById(employeeId);
+    if (emp.isBossRole()){
+      log.info("Deleting from boss...");
+      // implliment get by employee id in boss
+      bossMapper.delete(bossMapper.findByempId(employeeId).getBossId());
+    }
+    else{
+      log.info("Not boss.");
+    }
     log.info("Deleting employee with ID: {}", employeeId);
     employeeMapper.delete(employeeId);
   }
