@@ -1,15 +1,17 @@
 package com.healthapp.itemhealth.service;
 
-import com.healthapp.itemhealth.mapper.EmployeeMapper;
-import com.healthapp.itemhealth.mapper.BossMapper;
-import com.healthapp.itemhealth.model.Employee;
-import com.healthapp.itemhealth.model.Boss;
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.healthapp.itemhealth.mapper.BossMapper;
+import com.healthapp.itemhealth.mapper.EmployeeMapper;
+import com.healthapp.itemhealth.model.Boss;
+import com.healthapp.itemhealth.model.Employee;
 
 @Service
 public class EmployeeService {
@@ -67,12 +69,24 @@ public class EmployeeService {
 
   @PreAuthorize("hasRole('BOSS')")
   public void delete(Long employeeId) {
+    log.info("Checking if big boss...");
+    if (employeeId == 1){
+      log.info("Is big boss.");
+      return;
+    }
     log.info("Checking if boss role...");
     Employee emp = getById(employeeId);
     if (emp.isBossRole()){
+      log.info("Is boss.");
+      log.info("Reassigning subordinates to 1...");
+      // reassign subordinate to boss 1
+      
+      bossMapper.reassignSubordinatesToBigBoss(employeeId);
+
       log.info("Deleting from boss...");
-      // implliment get by employee id in boss
+      
       bossMapper.delete(bossMapper.findByempId(employeeId).getBossId());
+      
     }
     else{
       log.info("Not boss.");

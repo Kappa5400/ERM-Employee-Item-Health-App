@@ -1,9 +1,11 @@
 package com.healthapp.itemhealth.mapper;
 
-import com.healthapp.itemhealth.model.Boss;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.healthapp.itemhealth.model.Boss;
 
 @Mapper
 public interface BossMapper {
@@ -20,6 +22,8 @@ public interface BossMapper {
   void insertSubordinate(@Param("bossId") Long bossId, @Param("subordinateId") Long subordinateId);
 
   void update(Boss boss);
+
+  void reassignSubordinatesToBigBoss(Long bossId); 
 
   void delete(Long bossId);
 

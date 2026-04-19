@@ -72,6 +72,12 @@
         WHERE boss_id = #{bossId}
     </update>
 
+    <update id="reassignSubordinatesToBigBoss">
+        UPDATE boss_subordinates
+        SET boss_id = (SELECT boss_id FROM boss WHERE employee_id = 1)
+        WHERE boss_id = (SELECT boss_id FROM boss WHERE employee_id = #{oldBossEmployeeId})
+    </update>
+
     <delete id="delete">
         DELETE FROM boss WHERE boss_id = #{bossId}
     </delete>

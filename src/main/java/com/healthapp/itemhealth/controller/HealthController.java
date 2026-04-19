@@ -24,10 +24,15 @@ import com.healthapp.itemhealth.service.LaptopService;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -139,11 +144,16 @@ public class HealthController {
   }
 
   @GetMapping("/runmail")
-  @ResponseBody
-  public String runmail() {
+  @PreAuthorize("hasRole('BOSS')")
+  public String runmail(RedirectAttributes attributes) {
     healthCheckService.runHealthCheck();
-    return "runmail";
+
+    attributes.addFlashAttribute("message", "Health check complete");
+    attributes.addFlashAttribute("alertType", "success");
+
+    return "redirect:/bossdashboard";
   }
+
   private RestTemplate createMailhogRestTemplate() {
       RestTemplate restTemplate = new RestTemplate();
       
@@ -176,7 +186,6 @@ public class HealthController {
       return "mail";
   }
 
-  
 
   @GetMapping("/getmail")
   @ResponseBody
@@ -186,4 +195,5 @@ public class HealthController {
   
       return restTemplate.getForObject(fullPath, Object.class);
   }
+
 }

@@ -1,14 +1,10 @@
 test
-add button "check for 
-1. add params for adding, update forms, and hook up js to handle
-2. on login add dummy stuff so people can get in and test
-3. add email vis somehow
-4. make tables show people in id order
-5. Test cron job works
-add handling for subordinates on boss delete
-6. add excel downlaod
-7 retest all website manualy works
-8. Fix logic edge cases (dealeting big boss ect)
-9. facion.ico setup
-10. documentation, instructions, api documentation (swagger?)
-11. edge case fixes 
+
+1. add handling for subordinates on boss delete
+2. add excel downlaod
+3. facion.ico setup
+4. fix mail showing only id of item, show employee name as well (employee name, item type, item id ect)
+5. retest all website manualy works
+6. documentation, instructions, api documentation (swagger?)
+7. edge case fixes 
+8. clean up comments, files, study the code

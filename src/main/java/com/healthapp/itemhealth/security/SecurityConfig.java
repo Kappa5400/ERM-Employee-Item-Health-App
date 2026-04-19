@@ -52,12 +52,13 @@ public class SecurityConfig {
                     .authenticated())
 
         // 4. Custom Error Handling
-        .exceptionHandling(exception -> exception.accessDeniedPage("/"))
+        .exceptionHandling(exception -> exception.accessDeniedPage("/login"))
 
         // 5. Authentication Mechanisms
         .httpBasic(Customizer.withDefaults())
-        .formLogin(org.springframework.security.config.Customizer.withDefaults());
-
+        .formLogin(form -> form
+          .loginPage("/login"));
+        
     return http.build();
   }
 
