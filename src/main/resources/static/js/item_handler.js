@@ -256,3 +256,14 @@ async function saveEmployee() {
     console.error("Network error:", error);
   }
 }
+
+async function getMail() {
+  const url = "/api/getmail";
+
+  try {
+    const response = await fetch(url);
+    // ... rest of your logic
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
