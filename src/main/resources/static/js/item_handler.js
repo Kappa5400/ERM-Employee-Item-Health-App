@@ -234,6 +234,8 @@ async function saveEmployee() {
     bossUserId: bossUserId ? Number(bossUserId) : null, // Ensure it's a number or null
   };
 
+  const Bossid = payload.bossUserId;
+
   console.log("Creating Employee with Boss:", payload);
 
   try {

@@ -4,7 +4,7 @@ test
 2. add excel downlaod
 3. facion.ico setup
 4. fix mail showing only id of item, show employee name as well (employee name, item type, item id ect)
-5. retest all website manualy works
+5. retest all website manualy works, add testing
 6. documentation, instructions, api documentation (swagger?)
 7. edge case fixes 
 8. clean up comments, files, study the code

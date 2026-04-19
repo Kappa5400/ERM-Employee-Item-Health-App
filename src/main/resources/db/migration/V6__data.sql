@@ -1,9 +1,9 @@
 -- 1. Employee
 INSERT INTO employee (name, title, email, boss, boss_role, has_boss, username, password) 
-VALUES ('Alice Tanaka', 'CEO', 'alice@example.com', 'None', TRUE, FALSE, 'test', '$2a$10$oFUYWKahTh1lnQ79cCF4IOu4Q9l9aHfmbdnz5VnAFCPTqcWADY6aS');
+VALUES ('Big boss', 'CEO', 'boss@example.com', 'None', TRUE, FALSE, 'test', '$2a$10$oFUYWKahTh1lnQ79cCF4IOu4Q9l9aHfmbdnz5VnAFCPTqcWADY6aS');
 
 INSERT INTO employee (name, title, email, boss, boss_role, has_boss, username, password) 
-VALUES ('Bob Smith', 'Manager', 'bob@example.com', 'Alice Tanaka', TRUE, TRUE, 'test2', '$2a$10$oFUYWKahTh1lnQ79cCF4IOu4Q9l9aHfmbdnz5VnAFCPTqcWADY6aS');
+VALUES ('Bob Smith', 'Manager', 'bob@example.com', 'Big boss', TRUE, TRUE, 'test2', '$2a$10$oFUYWKahTh1lnQ79cCF4IOu4Q9l9aHfmbdnz5VnAFCPTqcWADY6aS');
 
 INSERT INTO employee (name, title, email, boss, boss_role, has_boss, username, password) 
 VALUES ('Charlie Day', 'Engineer', 'charlie@example.com', 'Bob Smith', FALSE, TRUE, 'test3', '$2a$10$oFUYWKahTh1lnQ79cCF4IOu4Q9l9aHfmbdnz5VnAFCPTqcWADY6aS');

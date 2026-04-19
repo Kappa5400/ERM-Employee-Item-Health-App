@@ -1,17 +1,5 @@
 package com.healthapp.itemhealth.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
-
 import com.healthapp.itemhealth.model.Car;
 import com.healthapp.itemhealth.model.Employee;
 import com.healthapp.itemhealth.model.IDCard;
@@ -21,23 +9,25 @@ import com.healthapp.itemhealth.service.EmployeeService;
 import com.healthapp.itemhealth.service.HealthCheckService;
 import com.healthapp.itemhealth.service.IDCardService;
 import com.healthapp.itemhealth.service.LaptopService;
-
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 @RequiredArgsConstructor
 public class HealthController {
-
 
   private final EmployeeService employeeService;
   private final LaptopService laptopService;
@@ -155,45 +145,42 @@ public class HealthController {
   }
 
   private RestTemplate createMailhogRestTemplate() {
-      RestTemplate restTemplate = new RestTemplate();
-      
-      MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-      // We tell this converter to support standard JSON AND the text/json that MailHog sends
-      converter.setSupportedMediaTypes(Arrays.asList(
-          MediaType.APPLICATION_JSON, 
-          MediaType.parseMediaType("text/json")
-      ));
-      
-      // We insert it at the beginning so Spring uses it first
-      restTemplate.getMessageConverters().add(0, converter);
-      
-      return restTemplate;
+    RestTemplate restTemplate = new RestTemplate();
+
+    MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+    // We tell this converter to support standard JSON AND the text/json that MailHog sends
+    converter.setSupportedMediaTypes(
+        Arrays.asList(MediaType.APPLICATION_JSON, MediaType.parseMediaType("text/json")));
+
+    // We insert it at the beginning so Spring uses it first
+    restTemplate.getMessageConverters().add(0, converter);
+
+    return restTemplate;
   }
+
   @GetMapping("/mail")
   public String mail(Model model) {
-      try {
-          RestTemplate restTemplate = createMailhogRestTemplate();
-          String fullPath = mailhogUrl + "/api/v2/messages";
+    try {
+      RestTemplate restTemplate = createMailhogRestTemplate();
+      String fullPath = mailhogUrl + "/api/v2/messages";
 
-          Map<String, Object> response = restTemplate.getForObject(fullPath, Map.class);
-          Object items = (response != null) ? response.get("items") : null;
+      Map<String, Object> response = restTemplate.getForObject(fullPath, Map.class);
+      Object items = (response != null) ? response.get("items") : null;
 
-          model.addAttribute("mailData", items);
-      } catch (Exception e) {
-          e.printStackTrace();
-          model.addAttribute("error", "MailHog error: " + e.getMessage());
-      }
-      return "mail";
+      model.addAttribute("mailData", items);
+    } catch (Exception e) {
+      e.printStackTrace();
+      model.addAttribute("error", "MailHog error: " + e.getMessage());
+    }
+    return "mail";
   }
-
 
   @GetMapping("/getmail")
   @ResponseBody
   public Object getmail() {
-      RestTemplate restTemplate = createMailhogRestTemplate();
-      String fullPath = mailhogUrl + "/api/v2/messages";
-  
-      return restTemplate.getForObject(fullPath, Object.class);
-  }
+    RestTemplate restTemplate = createMailhogRestTemplate();
+    String fullPath = mailhogUrl + "/api/v2/messages";
 
+    return restTemplate.getForObject(fullPath, Object.class);
+  }
 }

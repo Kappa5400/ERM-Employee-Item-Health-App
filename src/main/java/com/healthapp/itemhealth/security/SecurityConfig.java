@@ -56,9 +56,8 @@ public class SecurityConfig {
 
         // 5. Authentication Mechanisms
         .httpBasic(Customizer.withDefaults())
-        .formLogin(form -> form
-          .loginPage("/login"));
-        
+        .formLogin(form -> form.loginPage("/login"));
+
     return http.build();
   }
 

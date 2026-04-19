@@ -15,11 +15,13 @@
         <result property="username"   column="username"/>
         <result property="password"   column="password"/>
         <result property="email"      column="email"/>
-        
         <association property="boss" javaType="com.healthapp.itemhealth.model.Boss">
             <id property="employeeId" column="boss_id"/>
         </association>
+        
     </resultMap>
+
+    
 
     <select id="findById" resultMap="EmployeeResultMap">
         SELECT 
@@ -91,15 +93,9 @@
     </select>
 
     <select id="login" resultMap="EmployeeResultMap">
-        SELECT
-            employee_id,
-            username,
-            password,
-            boss_role
-        FROM employee
+        SELECT employee_id, username, password, boss_role 
+        FROM employee 
         WHERE username = #{username}
-
-
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="employeeId">
@@ -127,6 +123,16 @@
         )
     </insert>
 
+    <insert id="insertSubordinate">
+        INSERT INTO boss_subordinates (boss_id, subordinate_id)
+        VALUES (#{bossId}, #{subordinateId})
+    </insert>
+
+    <delete id="deleteSubordinate">
+        DELETE FROM boss_subordinates
+        WHERE boss_id = #{bossId} AND subordinate_id = #{subordinateId}
+    </delete>
+
     <update id="update" useGeneratedKeys="true" keyProperty="employeeId">
         UPDATE employee 
         SET
@@ -138,6 +144,13 @@
             username = #{username},
             password = #{password},
             email = #{email}
+        WHERE employee_id = #{employee_id}
+    </update>
+
+    <update id="reassignBoss">
+        UPDATE employee
+        SET
+            boss.boss_id = 1
         WHERE employee_id = #{employee_id}
     </update>
 

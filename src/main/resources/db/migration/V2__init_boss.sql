@@ -7,7 +7,7 @@ CREATE TABLE boss (
 );
 
 CREATE TABLE boss_subordinates (
-    boss_id BIGINT NOT NULL,
-    subordinate_id BIGINT NOT NULL,
+    boss_id BIGINT NOT NULL REFERENCES boss(boss_id) ON DELETE CASCADE,
+    subordinate_id BIGINT NOT NULL REFERENCES employee(employee_id) ON DELETE CASCADE,
     PRIMARY KEY (boss_id, subordinate_id)
 );

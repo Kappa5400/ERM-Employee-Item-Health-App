@@ -64,6 +64,7 @@ public class EmployeeController {
   @PostMapping()
   public ResponseEntity<Employee> insert(@Valid @RequestBody Employee employee) {
     log.info("Inserting new employee: {}", employee.getUsername());
+
     employeeService.insert(employee);
     return ResponseEntity.status(201).body(employee);
   }

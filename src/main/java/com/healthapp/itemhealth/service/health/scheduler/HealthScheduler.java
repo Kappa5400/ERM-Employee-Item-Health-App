@@ -1,9 +1,8 @@
 package com.healthapp.itemhealth.service.health.scheduler;
 
+import com.healthapp.itemhealth.service.HealthCheckService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import com.healthapp.itemhealth.service.HealthCheckService;
 
 @Component
 public class HealthScheduler {
@@ -19,9 +18,8 @@ public class HealthScheduler {
     healthCheckService.runHealthCheck();
   }
 
-  
-  @Scheduled(fixedRate= 604800000)
-  public void runCleanup(){
+  @Scheduled(fixedRate = 604800000)
+  public void runCleanup() {
     healthCheckService.cleanup();
   }
 }

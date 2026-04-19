@@ -22,8 +22,8 @@ public class EmployeeService {
   private final EmployeeMapper employeeMapper;
   private final BossMapper bossMapper;
 
-  public EmployeeService(EmployeeMapper employeeMapper, BossMapper bossMapper,
-     PasswordEncoder passwordEncoder) {
+  public EmployeeService(
+      EmployeeMapper employeeMapper, BossMapper bossMapper, PasswordEncoder passwordEncoder) {
     this.employeeMapper = employeeMapper;
     this.bossMapper = bossMapper;
     this.passwordEncoder = passwordEncoder;
@@ -55,14 +55,17 @@ public class EmployeeService {
     String hashed_password = passwordEncoder.encode(employee.getPassword());
     employee.setPassword(hashed_password);
     employeeMapper.insert(employee);
+
+    if (employee.isHasBoss())
+      employeeMapper.insertSub(employee.getBossUserId(), employee.getEmployeeId());
     if (employee.isBossRole() == true) {
       log.info("Turning employee object into boss...");
-      
-      Boss boss= new Boss();
+
+      Boss boss = new Boss();
       boss.setEmployeeId(employee.getEmployeeId());
       boss.setName(employee.getName());
       boss.setTitle(employee.getTitle());
-      
+
       bossMapper.insert(boss);
     }
   }
@@ -70,25 +73,23 @@ public class EmployeeService {
   @PreAuthorize("hasRole('BOSS')")
   public void delete(Long employeeId) {
     log.info("Checking if big boss...");
-    if (employeeId == 1){
+    if (employeeId == 1) {
       log.info("Is big boss.");
       return;
     }
     log.info("Checking if boss role...");
     Employee emp = getById(employeeId);
-    if (emp.isBossRole()){
+    if (emp.isBossRole()) {
       log.info("Is boss.");
       log.info("Reassigning subordinates to 1...");
-      // reassign subordinate to boss 1
-      
-      bossMapper.reassignSubordinatesToBigBoss(employeeId);
+
+      employeeMapper.reassignBoss(employeeId);
 
       log.info("Deleting from boss...");
-      
+
       bossMapper.delete(bossMapper.findByempId(employeeId).getBossId());
-      
-    }
-    else{
+
+    } else {
       log.info("Not boss.");
     }
     log.info("Deleting employee with ID: {}", employeeId);

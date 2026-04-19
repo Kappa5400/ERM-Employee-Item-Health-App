@@ -17,9 +17,15 @@ public interface EmployeeMapper {
 
   void insert(Employee employee);
 
+  void insertSub(@Param("bossId") Long bossId, @Param("subordinateId") Long subordinateId);
+
   void delete(Long employeeId);
 
+  void deleteSubordinate(@Param("bossId") Long bossId, @Param("subordinateId") Long subordinateId);
+
   void update(Employee employee);
+
+  void reassignBoss(Long employeeId);
 
   Employee login(@Param("username") String username);
 
