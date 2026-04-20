@@ -1,10 +1,9 @@
 test
 
 1. add handling for subordinates on boss delete
-2. add excel downlaod
-3. facion.ico setup
-4. fix mail showing only id of item, show employee name as well (employee name, item type, item id ect)
-5. retest all website manualy works, add testing
-6. documentation, instructions, api documentation (swagger?)
-7. edge case fixes 
-8. clean up comments, files, study the code
+2. input validate / fixing
+3. fix mail showing only id of item, show employee name as well (employee name, item type, item id ect)
+4. retest all website manualy works, add testing
+5. documentation, instructions, api documentation (swagger?)
+6. edge case fixes 
+7. clean up comments, files, study the code

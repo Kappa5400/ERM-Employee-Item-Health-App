@@ -1,18 +1,15 @@
 package com.healthapp.itemhealth.service;
 
+import com.healthapp.itemhealth.mapper.BossMapper;
+import com.healthapp.itemhealth.mapper.EmployeeMapper;
+import com.healthapp.itemhealth.model.Boss;
+import com.healthapp.itemhealth.model.Employee;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.healthapp.itemhealth.mapper.BossMapper;
-import com.healthapp.itemhealth.mapper.EmployeeMapper;
-import com.healthapp.itemhealth.model.Boss;
-import com.healthapp.itemhealth.model.Employee;
-
 
 @Service
 public class EmployeeService {
@@ -25,7 +22,10 @@ public class EmployeeService {
   private final ExcelService excelService;
 
   public EmployeeService(
-      EmployeeMapper employeeMapper, BossMapper bossMapper, PasswordEncoder passwordEncoder, ExcelService excelService) {
+      EmployeeMapper employeeMapper,
+      BossMapper bossMapper,
+      PasswordEncoder passwordEncoder,
+      ExcelService excelService) {
     this.employeeMapper = employeeMapper;
     this.bossMapper = bossMapper;
     this.passwordEncoder = passwordEncoder;
@@ -121,6 +121,4 @@ public class EmployeeService {
     log.info("Attempting to retrieve employee " + employeeID + " email...");
     return employeeMapper.getEmail(employeeID);
   }
-
- 
 }

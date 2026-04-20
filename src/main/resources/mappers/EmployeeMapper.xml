@@ -128,6 +128,13 @@
         VALUES (#{bossId}, #{subordinateId})
     </insert>
 
+    <insert id="insertSub">
+        INSERT INTO boss_subordinates (boss_id, subordinate_id)
+        SELECT boss_id, #{subordinateId}
+        FROM boss
+        WHERE employee_id = #{bossId}
+    </insert>
+
     <delete id="deleteSubordinate">
         DELETE FROM boss_subordinates
         WHERE boss_id = #{bossId} AND subordinate_id = #{subordinateId}
@@ -148,10 +155,9 @@
     </update>
 
     <update id="reassignBoss">
-        UPDATE employee
-        SET
-            boss.boss_id = 1
-        WHERE employee_id = #{employee_id}
+        UPDATE employee 
+        SET boss_id = 1 
+        WHERE boss_id = #{id}
     </update>
 
     <delete id="delete">

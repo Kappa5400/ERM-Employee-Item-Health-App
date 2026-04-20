@@ -38,8 +38,6 @@ public class HealthController {
   @Value("${mailhog.api.url}")
   private String mailhogUrl;
 
-  
-
   @GetMapping("/")
   public String showDashboard(Model model) {
 
@@ -185,7 +183,4 @@ public class HealthController {
 
     return restTemplate.getForObject(fullPath, Object.class);
   }
-
-  
-
 }
