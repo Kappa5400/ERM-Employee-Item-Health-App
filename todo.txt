@@ -5,6 +5,15 @@ when delete boss try assign subordinates to boss_id 1
 2. input validate / fixing
 3. fix mail showing only id of item, show employee name as well (employee name, item type, item id ect)
 4. retest all website manualy works, add testing
+5. fix deployment, add test in ci/cd
 5. documentation, instructions, api documentation (swagger?)
 6. edge case fixes 
 7. clean up comments, files, study the code
+
+also
+1. CSRF is disabled and H2 console is open in production — this is your biggest red flag. csrf.disable() and h2-console/** permitAll are in SecurityConfig. For a portfolio project claiming production-readiness, a Japanese interviewer looking at your code will catch this immediately. Comment it out with a note, or lock H2 down to test profile only.
+2. Secrets leaked in deploy.yml — the workflow exports DB_USERNAME and DB_PASSWORD inline as ${{ secrets.DB_USERNAME }} in a shell script passed over SSH. This is the right idea but the wrong execution: those values end up visible in process lists on the server. Use Docker's --env-file or a .env file approach instead. This is a security detail SIer companies care about deeply.
+3. The README has visible self-notes. Lines like #Need to lookup json web, logging and #note to self lookup if not using jsonwebtoken are still in the README. Clean those out entirely before sharing. Same for the WIP section headers with no content.
+4. boss / employee naming. In a Japanese professional context, "Boss" as a system term reads as informal. Consider Manager / Supervisor or keep it as Admin / User. Minor but it affects first impressions.
+5. The CI/CD pipeline has no test or lint step. Your README says it "ensures faulty code is never deployed," but deploy.yml only does git pull + docker compose up. There's no mvn test or fmt:check step in the workflow. Either add it or update the README — the mismatch is something a careful reader will notice.
+6. employeeId == 1 hardcoded as the "big boss." In EmployeeService.delete() you guard deletion with if (employeeId == 1) return. Magic numbers like this are a code smell. Introduce a constant or a isSuperAdmin() flag on the model.
