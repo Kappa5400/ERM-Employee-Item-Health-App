@@ -17,3 +17,8 @@ also
 4. boss / employee naming. In a Japanese professional context, "Boss" as a system term reads as informal. Consider Manager / Supervisor or keep it as Admin / User. Minor but it affects first impressions.
 5. The CI/CD pipeline has no test or lint step. Your README says it "ensures faulty code is never deployed," but deploy.yml only does git pull + docker compose up. There's no mvn test or fmt:check step in the workflow. Either add it or update the README — the mismatch is something a careful reader will notice.
 6. employeeId == 1 hardcoded as the "big boss." In EmployeeService.delete() you guard deletion with if (employeeId == 1) return. Magic numbers like this are a code smell. Introduce a constant or a isSuperAdmin() flag on the model.
+
+
+Swagger / OpenAPI docs. It's on your todo list — prioritize it. Japanese SIer companies love documentation-first culture. Auto-generated API docs via springdoc-openapi would take an hour and make a strong impression.
+Input validation error messages visible on the frontend. You have Bean Validation on the API side, but if form errors silently fail on the Thymeleaf pages, the UX feels broken.
+The mail body showing only item IDs (your todo #3) — fix this before demos. Getting an alert email that just says "item 42 needs renewal" looks unfinished.
