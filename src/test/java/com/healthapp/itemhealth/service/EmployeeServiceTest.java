@@ -130,8 +130,8 @@ public class EmployeeServiceTest {
 
   @Test
   void delete_Positive_InvokesMapper() {
-    employeeService.delete(1L);
-    verify(employeeMapper, times(1)).delete(1L);
+    employeeService.delete(2L);
+    verify(employeeMapper, times(1)).delete(2L);
   }
 
   @Test

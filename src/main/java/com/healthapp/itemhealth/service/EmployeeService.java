@@ -13,6 +13,7 @@ import com.healthapp.itemhealth.mapper.EmployeeMapper;
 import com.healthapp.itemhealth.model.Boss;
 import com.healthapp.itemhealth.model.Employee;
 
+
 @Service
 public class EmployeeService {
 
@@ -21,12 +22,14 @@ public class EmployeeService {
   private final PasswordEncoder passwordEncoder;
   private final EmployeeMapper employeeMapper;
   private final BossMapper bossMapper;
+  private final ExcelService excelService;
 
   public EmployeeService(
-      EmployeeMapper employeeMapper, BossMapper bossMapper, PasswordEncoder passwordEncoder) {
+      EmployeeMapper employeeMapper, BossMapper bossMapper, PasswordEncoder passwordEncoder, ExcelService excelService) {
     this.employeeMapper = employeeMapper;
     this.bossMapper = bossMapper;
     this.passwordEncoder = passwordEncoder;
+    this.excelService = excelService;
   }
 
   public Employee getById(long employeeId) {
@@ -118,4 +121,6 @@ public class EmployeeService {
     log.info("Attempting to retrieve employee " + employeeID + " email...");
     return employeeMapper.getEmail(employeeID);
   }
+
+ 
 }

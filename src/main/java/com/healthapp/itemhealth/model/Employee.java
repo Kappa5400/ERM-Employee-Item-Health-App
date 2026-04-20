@@ -1,9 +1,8 @@
 package com.healthapp.itemhealth.model;
 
-import java.time.LocalDateTime;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,5 +31,4 @@ public class Employee {
 
   private Boss boss;
   private String email;
- 
 }

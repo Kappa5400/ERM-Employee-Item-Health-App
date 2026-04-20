@@ -110,6 +110,8 @@ public class LaptopControllerTest {
   @WithMockUser(roles = "BOSS")
   @DisplayName("GET /api/laptop - Success")
   void getAll_Success() throws Exception {
+    Laptop laptop = new Laptop();
+
     when(laptopService.getAll()).thenReturn(Arrays.asList(sampleLaptop, sampleLaptop2));
 
     mockMvc

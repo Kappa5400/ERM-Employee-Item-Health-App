@@ -1,12 +1,15 @@
 package com.healthapp.itemhealth.controller;
 
-import com.healthapp.itemhealth.model.Employee;
-import com.healthapp.itemhealth.service.EmployeeService;
-import jakarta.validation.Valid;
+import java.io.ByteArrayInputStream;
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,6 +22,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.healthapp.itemhealth.model.Car;
+import com.healthapp.itemhealth.model.Employee;
+import com.healthapp.itemhealth.model.IDCard;
+import com.healthapp.itemhealth.model.Laptop;
+import com.healthapp.itemhealth.service.CarService;
+import com.healthapp.itemhealth.service.EmployeeService;
+import com.healthapp.itemhealth.service.ExcelService;
+import com.healthapp.itemhealth.service.IDCardService;
+import com.healthapp.itemhealth.service.LaptopService;
+
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/employee")
 @Validated
@@ -26,9 +41,20 @@ public class EmployeeController {
 
   private static final Logger log = LoggerFactory.getLogger(EmployeeController.class);
   private final EmployeeService employeeService;
+  private final CarService carService;
+  private final IDCardService idCardService;
+  private final LaptopService laptopService;
 
-  public EmployeeController(EmployeeService employeeService) {
+  private final ExcelService excelService;
+
+  public EmployeeController(EmployeeService employeeService, ExcelService excelService, CarService carService, 
+    IDCardService idCardService, LaptopService laptopService) {
     this.employeeService = employeeService;
+    this.carService = carService;
+    this.laptopService = laptopService;
+    this.idCardService = idCardService;
+    this.excelService = excelService;
+
   }
 
   @InitBinder
@@ -80,5 +106,25 @@ public class EmployeeController {
   public ResponseEntity<String> get(@PathVariable Long id) {
     log.info("Getting email of employee ID {}", id);
     return ResponseEntity.ok(employeeService.getEmail(id));
+  }
+
+  @GetMapping("/download")
+  public ResponseEntity<Resource> downloadEmployees() {
+    List<Employee> employees = employeeService.findAllEmployees();
+    List<Laptop> laptops = laptopService.getAll();
+    List<IDCard> idcard = idCardService.getAll();
+    List<Car> cars = carService.getAll();
+
+
+    ByteArrayInputStream in = excelService.employeesToExcel(employees, laptops, cars, idcard);
+
+
+    InputStreamResource file = new InputStreamResource(in);
+    return ResponseEntity.ok()
+        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=employees.xlsx")
+        .contentType(
+            MediaType.parseMediaType(
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+        .body(file);
   }
 }

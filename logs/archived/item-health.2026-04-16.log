@@ -1,0 +1,96 @@
+2026-04-12 20:32:27 [restartedMain] INFO  c.h.itemhealth.ItemhealthApplication - Starting ItemhealthApplication using Java 21.0.10 with PID 192 (/app/target/classes started by root in /app)
+2026-04-12 20:32:27 [restartedMain] INFO  c.h.itemhealth.ItemhealthApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 20:32:27 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-12 20:32:27 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-12 20:32:28 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-12 20:32:30 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-12 20:32:30 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-12 20:32:30 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-12 20:32:30 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-12 20:32:30 [restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2144 ms
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Scanning for classpath resources at 'classpath:db/callback' ...
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Determining location urls for classpath:db/callback using ClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@77d02fa7 ...
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Unable to resolve location classpath:db/callback.
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Scanning for classpath resources at 'classpath:db/migration' ...
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Determining location urls for classpath:db/migration using ClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@77d02fa7 ...
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Scanning URL: file:/app/target/classes/db/migration
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.c.FileSystemClassPathLocationScanner - Scanning starting at classpath root in filesystem: /app/target/classes/
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.c.FileSystemClassPathLocationScanner - Scanning for resources in path: /app/target/classes/db/migration (db/migration)
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Found resource: db/migration/V1__init_boss.sql
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Found resource: db/migration/V2__init_employee.sql
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Found resource: db/migration/V3__init_laptop.sql
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Found resource: db/migration/V4__init_car.sql
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Found resource: db/migration/V5__init_idcard.sql
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Found resource: db/migration/V6__data.sql
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Scanning for classpath resources at 'classpath:db/migration' ...
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Determining location urls for classpath:db/migration using ClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@77d02fa7 ...
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Scanning URL: file:/app/target/classes/db/migration
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Found resource: db/migration/V1__init_boss.sql
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Found resource: db/migration/V2__init_employee.sql
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Found resource: db/migration/V3__init_laptop.sql
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Found resource: db/migration/V4__init_car.sql
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Found resource: db/migration/V5__init_idcard.sql
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Found resource: db/migration/V6__data.sql
+2026-04-12 20:32:31 [restartedMain] DEBUG o.f.c.i.s.classpath.ClassPathScanner - Scanning for classes at classpath:db/migration
+2026-04-12 20:32:31 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 20:32:32 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@53fcfcb8
+2026-04-12 20:32:32 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.c.i.r.ResourceNameValidator - Validating V5__init_idcard.sql
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.c.i.r.ResourceNameValidator - Validating V4__init_car.sql
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.c.i.r.ResourceNameValidator - Validating V1__init_boss.sql
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.c.i.r.ResourceNameValidator - Validating V3__init_laptop.sql
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.c.i.r.ResourceNameValidator - Validating V6__data.sql
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.c.i.r.ResourceNameValidator - Validating V2__init_employee.sql
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.c.i.d.DatabaseTypeRegister - Multiple databases found that handle url 'jdbc:postgresql://db:5432/itemhealth': CockroachDB,PostgreSQL
+2026-04-12 20:32:32 [restartedMain] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://db:5432/itemhealth (PostgreSQL 15.17)
+2026-04-12 20:32:32 [restartedMain] DEBUG org.flywaydb.core.FlywayExecutor - Database Type: PostgreSQL
+2026-04-12 20:32:32 [restartedMain] DEBUG org.flywaydb.core.FlywayExecutor - Driver: PostgreSQL JDBC Driver 42.7.10
+2026-04-12 20:32:32 [restartedMain] DEBUG org.flywaydb.core.FlywayExecutor - DDL Transactions Supported: true
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.c.i.s.SchemaHistoryFactory - Schemas: 
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.c.i.s.SchemaHistoryFactory - Default schema: null
+2026-04-12 20:32:32 [restartedMain] DEBUG org.flywaydb.core.FlywayExecutor - Scanning for script callbacks ...
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.c.i.c.SqlScriptCallbackFactory - Scanning for SQL callbacks ...
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.command.DbValidate - Validating migrations ...
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.c.a.c.ClassicConfiguration - CherryPickConfigurationExtension not found
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V5__init_idcard.sql (filename: V5__init_idcard.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V4__init_car.sql (filename: V4__init_car.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V1__init_boss.sql (filename: V1__init_boss.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V3__init_laptop.sql (filename: V3__init_laptop.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V6__data.sql (filename: V6__data.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V2__init_employee.sql (filename: V2__init_employee.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V5__init_idcard.sql (filename: V5__init_idcard.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V4__init_car.sql (filename: V4__init_car.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V1__init_boss.sql (filename: V1__init_boss.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V3__init_laptop.sql (filename: V3__init_laptop.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V6__data.sql (filename: V6__data.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V2__init_employee.sql (filename: V2__init_employee.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V5__init_idcard.sql (filename: V5__init_idcard.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V4__init_car.sql (filename: V4__init_car.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V1__init_boss.sql (filename: V1__init_boss.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V3__init_laptop.sql (filename: V3__init_laptop.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V6__data.sql (filename: V6__data.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V2__init_employee.sql (filename: V2__init_employee.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V5__init_idcard.sql (filename: V5__init_idcard.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V4__init_car.sql (filename: V4__init_car.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V1__init_boss.sql (filename: V1__init_boss.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V3__init_laptop.sql (filename: V3__init_laptop.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V6__data.sql (filename: V6__data.sql)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.scanner.Scanner - Filtering out resource: db/migration/V2__init_employee.sql (filename: V2__init_employee.sql)
+2026-04-12 20:32:32 [restartedMain] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.305s)
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.core.internal.command.DbSchemas - Skipping creation of existing schema: "public"
+2026-04-12 20:32:32 [restartedMain] DEBUG o.f.c.a.c.ClassicConfiguration - CherryPickConfigurationExtension not found
+2026-04-12 20:32:32 [restartedMain] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": 6
+2026-04-12 20:32:32 [restartedMain] INFO  o.f.core.internal.command.DbMigrate - Schema "public" is up to date. No migration necessary.
+2026-04-12 20:32:32 [restartedMain] DEBUG org.flywaydb.core.FlywayExecutor - Memory usage: 55 of 65M
+2026-04-12 20:32:33 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userService
+2026-04-12 20:32:33 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-04-12 20:32:34 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-12 20:32:34 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-04-12 20:32:34 [restartedMain] INFO  c.h.itemhealth.ItemhealthApplication - Started ItemhealthApplication in 7.75 seconds (process running for 8.451)
+2026-04-12 22:33:47 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 71 class path changes (0 additions, 71 deletions, 0 modifications)
+2026-04-12 22:33:47 [Thread-1] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-12 22:33:47 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2026-04-12 22:33:47 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-12 22:33:47 [Thread-1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2026-04-12 22:33:47 [Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 22:33:47 [Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
