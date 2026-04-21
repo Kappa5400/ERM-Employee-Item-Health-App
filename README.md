@@ -1,38 +1,44 @@
 WIP
 Intro
-A basic application to track items an employee may have. Automatically sends email to boss users when an item needs servicing or renewel. 
+A basic application to track items an employee may have. Automatically sends email to boss users when an item needs servicing or renewal. 
 The website is deployed via digital ocean on the link below.
 
 https://itemhealtherm.tech/
 
-The goal of this project was to familiarize myself with the spring boot platform and to build somthing similar to a business application that might be built at a SIER company. I hope that this app shows I am ready to build business applications.
-The app has a cronjob that runs daily after midnight. It checks each registered item in the database and compares it to the new day: if an object requires some form of maintenence then an automatic email is sent to whoever is the boss of the item's owner. These emails are captured via Mailhog so that emails are not actually being sent out.
-This app has a working CI/CD pipeline using github actions docker, and unit and integration testing to build test and push each deployed change to the digital ocean's droplet (what digital ocean calls an instance of a server). The database used is postgres, has a mybatis mapper to map sql statements to the service layer, and Flywaydb to run db migrations. It uses the baked in spring routing and secruity for the rest of the backend. The frontend is thymeleaf, JS, html, and css hosted on the same spring-boot build so that cors configuration and all that wouldn't be necessary.
+The goal of this project was to familiarize myself with the spring boot platform and to build something similar to a business application that might be built at a SIER company. I hope that this app shows I am ready to build business applications.
+The app has a cronjob that runs daily after midnight. It checks each registered item in the database and compares it to the new day: if an object requires some form of maintenence then an automatic email is sent to whoever is the boss of the item's owner. These emails are captured via Mailhog so that emails are not actually being sent out. The employee data and item data can also be downlaoded as an excel file.
+This app has a working CI/CD pipeline using github actions docker, and unit and integration testing to build test and push each deployed change to the digital ocean's droplet (what digital ocean calls an instance of a server). The database used is postgres, has a mybatis mapper to map sql statements to the service layer, and Flywaydb to run db migrations. It uses the baked in spring routing and security for the rest of the backend. The frontend is thymeleaf, JS, html, and css hosted on the same spring-boot build for ease of set-up.
+
+
+Database Diagram
+https://github.com/Kappa5400/ERM-Employee-Item-Health-App/blob/master/Documentation/ER%20Chart.jpg
+
+System Diagram
+https://github.com/Kappa5400/ERM-Employee-Item-Health-App/blob/master/Documentation/Architecture%20Diagram.jpg
 
 Project Walkthrough System Architecture
 The webapp is built in one monolith architecture as the frontend uses the lightweight Thymeleaf framework, some JS scripting, and html and css only. The main purpose for this app was for me to try spring-boot dev for backend usage so a basic frontend was fine.
 
 Packages Used
-Security : Bcrypt, Jsonwebtoken, Spring-boot security
+Security : Bcrypt, Spring-boot security
 Utility: Cron, Spring-mail, Jackson, Mybatis, Flywaydb, Mailhog
 Testing: Spring-security testing, Junit
 Frontend: Thymeleaf
-#Need to lookup json web, logging
 
 Package Explination
 Security
-Spring-security: Spring-boot's baked in security, utalizing a security chain to authenticate requests. For the app, only boss users are allowed to do crud and view certain pages. This meant a login with password, password hashing, and authentication needs to be setup in the app. Spring-security served this purpose.
+Spring-security: Spring-boot's baked in security, utilizing a security chain to authenticate requests. For the app, only boss users are allowed to do crud and view certain pages. This meant a login with password, password hashing, and authentication needs to be setup in the app. Spring-security served this purpose.
 bcrypt: Hashing package for encrypting user passwords.
-#note to self lookup if not using jsonwebtoken
 
 Utility:
-axios: API Request package, used to send HTTP GET request to Lichess dailypuzzle backend. compression: Compresses HTTP responses. cors: Cross-Origin Resource Sharing, so that the backend api is accessable to the frontend.
-cron: An automatic script runner used to check for expiring or needing to be updated items. If it finds one, it sends an automatic email to the boss user of the items owner.
+Cron: An automatic script runner used to check for expiring or needing to be updated items. If it finds one, it sends an automatic email to the boss user of the items owner.
 Spring-mail: For sending the mail used in the cron-job script.
-Mailohg: Captures the emails being sent from the server.
+Mailhog: Captures the emails being sent from the server.
 Jackson: JSON Oobjectmapper to process JSOn from front end to backend.
 Mybatis: SQL mapper to make and connect SQL commands from backend service-layer to DB
 Flywaydb: Run db migrations
+spring-log: logging
+apache-poi: For exporting data to excel sheet
 
 Testing
 Spring-test: Built in spring testing for unit testing, integration testing.
@@ -73,20 +79,47 @@ File structure
 |     └────ItemhealthApplication.java # App entry point 
   
 Backend
-WIP
+
+
+Model
+The models for the DB. I implemented primary and foreign keys for table joins in mybatis, the main foreign key being the employee_id attribute. A boss is an employee and subordinates are employees. The healthreport is for setting up the automated email, it is initialized and collects information when the scheduled health service check is run automatically. IDCard, Laptop, and Cars are items assigned to an employee. The complete ER table can be seen above.
+
+
+Flywaydb
+For running database migrations for consistency across deployments. It sets up the schemas for the models in the database and initializes it, and also injects some dummy data for viewing.
+
+Mybatis (resourses mapper)
+Raw sql is mapped to methods here. It is mostly made up of crud logic that has some table joins mixed in when dealing with boss, subordinate, employee logic. All the items have the foreign key employee_id which connects an employee to an item.
+
+Mapper (backend)
+connects the mybatis made mapping methods to the backend and connects it to the service layer.
+
+Service
+Crud operations triggered from the routes / api endpoints to run the mybatis methods. Also includes authorization checks to make sure only boss users are able to change data.
+
+Health service
+The logic that checks the dates of each item to see if they require updating or renewal, and sends an email out if they do. The health service check can be triggered manually on the boss dashboard as well.
 
 Cron Job
-WIP
+The app currently uses a fixed rate counter to run the health check service automatically every day, and the clean up service every five days. This ensures the mailhog mailbox never becomes too full but there are still enough emails sent automatically so that mailhog can capture and show them.
+
+Excel service
+Uses apache-poi to export data to an excel sheet. The excel sheet can be downloaded from the frontend by clicking a button in the boss dashboard.
+
+Email service
+Spring-mail to send automatic emails should an item need to be renewed or updated. Sends to the email address of the boss of the employee with the expiring item. Mailhog captures this and displays it within the view email frontend view, accessible from the boss dashboard.
+
+Controller
+Backend API point, connect frontend to backend. Contains input validation. Also contains frontend controller in HealthController.java
 
 Security
-WIP
+Spring-security, has security filter chain and authorization logic. Redirects to login page if not logged in. Passwords are hashed with bcrypt before being saved to the data base.
 
 Frontend
-WIP
+Thymeleaf, fragments, css, and js script to handle logic. All crud applications are handled by the JS and sent to the controller, which does input validation and authorization testing.
 
 Testing
-WIP
-
+Unit testing and integration testing. Test good path and bad paths. Uses spring-test for testing and Junit for mocking models and functions. Each endpoint is tested to make sure the app works.
 
 CI/CD/Deployment
-The website server is hosted through Digital Ocean, where a droplet is setup and configured so that Github actions pushes each repo update to the server for CI/CD deployment. The server docker images are built on each GitHub push that passes linting and testing, ensuring faulty code is never deployed. Website IP masking and security from external attacks are prevented through the use of Cloudflare and a Digital Ocean firewall.
+The project has a CI/CD pipeline handled by github actions that tests, dockerizes, and deploys to the cloud server. The website server is hosted through Digital Ocean, where a droplet is setup and configured with nginx. Website IP masking and security from external attacks are prevented through the use of Cloudflare and a Digital Ocean firewall.
