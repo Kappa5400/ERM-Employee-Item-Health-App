@@ -18,4 +18,85 @@ URL
 システム体系
 URL
 
+フロントエンドとバークエンドは同じポートで作って一つのアプリになります。わざわざ複雑フロントエンドを作るより簡単や作り立てやすいのフロントエンドを目指して作りました。
+
+使用パッケージ
+セキュリティ: bcrypt, Spring-security
+ユーティリティ: Cron, Spring-mail, Jackson, Mybatis, Flywaydb, mailhog
+テスト: Spring-test, junit
+フロントエンド: Spring-routing, Thymleaf
+
+パッケージ解説
+セキュリティ
+Spring-security: Spring と一緒つけているセキュリティ機能。Security filterを作り出していると認証ハンデリング対応できます。アプリでいくつな可能はBoss立場必至を作ってこの
+認証確認は必要になりました。
+bcrypt: パスワードを暗号化（ハッシュ化）するためのパッケージ。
+
+ユーティリティ
+Cron:毎日同じとき自動スクリプトを稼働して欲しかったのでCron使いました。
+Spring-mail:自動メールを送るためにこのSpring-mailを使いました。
+Jackson: JSONオブジェクトの対応するためのパッケージになります。
+Mybatis:SIER会社近くにするためMybatisを使おうとしました。生SQL探索をマッピングしてServiceとつながります。
+Flywaydb:データベースの移行するためのパッケージです。
+Mailhog: メールを送るたびにMailhogを止めるとフロントエンドに表示できるように設定しました。
+Apache-poi: Excelファイルつくためにこのパッケージ使いました。
+
+テスト
+Spring-test: Springと付けているテストパッケージです。
+Junit:単位テストパッケージです。
+Mockito:　模擬パッケージです。
+
+フロントエンド
+Thymeleaf:　軽いフロントエンドフレームワーク。
+
+ファイル構成
+バックエンド
+
+|ERM-Employee-Item-Health-App/ 
+├──.devcontainer/ # Build settings for deployment. 
+├──.github/workflows/ # Github actions. 
+├──logs/ # Where logs end up. 
+├──Dockerfile/ # Dockerfile build setup 
+├──tests/ # Testing setup teardown files 
+├──docker-compose.yml/ # Docker build settings 
+|──Everything else in root: Standard spring-boot build files 
+├──src/ # The source code. 
+| └──test/ # Where the testing suite is, unit testing and integration testing. 
+| └──main/ # | └────resources/ # Front end and db migration files 
+| └────db/migrations/ # Flyway migration files for DB setup 
+| └────mappers# MyBatis sql mapping files 
+| └────static/js # JS script for frontend 
+| └────templates # HTML pages
+| └────application.yml/propertiex/logback # settings setup, logs 
+| └────java/com/healthapp/itemhealth/ # Backend 
+| └────config # Flyway config file.
+| └────controller # Controller layer. 
+| └────exception # Exception handler. 
+| └────mapper # Connect Mybatis to backend service layer 
+| └────model # Model layer 
+| └────security # Spring-security filter chain. 
+| └────service # service layer 
+| └────health # health template logic for health service 
+| └────scheduler # cronjob scripts 
+| └────ItemhealthApplication.java # App entry point
+
+
+バックエンド詳細
+
+
+
+セキュリティ
+Spring-securityでSecurity filterの認証制度します。
+
+フロントエンド詳細
+
+
+テスト、CI/CD、デプロイ
+テスト
+
+
+CI/CD
+
+
+デプロイ
 
