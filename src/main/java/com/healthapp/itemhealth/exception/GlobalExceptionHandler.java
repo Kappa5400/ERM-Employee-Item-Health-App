@@ -2,6 +2,7 @@ package com.healthapp.itemhealth.exception;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @ControllerAdvice
@@ -24,7 +26,6 @@ public class GlobalExceptionHandler {
         .getFieldErrors()
         .forEach(
             error -> {
-              // This line puts the validation failure into your item-health.log
               log.warn(
                   "Validation failed: Field '{}' - {}",
                   error.getField(),
@@ -44,6 +45,16 @@ public class GlobalExceptionHandler {
 
     // Redirect to the standard dashboard instead of showing an error page
     return "redirect:/";
+  }
+
+  // --- NEW: Clean handler for ResponseStatusExceptions ---
+  @ExceptionHandler(ResponseStatusException.class)
+  public ResponseEntity<String> handleResponseStatusException(ResponseStatusException ex) {
+    // This logs a quiet, single-line message instead of a giant stack trace
+    log.warn("Blocked request: {}", ex.getReason());
+    
+    // This sends the clean error message back to your JavaScript alert
+    return new ResponseEntity<>(ex.getReason(), ex.getStatusCode());
   }
 
   @ExceptionHandler(Exception.class)

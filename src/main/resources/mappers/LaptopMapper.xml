@@ -132,9 +132,9 @@
     <update id="update">
         UPDATE laptop SET
             os_version     = #{osVersion},
-            need_to_update = #{needToUpdate},
+            need_to_update = FALSE,
             laptop_year    = #{laptopYear},
-            to_renew       = #{toRenew},
+            to_renew       = FALSE,
             in_use         = #{inUse},
             employee_id    = #{employeeId},
             updated_at     = NOW()

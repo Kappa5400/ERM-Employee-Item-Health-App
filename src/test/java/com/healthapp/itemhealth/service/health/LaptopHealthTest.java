@@ -1,20 +1,20 @@
 package com.healthapp.itemhealth.service.health;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
-import com.healthapp.itemhealth.mapper.LaptopMapper;
-import com.healthapp.itemhealth.model.Laptop;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.healthapp.itemhealth.mapper.LaptopMapper;
+import com.healthapp.itemhealth.model.Laptop;
 
 @ExtendWith(MockitoExtension.class)
 public class LaptopHealthTest {
@@ -30,7 +30,7 @@ public class LaptopHealthTest {
     laptop = new Laptop();
     laptop.setLaptopId(101L);
     laptop.setLaptopYear(LocalDate.now().getYear() - 1);
-    laptop.setLastOSUpdate(LocalDateTime.now());
+    laptop.setLastOSUpdate(LocalDate.now());
 
     // Updated: osVersion is now an int
     laptop.setOsVersion(11);
@@ -39,7 +39,7 @@ public class LaptopHealthTest {
   @Test
   void checkUpdate_Positive_ReturnsTrueWhenOSTooOld() {
     // Logic: lastOSUpdate was 1+ year ago (MAX_OS_AGE = 1)
-    laptop.setLastOSUpdate(LocalDateTime.now().minusYears(1));
+    laptop.setLastOSUpdate(LocalDate.now().minusYears(1));
     assertTrue(laptopHealth.checkUpdate(laptop));
   }
 
@@ -59,7 +59,7 @@ public class LaptopHealthTest {
   @Test
   void performUpdate_InvokesMapperWithIntVersion() {
     // Triggering an OS update
-    laptop.setLastOSUpdate(LocalDateTime.now().minusYears(2));
+    laptop.setLastOSUpdate(LocalDate.now().minusYears(2));
 
     laptopHealth.performUpdate(laptop);
 

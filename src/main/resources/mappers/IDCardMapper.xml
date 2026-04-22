@@ -102,7 +102,7 @@
             last_renewed_date  = #{lastRenewedDate},
             need_to_renew_date = #{needToRenewDate},
             in_use             = #{inUse},
-            to_renew           = #{toRenew},
+            to_renew           = FALSE,
             updated_at         = NOW()
         WHERE id_card_id = #{idCardId}
     </update>

@@ -98,6 +98,12 @@
         WHERE username = #{username}
     </select>
 
+    <select id="existsByUsername" resultType="boolean">
+        SELECT COUNT(1)
+        FROM employee 
+        WHERE username = #{username}
+    </select>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="employeeId">
         INSERT INTO employee (
             name, 

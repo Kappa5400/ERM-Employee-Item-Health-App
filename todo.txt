@@ -2,8 +2,8 @@
 
 x Lock H2 console to test profile only, remove from SecurityConfig prod config
 x Fix CSRF — re-enable or add a note explaining why it's disabled
-Fix deploy.yml secrets — move to --env-file or .env approach
-Replace employeeId == 1 magic number with a constan tor isSuperAdmin() flag
+x Fix deploy.yml secrets — move to --env-file or .env approach
+ x Replace employeeId == 1 magic number with a constan tor isSuperAdmin() flag
 
 2. Bug fixes (broken functionality)
 

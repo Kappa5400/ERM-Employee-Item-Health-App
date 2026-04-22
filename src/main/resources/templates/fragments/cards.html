@@ -1,158 +1,112 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
   <body>
+    
     <div th:fragment="asset-view(employee, laptop, car, idcard)">
       <div class="card shadow-sm border-0" th:if="${employee != null}">
         <ul class="list-group list-group-flush">
-          <li
-            class="list-group-item d-flex justify-content-between align-items-center py-3"
-          >
+          <li class="list-group-item d-flex justify-content-between align-items-center py-3">
             <div>
               <i class="bi bi-laptop me-2"></i><strong>Laptop:</strong>
-              <span
-                th:text="${laptop != null ? laptop : 'None assigned'}"
-                th:classappend="${laptop?.needToUpdate} ? 'text-danger fw-bold' : ''"
-              ></span>
-              <span th:if="${laptop?.needToUpdate}" class="badge bg-danger ms-2"
-                >Update Required</span
-              >
+              <span th:text="${laptop != null ? laptop : 'None assigned'}"
+                    th:classappend="${laptop?.needToUpdate} ? 'text-danger fw-bold' : ''"></span>
+              <span th:if="${laptop?.needToUpdate}" class="badge bg-danger ms-2">Update Required</span>
             </div>
           </li>
 
-          <li
-            class="list-group-item d-flex justify-content-between align-items-center py-3"
-          >
+          <li class="list-group-item d-flex justify-content-between align-items-center py-3">
             <div>
               <i class="bi bi-car-front me-2"></i><strong>Car:</strong>
-              <span
-                th:text="${car != null ? car : 'None assigned'}"
-                th:classappend="${car?.toService} ? 'text-warning fw-bold' : ''"
-              ></span>
+              <span th:text="${car != null ? car : 'None assigned'}"
+                    th:classappend="${car?.toService} ? 'text-warning fw-bold' : ''"></span>
             </div>
           </li>
 
-          <li
-            class="list-group-item d-flex justify-content-between align-items-center py-3"
-          >
+          <li class="list-group-item d-flex justify-content-between align-items-center py-3">
             <div>
               <i class="bi bi-person-badge me-2"></i><strong>ID Card:</strong>
-              <span
-                th:text="${idcard != null ? idcard : 'None assigned'}"
-                th:classappend="${idcard?.toRenew} ? 'text-danger fw-bold' : ''"
-              ></span>
+              <span th:text="${idcard != null ? idcard : 'None assigned'}"
+                    th:classappend="${idcard?.toRenew} ? 'text-danger fw-bold' : ''"></span>
             </div>
           </li>
         </ul>
       </div>
     </div>
 
+
     <div th:fragment="asset-management(employee, laptop, car, idcard)">
       <script th:src="@{/js/item_handler.js}"></script>
+      
       <div class="card shadow-sm border-warning" th:if="${employee != null}">
         <ul class="list-group list-group-flush">
-          <li
-            class="list-group-item d-flex justify-content-between align-items-center py-3"
-          >
+          
+          <li class="list-group-item d-flex justify-content-between align-items-center py-3">
             <div>
               <strong>Laptop:</strong>
-              <span
-                th:text="${laptop != null ? laptop : 'None assigned'}"
-              ></span>
+              <span th:text="${laptop != null ? laptop : 'None assigned'}"></span>
             </div>
             <div th:if="${laptop != null}" class="btn-group">
-              <a
-                th:href="@{/laptop/edit/{id}(id=${laptop.laptopId})}"
-                class="btn btn-sm btn-outline-primary"
-                >Update</a
-              >
-              <button
-                type="button"
-                class="btn btn-sm btn-outline-danger ms-1"
-                th:onclick="deleteItem('laptop', [[${laptop.laptopId}]])"
-              >
+              <a th:href="@{/laptop/edit/{id}(id=${laptop.laptopId})}" class="btn btn-sm btn-outline-primary">Update</a>
+              <button type="button" class="btn btn-sm btn-outline-danger ms-1" 
+                      data-type="laptop" 
+                      th:data-id="${laptop.laptopId}" 
+                      onclick="deleteItem(this.getAttribute('data-type'), this.getAttribute('data-id'))">
                 Delete
               </button>
             </div>
             <div th:unless="${laptop != null}">
-              <a
-                th:href="@{/laptop/create/{id}(id=${employee.employeeId})}"
-                class="btn btn-sm btn-success"
-                >Create</a
-              >
+              <a th:href="@{/laptop/create/{id}(id=${employee.employeeId})}" class="btn btn-sm btn-success">Create</a>
             </div>
           </li>
 
-          <li
-            class="list-group-item d-flex justify-content-between align-items-center py-3"
-          >
+          <li class="list-group-item d-flex justify-content-between align-items-center py-3">
             <div>
               <strong>Car:</strong>
               <span th:text="${car != null ? car : 'None assigned'}"></span>
             </div>
             <div th:if="${car != null}" class="btn-group">
-              <a
-                th:href="@{/car/edit/{id}(id=${car.carId})}"
-                class="btn btn-sm btn-outline-primary"
-                >Update</a
-              >
-              <button
-                type="button"
-                class="btn btn-sm btn-outline-danger ms-1"
-                th:onclick="deleteItem('car', [[${car.carId}]])"
-              >
+              <a th:href="@{/car/edit/{id}(id=${car.carId})}" class="btn btn-sm btn-outline-primary">Update</a>
+              <button type="button" class="btn btn-sm btn-outline-danger ms-1" 
+                      data-type="car" 
+                      th:data-id="${car.carId}" 
+                      onclick="deleteItem(this.getAttribute('data-type'), this.getAttribute('data-id'))">
                 Delete
               </button>
             </div>
             <div th:unless="${car != null}">
-              <a
-                th:href="@{/car/create/{id}(id=${employee.employeeId})}"
-                class="btn btn-sm btn-success"
-                >Create</a
-              >
+              <a th:href="@{/car/create/{id}(id=${employee.employeeId})}" class="btn btn-sm btn-success">Create</a>
             </div>
           </li>
 
-          <li
-            class="list-group-item d-flex justify-content-between align-items-center py-3"
-          >
+          <li class="list-group-item d-flex justify-content-between align-items-center py-3">
             <div>
               <strong>ID Card:</strong>
-              <span
-                th:text="${idcard != null ? idcard : 'None assigned'}"
-              ></span>
+              <span th:text="${idcard != null ? idcard : 'None assigned'}"></span>
             </div>
             <div th:if="${idcard != null}" class="btn-group">
-              <a
-                th:href="@{/id-card/edit/{id}(id=${idcard.idCardId})}"
-                class="btn btn-sm btn-outline-primary"
-                >Update</a
-              >
-              <button
-                type="button"
-                class="btn btn-sm btn-outline-danger ms-1"
-                th:onclick="deleteItem('id-card', [[${idcard.idCardId}]])"
-              >
+              <a th:href="@{/id-card/edit/{id}(id=${idcard.idCardId})}" class="btn btn-sm btn-outline-primary">Update</a>
+              <button type="button" class="btn btn-sm btn-outline-danger ms-1" 
+                      data-type="id-card" 
+                      th:data-id="${idcard.idCardId}" 
+                      onclick="deleteItem(this.getAttribute('data-type'), this.getAttribute('data-id'))">
                 Delete
               </button>
             </div>
             <div th:unless="${idcard != null}">
-              <a
-                th:href="@{/id-card/create/{id}(id=${employee.employeeId})}"
-                class="btn btn-sm btn-success"
-                >Create</a
-              >
+              <a th:href="@{/id-card/create/{id}(id=${employee.employeeId})}" class="btn btn-sm btn-success">Create</a>
             </div>
           </li>
+
           <li class="list-group-item py-3 bg-light">
-            <button
-                type="button"
-                class="btn btn-sm btn-outline-danger ms-1"
-                th:onclick="deleteEmployee([[${employee.employeeId}]], [[${employee.name}]])"
-            >
-                <i class="bi bi-person-x"></i> Delete Employee
-            </button>
-        </li>
-      </div>
+              <button type="button" class="btn btn-sm btn-outline-danger ms-1" 
+                      th:data-id="${employee.employeeId}" 
+                      th:data-name="${employee.name}" 
+                      onclick="deleteEmployee(this.getAttribute('data-id'), this.getAttribute('data-name'))">
+                  <i class="bi bi-person-x"></i> Delete Employee
+              </button>
+          </li>
+          
+        </ul> </div>
     </div>
     
   </body>

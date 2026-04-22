@@ -96,14 +96,15 @@
             car_year               = #{carYear},
             milage                 = #{milage},
             last_serviced          = #{lastServiced},
-            to_service             = #{toService},
+            to_service             = FALSE,
             need_to_service_date   = #{needToServiceDate},
             last_insurance_renewal = #{lastInsuranceRenewal},
             insurance_expire_date  = #{insuranceExpireDate},
-            to_renew_insurance     = #{toRenewInsurance},
+            to_renew_insurance     = FALSE,
             in_use                 = #{inUse},
             employee_id            = #{employeeId},
-            updated_at             = NOW()
+            updated_at             = NOW(),
+            to_replace             = FALSE
         WHERE car_id = #{carId}
     </update>
 

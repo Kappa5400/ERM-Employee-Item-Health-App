@@ -1,15 +1,19 @@
 package com.healthapp.itemhealth.service;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.healthapp.itemhealth.mapper.BossMapper;
 import com.healthapp.itemhealth.mapper.EmployeeMapper;
 import com.healthapp.itemhealth.model.Boss;
 import com.healthapp.itemhealth.model.Employee;
-import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService {
@@ -54,14 +58,28 @@ public class EmployeeService {
 
   @PreAuthorize("hasRole('BOSS')")
   public void insert(Employee employee) {
+    
+    // 1. Check for duplicates
+    if (employeeMapper.existsByUsername(employee.getUsername())) {
+        throw new ResponseStatusException(
+            HttpStatus.BAD_REQUEST, 
+            "The username '" + employee.getUsername() + "' is already taken."
+        );
+    } // <-- Added the closing brace here!
+
+    // 2. Proceed with saving
     log.info("Inserting new employee: {}", employee.getUsername());
     String hashed_password = passwordEncoder.encode(employee.getPassword());
     employee.setPassword(hashed_password);
     employeeMapper.insert(employee);
 
-    if (employee.isHasBoss())
+    // 3. Handle Relationships
+    if (employee.isHasBoss()) {
       employeeMapper.insertSub(employee.getBossUserId(), employee.getEmployeeId());
-    if (employee.isBossRole() == true) {
+    }
+
+    // 4. Handle Boss Role
+    if (employee.isBossRole()) { // Cleaned up the '== true'
       log.info("Turning employee object into boss...");
 
       Boss boss = new Boss();
@@ -76,13 +94,14 @@ public class EmployeeService {
   @PreAuthorize("hasRole('BOSS')")
   public void delete(Long employeeId) {
     log.info("Checking if big boss...");
-    // to do: delete below, impliment is super check method instead
-    if (employeeId == 1) {
+    Employee emp = getById(employeeId);
+
+    if (emp.isBossRole() && !emp.isHasBoss()) {
       log.info("Is big boss.");
       return;
     }
     log.info("Checking if boss role...");
-    Employee emp = getById(employeeId);
+    
     if (emp.isBossRole()) {
       log.info("Is boss.");
       log.info("Reassigning subordinates to 1...");
@@ -122,4 +141,10 @@ public class EmployeeService {
     log.info("Attempting to retrieve employee " + employeeID + " email...");
     return employeeMapper.getEmail(employeeID);
   }
-}
+
+ 
+
+  }
+
+
+

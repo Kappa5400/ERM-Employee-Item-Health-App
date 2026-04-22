@@ -1,5 +1,6 @@
 package com.healthapp.itemhealth.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,7 +20,7 @@ public class Laptop {
   @JsonProperty("laptopId")
   private Long LaptopId;
   @Positive private int osVersion;
-  private LocalDateTime lastOSUpdate;
+  private LocalDate lastOSUpdate;
   private boolean needToUpdate;
   // make default for laptopYear so not null for health logic
   @NotNull private int laptopYear;

@@ -1,9 +1,11 @@
 package com.healthapp.itemhealth.mapper;
 
-import com.healthapp.itemhealth.model.Employee;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.healthapp.itemhealth.model.Employee;
 
 @Mapper
 public interface EmployeeMapper {
@@ -32,4 +34,7 @@ public interface EmployeeMapper {
   void updatePassword(Long employeeId, String password);
 
   String getEmail(Long emplyoeeId);
+
+  
+  boolean existsByUsername(String username);
 }
