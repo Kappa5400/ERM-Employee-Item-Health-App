@@ -54,7 +54,7 @@
             b.employee_id AS boss_id
         FROM employee e
         LEFT JOIN boss_subordinates bs ON e.employee_id = bs.subordinate_id
-        LEFT JOIN boss b ON bs.boss_id = b.employee_id
+        LEFT JOIN boss b ON bs.boss_id = b.boss_id
         ORDER BY e.employee_id ASC
     </select>
 

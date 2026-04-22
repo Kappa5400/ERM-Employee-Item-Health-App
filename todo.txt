@@ -22,3 +22,13 @@ also
 Swagger / OpenAPI docs. It's on your todo list — prioritize it. Japanese SIer companies love documentation-first culture. Auto-generated API docs via springdoc-openapi would take an hour and make a strong impression.
 Input validation error messages visible on the frontend. You have Bean Validation on the API side, but if form errors silently fail on the Thymeleaf pages, the UX feels broken.
 The mail body showing only item IDs (your todo #3) — fix this before demos. Getting an alert email that just says "item 42 needs renewal" looks unfinished.
+
+
+current email
+        String emailAddress = emailService.getBossEmail(employee);
+ is used, but employee won't update with boss email info when assigned to subordinate currently
+need to fix
+
+after an item updates, set the to renew ect bools in sql all to false.
+if item still needs renwe, it will retrigger to true after next script run 
+won't have to fidget with logic and io for that
