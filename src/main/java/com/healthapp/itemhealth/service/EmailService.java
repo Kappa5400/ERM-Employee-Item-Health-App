@@ -1,16 +1,14 @@
 package com.healthapp.itemhealth.service;
 
+import com.healthapp.itemhealth.model.Boss;
+import com.healthapp.itemhealth.model.Employee;
+import com.healthapp.itemhealth.model.HealthReport;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
-import com.healthapp.itemhealth.model.Boss;
-import com.healthapp.itemhealth.model.Employee;
-import com.healthapp.itemhealth.model.HealthReport;
 
 @Service
 public class EmailService {
@@ -49,7 +47,7 @@ public class EmailService {
     String bossEmail = bossEmp.getEmail();
 
     System.out.println("Debug, boss email = {bossEmail}");
-    
+
     return bossEmail;
   }
 

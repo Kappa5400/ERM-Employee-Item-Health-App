@@ -64,6 +64,8 @@ public class BossService {
   @PreAuthorize("hasRole('BOSS')")
   @Transactional
   public void delete(Long bossId) {
+    log.info("Reassigning subordinates to big boss before deleting...");
+    bossMapper.reassignSubordinatesToBigBoss(bossId);
     log.info("Deleting boss record with ID: {}", bossId);
     bossMapper.delete(bossId);
   }

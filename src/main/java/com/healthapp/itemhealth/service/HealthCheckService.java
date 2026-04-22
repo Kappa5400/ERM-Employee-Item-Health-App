@@ -1,14 +1,5 @@
 package com.healthapp.itemhealth.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
 import com.healthapp.itemhealth.model.Car;
 import com.healthapp.itemhealth.model.Employee;
 import com.healthapp.itemhealth.model.HealthReport;
@@ -17,6 +8,13 @@ import com.healthapp.itemhealth.model.Laptop;
 import com.healthapp.itemhealth.service.health.CarHealth;
 import com.healthapp.itemhealth.service.health.IDCardHealth;
 import com.healthapp.itemhealth.service.health.LaptopHealth;
+import java.util.ArrayList;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class HealthCheckService {
@@ -103,7 +101,7 @@ public class HealthCheckService {
       log.info(updateItems.size() + " items to update.");
 
       if (updateItems.size() != 0) {
-        
+
         log.info("Getting boss email...");
         String emailAddress = emailService.getBossEmail(employee);
         if (emailAddress == null) {

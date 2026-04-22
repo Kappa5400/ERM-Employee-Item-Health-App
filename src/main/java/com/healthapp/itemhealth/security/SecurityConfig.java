@@ -18,9 +18,7 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http
-        // 1. Disable CSRF for development (Allows H2 and POST requests to work easily)
-        .csrf(csrf -> csrf.disable())
+    http.csrf(Customizer.withDefaults())
 
         // 2. Configure Frame Options so the H2 Console can display in your browser
         .headers(headers -> headers.frameOptions(f -> f.sameOrigin()))
@@ -28,11 +26,7 @@ public class SecurityConfig {
         // 3. Authorization Rules (ORDER MATTERS: Specific to General)
         .authorizeHttpRequests(
             auth ->
-                auth
-                    // Publicly accessible paths
-                    .requestMatchers("/h2-console/**")
-                    .permitAll()
-                    .requestMatchers("/login", "/css/**", "/js/**")
+                auth.requestMatchers("/login", "/css/**", "/js/**")
                     .permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/public/**")
                     .permitAll()

@@ -16,7 +16,7 @@
         <result property="password"   column="password"/>
         <result property="email"      column="email"/>
         <association property="boss" javaType="com.healthapp.itemhealth.model.Boss">
-            <id property="employeeId" column="boss_id"/>
+            <id property="employeeId" column="boss_employee_id"/>
         </association>
         
     </resultMap>
@@ -51,7 +51,7 @@
             e.boss_role, 
             e.has_boss, 
             e.email,
-            b.employee_id AS boss_id
+            b.employee_id AS boss_employee_id
         FROM employee e
         LEFT JOIN boss_subordinates bs ON e.employee_id = bs.subordinate_id
         LEFT JOIN boss b ON bs.boss_id = b.boss_id

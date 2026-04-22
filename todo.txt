@@ -1,34 +1,54 @@
-test
+1. Security (biggest red flag — do first)
 
-1. add handling for subordinates on boss delete
-when delete boss try assign subordinates to boss_id 1
-2. input validate / fixing
-3. fix mail showing only id of item, show employee name as well (employee name, item type, item id ect)
-4. retest all website manualy works, add testing
-5. fix deployment, add test in ci/cd
-5. documentation, instructions, api documentation (swagger?)
-6. edge case fixes 
-7. clean up comments, files, study the code
+Lock H2 console to test profile only, remove from SecurityConfig prod config
+Fix CSRF — re-enable or add a note explaining why it's disabled
+Fix deploy.yml secrets — move to --env-file or .env approach
+Replace employeeId == 1 magic number with a constan tor isSuperAdmin() flag
 
-also
-1. CSRF is disabled and H2 console is open in production — this is your biggest red flag. csrf.disable() and h2-console/** permitAll are in SecurityConfig. For a portfolio project claiming production-readiness, a Japanese interviewer looking at your code will catch this immediately. Comment it out with a note, or lock H2 down to test profile only.
-2. Secrets leaked in deploy.yml — the workflow exports DB_USERNAME and DB_PASSWORD inline as ${{ secrets.DB_USERNAME }} in a shell script passed over SSH. This is the right idea but the wrong execution: those values end up visible in process lists on the server. Use Docker's --env-file or a .env file approach instead. This is a security detail SIer companies care about deeply.
-3. The README has visible self-notes. Lines like #Need to lookup json web, logging and #note to self lookup if not using jsonwebtoken are still in the README. Clean those out entirely before sharing. Same for the WIP section headers with no content.
-4. boss / employee naming. In a Japanese professional context, "Boss" as a system term reads as informal. Consider Manager / Supervisor or keep it as Admin / User. Minor but it affects first impressions.
-5. The CI/CD pipeline has no test or lint step. Your README says it "ensures faulty code is never deployed," but deploy.yml only does git pull + docker compose up. There's no mvn test or fmt:check step in the workflow. Either add it or update the README — the mismatch is something a careful reader will notice.
-6. employeeId == 1 hardcoded as the "big boss." In EmployeeService.delete() you guard deletion with if (employeeId == 1) return. Magic numbers like this are a code smell. Introduce a constant or a isSuperAdmin() flag on the model.
+2. Bug fixes (broken functionality)
 
+Fix ID card forms
+Fix expire/renew logic and verify it's correct
+After item updates, set all to_renew/to_replace/to_service bools back to false in SQL
+Fix login error handling — add alerts, validate required fields like email
+Fix mail body — show employee name, item type, item ID together properly
 
-Swagger / OpenAPI docs. It's on your todo list — prioritize it. Japanese SIer companies love documentation-first culture. Auto-generated API docs via springdoc-openapi would take an hour and make a strong impression.
-Input validation error messages visible on the frontend. You have Bean Validation on the API side, but if form errors silently fail on the Thymeleaf pages, the UX feels broken.
-The mail body showing only item IDs (your todo #3) — fix this before demos. Getting an alert email that just says "item 42 needs renewal" looks unfinished.
+3. Input validation
 
+Add server-side validation on all forms (employee create/edit, items)
+Add frontend alerts for missing/invalid fields
+Handle edge cases — employee with no boss, items with no employee, etc.
 
-current email
-        String emailAddress = emailService.getBossEmail(employee);
- is used, but employee won't update with boss email info when assigned to subordinate currently
-need to fix
+4. Manual retest of full site
 
-after an item updates, set the to renew ect bools in sql all to false.
-if item still needs renwe, it will retrigger to true after next script run 
-won't have to fidget with logic and io for that
+Walk every page and form end to end
+Boss dashboard, employee pages, all item CRUD
+Email flow triggered correctly
+Login/logout, auth guards working
+
+5. Automated testing
+
+Unit tests for health check + email flow (the core feature)
+Fix/complete existing test files
+Add CI/CD test step — mvn test in deploy.yml before deploy
+Verify README claim about "faulty code never deployed" matches reality
+
+6. Cleanup
+
+Remove all System.out.println debug lines
+Remove dead boss_id column from employee table (or add a comment)
+Remove dead boss_email mapping from result map
+Clean README — remove all self-notes, WIP headers, #note to self lines
+Consider renaming Boss → Manager or Supervisor
+
+7. Documentation
+
+Clean README with setup instructions, how to run, architecture overview
+Swagger/OpenAPI for the API endpoints
+Add inline code comments where logic is non-obvious
+
+8. Later / nice to have
+
+Replace magic big boss reassignment with proper admin role
+Admin authentication layer separate from boss role
+Restrict item manipulation to own subordinates unless admin

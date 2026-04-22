@@ -76,6 +76,7 @@ public class EmployeeService {
   @PreAuthorize("hasRole('BOSS')")
   public void delete(Long employeeId) {
     log.info("Checking if big boss...");
+    // to do: delete below, impliment is super check method instead
     if (employeeId == 1) {
       log.info("Is big boss.");
       return;
@@ -86,7 +87,7 @@ public class EmployeeService {
       log.info("Is boss.");
       log.info("Reassigning subordinates to 1...");
 
-      employeeMapper.reassignBoss(employeeId);
+      bossMapper.reassignSubordinatesToBigBoss(employeeId);
 
       log.info("Deleting from boss...");
 

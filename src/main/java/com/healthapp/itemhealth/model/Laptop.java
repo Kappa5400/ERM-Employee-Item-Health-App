@@ -1,8 +1,11 @@
 package com.healthapp.itemhealth.model;
 
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Laptop {
+  @JsonProperty("laptopId")
   private Long LaptopId;
   @Positive private int osVersion;
   private LocalDateTime lastOSUpdate;

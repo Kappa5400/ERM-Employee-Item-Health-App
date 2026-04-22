@@ -2,6 +2,11 @@ document.addEventListener("DOMContentLoaded", () => {
   loadBosses();
 });
 
+const getCsrf = () => ({
+  token: document.querySelector('meta[name="_csrf"]')?.getAttribute("content"),
+  header: document.querySelector('meta[name="_csrf_header"]')?.getAttribute("content")
+});
+
 async function loadBosses() {
   const selectElement = document.getElementById("bossUserId");
   if (!selectElement) return;
@@ -63,7 +68,8 @@ async function saveData() {
     document.getElementById("emp-boss-role").value === "true";
   const hasBossValue = document.getElementById("emp-has-boss").value === "true";
   const isCreate = document.getElementById("isCreate")?.value === "true";
-  const csrfToken = document.querySelector('input[name="_csrf"]')?.value;
+  const csrfToken = document.querySelector('meta[name="_csrf"]')?.getAttribute("content");
+  const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.getAttribute("content");
 
   const payload = {
     employeeId: Number(employeeIdValue),
@@ -122,7 +128,7 @@ async function saveData() {
     method: method,
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-TOKEN": csrfToken, // CSRF対策
+      [csrfHeader]: csrfToken,
     },
     body: JSON.stringify(payload),
   });
@@ -145,8 +151,9 @@ async function deleteItem(type, id) {
   // 1. 確認ダイアログ
   if (!confirm(`本当にこの ${type} を削除してもよろしいですか？`)) return;
 
-  // 2. CSRFトークンの取得
-  const csrfToken = document.querySelector('input[name="_csrf"]')?.value;
+  const { token, header } = getCsrf();
+
+ 
 
   // 3. URLの構築 (REST APIの標準的な形式: /api/laptop/123)
   const url = `/api/${type}/${id}`;
@@ -157,7 +164,7 @@ async function deleteItem(type, id) {
     const response = await fetch(url, {
       method: "DELETE",
       headers: {
-        "X-CSRF-TOKEN": csrfToken, // Spring Security対策
+        [csrfHeader]: csrfToken,
       },
     });
 
@@ -183,14 +190,14 @@ async function deleteEmployee(id, name) {
   )
     return;
 
-  const csrfToken = document.querySelector('input[name="_csrf"]')?.value;
+  
   const url = `/api/employee/${id}`;
-
+  const { token, header } = getCsrf();
   try {
     const response = await fetch(url, {
       method: "DELETE",
       headers: {
-        "X-CSRF-TOKEN": csrfToken,
+        [csrfHeader]: csrfToken,
       },
     });
 
@@ -220,7 +227,8 @@ async function saveEmployee() {
     ? document.getElementById("bossUserId").value
     : null;
 
-  const csrfToken = document.querySelector('input[name="_csrf"]')?.value;
+  const csrfToken = document.querySelector('meta[name="_csrf"]')?.getAttribute("content");
+  const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.getAttribute("content");
 
   // 3. Construct the payload
   const payload = {
@@ -243,7 +251,7 @@ async function saveEmployee() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRF-TOKEN": csrfToken,
+        [csrfHeader]: csrfToken,
       },
       body: JSON.stringify(payload),
     });
