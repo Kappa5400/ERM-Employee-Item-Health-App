@@ -5,7 +5,26 @@ on:
     branches: [master]
 
 jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'     
+          distribution: 'temurin'
+          cache: maven            
+
+      - name: Run Unit & Integration Tests
+
+        run: mvn clean test
+
   deploy:
+    needs: test 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -16,7 +35,6 @@ jobs:
         env:
           DB_USER: ${{ secrets.DB_USERNAME }}
           DB_PASS: ${{ secrets.DB_PASSWORD }}
-          # We define the SSH user here so we can use it safely in the script
           APP_DIR_USER: ${{ secrets.SSH_USER }} 
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -24,23 +42,19 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           envs: DB_USER,DB_PASS,APP_DIR_USER
           script: |
-            # 1. Use the secure bash variable ($APP_DIR_USER) instead of raw injection
             cd /home/$APP_DIR_USER/ERM-Employee-Item-Health-App
             
-            # 2. Operational Safety: Prevent 'git pull' merge conflicts
+            # 1. Sync Code
             git fetch origin
             git reset --hard origin/master
 
-            ls -la
-
-            # 3. Security Fix: Read from the secure bash variables ($DB_USER, $DB_PASS)
-            # Writing to .env is safer than global 'export' commands
+            # 2. Secure Credentials
             echo "DB_USERNAME=$DB_USER" > .env
             echo "DB_PASSWORD=$DB_PASS" >> .env
 
-            # 4. Restart Docker Compose
+            # 3. Restart Services
             /usr/bin/docker compose -f docker-compose.yml down
             /usr/bin/docker compose -f docker-compose.yml up -d --build
             
-            # 5. Clean up the credentials so they aren't left sitting on the server
+            # 4. Clean Up
             rm .env
