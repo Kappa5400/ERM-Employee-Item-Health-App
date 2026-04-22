@@ -33,22 +33,12 @@ Fix/complete existing test files
 Add CI/CD test step — mvn test in deploy.yml before deploy
 Verify README claim about "faulty code never deployed" matches reality
 
-6. Cleanup
-
-Remove all System.out.println debug lines
-Remove dead boss_id column from employee table (or add a comment)
-Remove dead boss_email mapping from result map
-Clean README — remove all self-notes, WIP headers, #note to self lines
-Consider renaming Boss → Manager or Supervisor
 
 7. Documentation
 
 Clean README with setup instructions, how to run, architecture overview
-Swagger/OpenAPI for the API endpoints
-Add inline code comments where logic is non-obvious
+
 
 8. Later / nice to have
 
 Replace magic big boss reassignment with proper admin role
-Admin authentication layer separate from boss role
-Restrict item manipulation to own subordinates unless admin

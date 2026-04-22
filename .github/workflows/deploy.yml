@@ -13,20 +13,34 @@ jobs:
 
       - name: Deploy to Droplet via SSH
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          DB_USER: ${{ secrets.DB_USERNAME }}
+          DB_PASS: ${{ secrets.DB_PASSWORD }}
+          # We define the SSH user here so we can use it safely in the script
+          APP_DIR_USER: ${{ secrets.SSH_USER }} 
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: DB_USER,DB_PASS,APP_DIR_USER
           script: |
-            cd /home/${{ secrets.SSH_USER }}/ERM-Employee-Item-Health-App
-            git pull origin master
+            # 1. Use the secure bash variable ($APP_DIR_USER) instead of raw injection
+            cd /home/$APP_DIR_USER/ERM-Employee-Item-Health-App
+            
+            # 2. Operational Safety: Prevent 'git pull' merge conflicts
+            git fetch origin
+            git reset --hard origin/master
 
-            # List files to verify docker-compose.yml exists
             ls -la
 
-            export DB_USERNAME=${{ secrets.DB_USERNAME }}
-            export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            # 3. Security Fix: Read from the secure bash variables ($DB_USER, $DB_PASS)
+            # Writing to .env is safer than global 'export' commands
+            echo "DB_USERNAME=$DB_USER" > .env
+            echo "DB_PASSWORD=$DB_PASS" >> .env
 
-            # Use the -f flag to be 100% explicit about the file location
+            # 4. Restart Docker Compose
             /usr/bin/docker compose -f docker-compose.yml down
             /usr/bin/docker compose -f docker-compose.yml up -d --build
+            
+            # 5. Clean up the credentials so they aren't left sitting on the server
+            rm .env
