@@ -164,7 +164,7 @@ async function deleteItem(type, id) {
     const response = await fetch(url, {
       method: "DELETE",
       headers: {
-        [csrfHeader]: csrfToken,
+        [header]: token,
       },
     });
 
@@ -197,7 +197,7 @@ async function deleteEmployee(id, name) {
     const response = await fetch(url, {
       method: "DELETE",
       headers: {
-        [csrfHeader]: csrfToken,
+        [header]: token,
       },
     });
 

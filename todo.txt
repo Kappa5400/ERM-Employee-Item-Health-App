@@ -1,7 +1,7 @@
 1. Security (biggest red flag — do first)
 
-Lock H2 console to test profile only, remove from SecurityConfig prod config
-Fix CSRF — re-enable or add a note explaining why it's disabled
+x Lock H2 console to test profile only, remove from SecurityConfig prod config
+x Fix CSRF — re-enable or add a note explaining why it's disabled
 Fix deploy.yml secrets — move to --env-file or .env approach
 Replace employeeId == 1 magic number with a constan tor isSuperAdmin() flag
 
