@@ -1,11 +1,16 @@
 name: Deploy to DigitalOcean
 
+# on each github push to master we attempt to deploy
+# to server.
 on:
   push:
     branches: [master]
-
+    
+# run tests after each push
+# first setup code to be tested
+# test to run on ubuntu instance on github's cloud. Copy code, fetch jdk with maven and have
+# maven run the tests.
 jobs:
-
   test:
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +27,9 @@ jobs:
       - name: Run Unit & Integration Tests
 
         run: mvn clean test
-
+        
+# Deploy, we copy our code, have github runner ssh into our cloud server, inject 
+# environmental variables stored in github secrets, and run the script at the bottom.
   deploy:
     needs: test 
     runs-on: ubuntu-latest
@@ -44,17 +51,17 @@ jobs:
           script: |
             cd /home/$APP_DIR_USER/ERM-Employee-Item-Health-App
             
-            # 1. Sync Code
+            # We have the server fetch the updated repo and force
+            # it to delete the old version on disk.
             git fetch origin
             git reset --hard origin/master
 
-            # 2. Secure Credentials
-            echo "DB_USERNAME=$DB_USER" > .env
-            echo "DB_PASSWORD=$DB_PASS" >> .env
-
-            # 3. Restart Services
+            # Take docker container running down and force a rebuild using the new
+            # container in the new repo. -f tells docker to use the docker-compose.yml file
+            # -d is detached mode so it runs in background
+            
             /usr/bin/docker compose -f docker-compose.yml down
             /usr/bin/docker compose -f docker-compose.yml up -d --build
             
-            # 4. Clean Up
+            #Delete env variables so they are not left on server
             rm .env
