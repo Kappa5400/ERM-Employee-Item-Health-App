@@ -1,23 +1,7 @@
-1. Security (biggest red flag — do first)
-
-x Lock H2 console to test profile only, remove from SecurityConfig prod config
-x Fix CSRF — re-enable or add a note explaining why it's disabled
-x Fix deploy.yml secrets — move to --env-file or .env approach
- x Replace employeeId == 1 magic number with a constan tor isSuperAdmin() flag
-
-2. Bug fixes (broken functionality)
-
-Fix ID card forms
-Fix expire/renew logic and verify it's correct
-After item updates, set all to_renew/to_replace/to_service bools back to false in SQL
-Fix login error handling — add alerts, validate required fields like email
-Fix mail body — show employee name, item type, item ID together properly
 
 3. Input validation
 
-Add server-side validation on all forms (employee create/edit, items)
-Add frontend alerts for missing/invalid fields
-Handle edge cases — employee with no boss, items with no employee, etc.
+Add server-side input validation on all forms (employee create/edit, items)
 
 4. Manual retest of full site
 

@@ -1,10 +1,11 @@
 package com.healthapp.itemhealth.model;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import java.time.LocalDateTime;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,8 +24,9 @@ public class Boss {
   @Pattern(
       regexp = "^[a-zA-Z0-9 ]*$",
       message = "Only alphanumeric characters and spaces are allowed")
-  private String name;
-
+      @NotBlank(message = "Must enter name")
+      private String name;
+  @NotBlank(message = "Must enter title")
   private String title;
   private List<Long> subordinateIds;
   private LocalDateTime createdAt;
