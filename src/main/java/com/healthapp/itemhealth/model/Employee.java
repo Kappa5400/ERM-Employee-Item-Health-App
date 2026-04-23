@@ -3,6 +3,7 @@ package com.healthapp.itemhealth.model;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,7 @@ public class Employee {
   private String name;
   @NotBlank(message = "Must enter a title")
   private String title;
-  @NotBlank(message = "Boss must be selected")
+  @NotNull(message = "Boss must be selected")
   private Long bossUserId;
   
   private boolean bossRole;

@@ -1,7 +1,4 @@
 
-3. Input validation
-
-Add server-side input validation on all forms (employee create/edit, items)
 
 4. Manual retest of full site
 
