@@ -5,13 +5,18 @@ FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
  
 WORKDIR /app
  
-# download all dependencies from pom file
-# to /app
+# Get all dependencies from the copied pom.xml file
+# the -B makes docker download in automatic mode
+# the -T makes it use one thread to prevent race conditions
+# all goes to /app
 COPY pom.xml .
 RUN mvn dependency:go-offline -B -T 1
  
 COPY src ./src
-# test are run before in github actions
+
+# Compiles packages
+# Test are run before in github actions so we skip.
+# Prevent race conditions by limiting to 1 thread again
 RUN mvn clean package -DskipTests -T 1
  
 
