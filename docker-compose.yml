@@ -1,6 +1,9 @@
 version: "3.8"
  
 services:
+# Makes a containorized postgres database on port 5432. Injects user, password, 
+# and db name vars via enviornmental variables that are injected.
+# Healthcheck to make sure app deploys correctly and is connected to db.
   db:
     image: postgres:15
     container_name: itemhealth-db
@@ -16,7 +19,11 @@ services:
       timeout: 5s
       retries: 10
       start_period: 15s
- 
+      
+ # Makes container with the app on variable 8080. 
+ # stores data in defined volume location.
+ # as our server instance has max 2 gb ram, we set the deploy limit so
+ # deployment doesn't fail.
   app:
     build: .
     container_name: itemhealth-app
@@ -37,11 +44,11 @@ services:
       - MAVEN_OPTS=-Xmx1024m
     depends_on:
       db:
-        # FIX: was service_started — app was connecting before postgres was
-        # accepting connections, causing random startup failures
         condition: service_healthy
     restart: on-failure
- 
+    
+ # Contanerized mailhog instance to trap emails
+ # uses the mailhog api to display trapped emails on frontend.
   mailhog:
     image: mailhog/mailhog
     container_name: mailhog
