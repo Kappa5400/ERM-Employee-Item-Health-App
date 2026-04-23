@@ -16,14 +16,16 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+  // The security filter chain
+  // starts with  csrf, or cross-site request forgery security options 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(Customizer.withDefaults())
 
-        // 2. Configure Frame Options so the H2 Console can display in your browser
+        // to delete
         .headers(headers -> headers.frameOptions(f -> f.sameOrigin()))
 
-        // 3. Authorization Rules (ORDER MATTERS: Specific to General)
+        // authorization rules
         .authorizeHttpRequests(
             auth ->
                 auth.requestMatchers("/login", "/css/**", "/js/**")
@@ -31,7 +33,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/api/public/**")
                     .permitAll()
 
-                    // Role-based paths
+                    // only boss can access below
                     .requestMatchers("/api/employee/**")
                     .hasRole("BOSS")
                     .requestMatchers("/api/laptop/**")
@@ -41,20 +43,22 @@ public class SecurityConfig {
                     .requestMatchers("/api/car/**")
                     .hasRole("BOSS")
 
-                    // Everything else requires authentication
+                    // authentication for everything else
                     .anyRequest()
                     .authenticated())
 
-        // 4. Custom Error Handling
+        // on exception have exception handler handle then redirect to login page
         .exceptionHandling(exception -> exception.accessDeniedPage("/login"))
 
-        // 5. Authentication Mechanisms
+        // to delete below, 
         .httpBasic(Customizer.withDefaults())
+        // must login to access rest of site, it attempt to access redirect to login page
         .formLogin(form -> form.loginPage("/login"));
-
+    
     return http.build();
   }
 
+  // Make bcrypt password encoder object.
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
