@@ -20,18 +20,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExcelService {
 
+  // Similar to how openpyxl works, need a stream reader object for io
   public ByteArrayInputStream employeesToExcel(
       List<Employee> employees, List<Laptop> laptops, List<Car> cars, List<IDCard> idCards) {
-
+    // init new workbook with io stream object
     try (Workbook workbook = new XSSFWorkbook();
         ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 
-      // Create a shared date style for readability
+       // Make a 'style' that cells use for syntax, making for dates
       CellStyle dateStyle = workbook.createCellStyle();
+      // https://poi.apache.org/apidocs/dev/org/apache/poi/ss/usermodel/CreationHelper.html
       CreationHelper createHelper = workbook.getCreationHelper();
       dateStyle.setDataFormat(createHelper.createDataFormat().getFormat("yyyy-mm-dd"));
 
-      // --- 1. EMPLOYEES ---
+      // create sheet with header, start row, loops through and writes to rows.
+      // Similar to openpyxl
       Sheet empSheet = workbook.createSheet("Employees");
       writeHeader(empSheet, new String[] {"ID", "Name", "Title", "Email", "isBoss"});
       int rowIdx = 1;
@@ -44,7 +47,7 @@ public class ExcelService {
         row.createCell(4).setCellValue(e.isBossRole() ? "Yes" : "No");
       }
 
-      // --- 2. LAPTOPS ---
+     
       Sheet lapSheet = workbook.createSheet("Laptops");
       writeHeader(
           lapSheet,
@@ -65,7 +68,7 @@ public class ExcelService {
         row.createCell(7).setCellValue(l.isInUse() ? "Yes" : "No");
       }
 
-      // --- 3. CARS ---
+   
       Sheet carSheet = workbook.createSheet("Cars");
       writeHeader(
           carSheet,
@@ -94,7 +97,7 @@ public class ExcelService {
         row.createCell(8).setCellValue(c.isInUse() ? "Active" : "No");
       }
 
-      // --- 4. ID CARDS ---
+      
       Sheet idSheet = workbook.createSheet("ID Cards");
       writeHeader(
           idSheet,
@@ -110,7 +113,7 @@ public class ExcelService {
         row.createCell(5).setCellValue(id.isToRenew() ? "YES" : "No");
       }
 
-      // Auto-size columns for a clean look
+      //Loops through sheets, rows, cells and autosizes them
       for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
         Sheet s = workbook.getSheetAt(i);
         if (s.getRow(0) != null) {
@@ -120,6 +123,7 @@ public class ExcelService {
         }
       }
 
+      // the output writing portion
       workbook.write(out);
       return new ByteArrayInputStream(out.toByteArray());
     } catch (IOException e) {
@@ -127,13 +131,14 @@ public class ExcelService {
     }
   }
 
+  // helper func for writing header
   private void writeHeader(Sheet sheet, String[] headers) {
     Row headerRow = sheet.createRow(0);
     for (int i = 0; i < headers.length; i++) {
       headerRow.createCell(i).setCellValue(headers[i]);
     }
   }
-
+  //helper func to write dates with the date 'style' into a cell
   private void addDateCell(Row row, int column, Object date, CellStyle style) {
     if (date == null) return;
     Cell cell = row.createCell(column);
