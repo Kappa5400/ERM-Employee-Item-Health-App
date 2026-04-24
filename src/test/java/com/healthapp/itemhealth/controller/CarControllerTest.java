@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -116,8 +117,11 @@ public class CarControllerTest {
 
   @Test
   @DisplayName("GET /api/car - Fail (Unauthorized)")
-  void access_Unauthenticated_Returns401() throws Exception {
-    mockMvc.perform(get("/api/car/1")).andExpect(status().isUnauthorized());
+  void access_Unauthenticated_Redirect() throws Exception {
+    mockMvc
+        .perform(get("/api/car/1"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrlPattern("/*login"));
   }
 
   @Test
