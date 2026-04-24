@@ -14,11 +14,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +33,10 @@ import org.springframework.web.context.WebApplicationContext;
       "spring.datasource.driver-class-name=org.h2.Driver",
       "spring.datasource.username=sa",
       "spring.datasource.password=",
-      "spring.flyway.enabled=true"
+      "spring.flyway.enabled=true",
+      "spring.mail.host=localhost",
+      "spring.mail.port=1025",
+      "management.health.mail.enabled=false"
     })
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -42,6 +48,8 @@ public class BossIntegrationTest {
       new ObjectMapper().registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
   @Autowired private WebApplicationContext context;
+
+  @MockitoBean private JavaMailSender mailSender;
 
   @BeforeEach
   void setUp() {
@@ -57,15 +65,17 @@ public class BossIntegrationTest {
   @WithMockUser(roles = "BOSS")
   @DisplayName("Integration: Create Boss from existing Employee and Verify")
   void testCreateBossAndVerifySubordinates() throws Exception {
-    // 1. Arrange: Create the base Employee first
+
     Employee employee =
         Employee.builder()
             .name("Boss Candidate")
             .title("Manager")
-            .username("boss_user_" + System.currentTimeMillis())
+            .username("boss_user_")
             .password("secure123")
             .bossRole(false)
             .hasBoss(false)
+            .bossUserId(3L)
+            .email("Test@gmail.com")
             .build();
 
     String empJson =
@@ -80,11 +90,11 @@ public class BossIntegrationTest {
             .getResponse()
             .getContentAsString();
 
+    Boss boss =
+        Boss.builder().employeeId(4L).bossId(3L).title("Bossy boss").name("Boss Candidate").build();
+
     Long employeeId =
         ((Number) com.jayway.jsonpath.JsonPath.read(empJson, "$.employeeId")).longValue();
-
-    // 2. Act: Create a Boss record for this Employee
-    Boss boss = Boss.builder().employeeId(employeeId).name("Boss Candidate").build();
 
     String bossJson =
         mockMvc

@@ -29,7 +29,10 @@ import org.springframework.web.context.WebApplicationContext;
       "spring.datasource.driver-class-name=org.h2.Driver",
       "spring.datasource.username=sa",
       "spring.datasource.password=",
-      "spring.flyway.enabled=true"
+      "spring.flyway.enabled=true",
+      "spring.mail.host=localhost",
+      "spring.mail.port=1025",
+      "management.health.mail.enabled=false"
     })
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -55,13 +58,15 @@ public class IDCardIntegrationTest {
   @WithMockUser(roles = "BOSS")
   @DisplayName("Integration: Issue ID Card to Employee")
   void testCreateIDCardAndVerify() throws Exception {
-    // 1. Employee作成
+
     Employee owner =
         Employee.builder()
             .name("ID User")
             .title("Staff")
             .username("id_user_")
             .password("password123")
+            .email("Test@gmail.com")
+            .bossUserId(1L)
             .build();
 
     String empJson =
@@ -78,7 +83,6 @@ public class IDCardIntegrationTest {
     Long employeeId =
         ((Number) com.jayway.jsonpath.JsonPath.read(empJson, "$.employeeId")).longValue();
 
-    // 2. IDCard作成
     IDCard idCard = IDCard.builder().employeeId(employeeId).build();
 
     String cardJson =
@@ -95,7 +99,6 @@ public class IDCardIntegrationTest {
 
     Long cardId = ((Number) com.jayway.jsonpath.JsonPath.read(cardJson, "$.idCardId")).longValue();
 
-    // 3. 検証
     mockMvc
         .perform(get("/api/id-card/" + cardId))
         .andExpect(status().isOk())

@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.healthapp.itemhealth.model.Car;
 import com.healthapp.itemhealth.model.Employee;
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,9 @@ import org.springframework.web.context.WebApplicationContext;
       "spring.datasource.username=sa",
       "spring.datasource.password=",
       "spring.flyway.enabled=true",
-      "spring.mail.host=localhost"
+      "spring.mail.host=localhost",
+      "spring.mail.port=1025",
+      "management.health.mail.enabled=false"
     })
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -65,6 +68,8 @@ public class CarIntegrationTest {
             .username("boss_man")
             .password("password123")
             .bossRole(true)
+            .bossUserId(1L)
+            .email("Bossyboss@gmail.com")
             .build();
 
     String bossJson =
@@ -109,7 +114,19 @@ public class CarIntegrationTest {
     Long employeeId =
         ((Number) com.jayway.jsonpath.JsonPath.read(empJson, "$.employeeId")).longValue();
 
-    Car car = Car.builder().employeeId(employeeId).carYear(1).build();
+    Car car =
+        Car.builder()
+            .employeeId(employeeId)
+            .carYear(1)
+            .needToServiceDate(LocalDate.now())
+            .insuranceExpireDate(LocalDate.now())
+            .lastServiced(LocalDate.now())
+            .lastInsuranceRenewal(LocalDate.now())
+            .toRenewInsurance(true)
+            .toReplace(true)
+            .inUse(true)
+            .toService(true)
+            .build();
 
     String carJson =
         mockMvc
@@ -125,7 +142,6 @@ public class CarIntegrationTest {
 
     Long carId = ((Number) com.jayway.jsonpath.JsonPath.read(carJson, "$.carId")).longValue();
 
-    // 3. Assert: 取得して内容を検証
     mockMvc
         .perform(get("/api/car/" + carId))
         .andDo(print())

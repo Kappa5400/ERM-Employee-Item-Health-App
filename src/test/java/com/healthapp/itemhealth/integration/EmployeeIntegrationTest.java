@@ -33,11 +33,14 @@ import org.springframework.web.context.WebApplicationContext;
       "spring.datasource.driver-class-name=org.h2.Driver",
       "spring.datasource.username=sa",
       "spring.datasource.password=",
-      "spring.flyway.enabled=true"
+      "spring.flyway.enabled=true",
+      "spring.mail.host=localhost",
+      "spring.mail.port=1025",
+      "management.health.mail.enabled=false"
     })
 @AutoConfigureMockMvc
-@ActiveProfiles("test") // Tells Spring to use application-test.properties
-@Transactional // Rolls back the database after each test so it stays clean
+@ActiveProfiles("test")
+@Transactional
 public class EmployeeIntegrationTest {
 
   @Autowired private MockMvc mockMvc;
@@ -61,7 +64,7 @@ public class EmployeeIntegrationTest {
   @WithMockUser(roles = "BOSS")
   @DisplayName("Integration: Create Employee and Verify Persistence")
   void testCreateAndGetEmployee() throws Exception {
-    // 1. Arrange: Create a sample employee object
+
     Boss testBoss = new Boss();
     testBoss.setBossId(1L);
 
@@ -72,11 +75,11 @@ public class EmployeeIntegrationTest {
             .bossRole(true)
             .hasBoss(false)
             .username("test10")
-            .password("secure123")
+            .password("password123")
+            .bossUserId(1L)
             .email("integrationtest@gmail.com")
             .build();
 
-    // 2. Act: Send POST request to the real Controller -> Service -> Mapper -> H2
     MvcResult result =
         mockMvc
             .perform(
@@ -87,14 +90,12 @@ public class EmployeeIntegrationTest {
             .andExpect(status().isCreated())
             .andReturn();
 
-    // 2. Extract the ID (Assuming your API returns the created Employee JSON)
     String jsonResponse = result.getResponse().getContentAsString();
     Integer createdId = com.jayway.jsonpath.JsonPath.read(jsonResponse, "$.employeeId");
 
-    // 3. Assert: Use the REAL ID to fetch it
     mockMvc
         .perform(get("/api/employee/" + createdId))
-        .andDo(print()) // This will show you exactly what the server sends back
+        .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.name").value("test10"));
   }
@@ -103,12 +104,12 @@ public class EmployeeIntegrationTest {
   @WithMockUser(roles = "BOSS")
   @DisplayName("Integration: Delete Employee and Confirm Removal")
   void testDeleteEmployee() throws Exception {
-    // Assume ID 999 exists (created in previous step or via data.sql)
-    mockMvc.perform(delete("/api/employee/999").with(csrf())).andExpect(status().isNoContent());
+    // Employee 2 is a dummy employee inserted in
+    // db migration that is deletable
+    mockMvc.perform(delete("/api/employee/2").with(csrf())).andExpect(status().isNoContent());
 
-    // Verify that a GET request no longer returns the employee
     mockMvc
-        .perform(get("/api/employee/999"))
+        .perform(get("/api/employee/2"))
         .andExpect(status().isOk())
         .andExpect(content().string(""));
   }

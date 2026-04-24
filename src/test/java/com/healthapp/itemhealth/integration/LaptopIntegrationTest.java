@@ -30,7 +30,10 @@ import org.springframework.web.context.WebApplicationContext;
       "spring.datasource.driver-class-name=org.h2.Driver",
       "spring.datasource.username=sa",
       "spring.datasource.password=",
-      "spring.flyway.enabled=true"
+      "spring.flyway.enabled=true",
+      "spring.mail.host=localhost",
+      "spring.mail.port=1025",
+      "management.health.mail.enabled=false"
     })
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -56,13 +59,15 @@ public class LaptopIntegrationTest {
   @WithMockUser(roles = "BOSS")
   @DisplayName("Integration: Create Laptop and Assign to Employee")
   void testCreateLaptopAndVerify() throws Exception {
-    // 1. Arrange: まず持ち主となる社員を作成
+
     Employee owner =
         Employee.builder()
-            .name("Laptop User")
-            .title("Engineer")
-            .username("laptop_user_")
-            .password("secure123")
+            .name("User")
+            .title("Staff")
+            .username("user_")
+            .password("password123")
+            .email("Test@gmail.com")
+            .bossUserId(1L)
             .build();
 
     String empJson =
@@ -80,7 +85,6 @@ public class LaptopIntegrationTest {
     Long employeeId =
         ((Number) com.jayway.jsonpath.JsonPath.read(empJson, "$.employeeId")).longValue();
 
-    // 2. Act: その社員に紐付いたLaptopを作成
     Laptop laptop = Laptop.builder().employeeId(employeeId).osVersion(1).build();
 
     String laptopJson =
@@ -98,7 +102,6 @@ public class LaptopIntegrationTest {
     Long laptopId =
         ((Number) com.jayway.jsonpath.JsonPath.read(laptopJson, "$.laptopId")).longValue();
 
-    // 3. Assert: 正常に取得できるか確認
     mockMvc
         .perform(get("/api/laptop/" + laptopId))
         .andDo(print())
