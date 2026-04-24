@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Laptop {
+  //Primary key
   @JsonProperty("laptopId")
   private Long LaptopId;
   @Positive private int osVersion;
@@ -26,6 +27,7 @@ public class Laptop {
   @NotNull private int laptopYear;
   private boolean toRenew;
   private boolean inUse;
+  // Foreign key
   @NotNull private long employeeId;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;

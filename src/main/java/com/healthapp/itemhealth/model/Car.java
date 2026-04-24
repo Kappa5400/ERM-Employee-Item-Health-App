@@ -13,7 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Car {
+  // primary key
   private Long carId;
+  // foreign key
   @NotNull private int carYear;
   private int milage;
   private boolean toReplace;

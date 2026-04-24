@@ -28,6 +28,8 @@ public class EmailService {
   }
 
   public void sendEmail(String to, String subject, String body) {
+    // simple mail message from spring-mail object
+    // assign it the mail body and can send mail
     SimpleMailMessage mes = new SimpleMailMessage();
     mes.setFrom(fromEmail);
     mes.setTo(to);
@@ -53,6 +55,8 @@ public class EmailService {
     return bossEmail;
   }
 
+
+  // helper functions below to format emails
   public String formatEmailSubject(Employee employee) {
     String name = employee.getName();
     return "Alert, expiring items for " + name + " " + LocalDateTime.now();
@@ -64,6 +68,9 @@ public class EmailService {
     // Get the employee info from the first report
     Employee emp = items.get(0).getEmployee();
 
+    // As we want only necessary items to be included in the email body, 
+    // items included in the to renew list, we use stringbuilder to build
+    // dynamicly generated strings
     StringBuilder sb = new StringBuilder();
     sb.append("Alert for: ").append(emp.getName()).append("\n");
     sb.append("------------------------------------------\n");
@@ -71,7 +78,7 @@ public class EmailService {
     for (HealthReport report : items) {
       String id = "N/A";
 
-      // Logic to retrieve the ID based on the item type
+      // Get item type then get's id
       if (report.getLaptop() != null) {
         id = String.valueOf(report.getLaptop().getLaptopId());
       } else if (report.getCar() != null) {

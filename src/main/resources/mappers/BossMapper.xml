@@ -30,7 +30,14 @@
         LEFT JOIN boss_subordinates subordinate ON boss.boss_id = subordinate.boss_id
         WHERE boss.employee_id = #{employeeId}
     </select>
-   
+
+    <!-- Below method has two join methods in it.
+    It joins the employee table with employee Id in boss table on the employee_id field,
+    then joins the boss_suboprdinate table on the boss_id field. 
+    So it goes employee to boss to subordinate to find all the subordinates of an employee.
+    all the joins work similarly to this.
+    -->
+
     <select id="findAll" resultMap="BossResultMap">
         SELECT 
             b.boss_id, 

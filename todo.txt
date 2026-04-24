@@ -2,17 +2,12 @@
 
 4. Manual retest of full site
 
-Walk every page and form end to end
-Boss dashboard, employee pages, all item CRUD
-Email flow triggered correctly
-Login/logout, auth guards working
+auth guards working
 
 5. Automated testing
 
 Unit tests for health check + email flow (the core feature)
 Fix/complete existing test files
-Add CI/CD test step — mvn test in deploy.yml before deploy
-Verify README claim about "faulty code never deployed" matches reality
 
 
 7. Documentation
@@ -20,6 +15,3 @@ Verify README claim about "faulty code never deployed" matches reality
 Clean README with setup instructions, how to run, architecture overview
 
 
-8. Later / nice to have
-
-Replace magic big boss reassignment with proper admin role

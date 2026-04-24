@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+// User service handles the login 
+// and security logic
+
 @Service
 public class UserService implements UserDetailsService {
 
@@ -20,17 +23,23 @@ public class UserService implements UserDetailsService {
     this.employeeMapper = employeeMapper;
   }
 
+
+  // Look up the username entered in the front end and if it exists.
+  // if it doesn't, throw error.
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     Employee employee = employeeMapper.login(username);
 
-    System.out.println("DEBUG: Login attempt for username: " + username);
+    log.debug("DEBUG: Login attempt for username: " + username);
 
+    // If user doesn't exist throw error
     if (employee == null) {
-      System.out.println("DEBUG: User NOT FOUND in DB for username: " + username);
+      log.debug("DEBUG: User NOT FOUND in DB for username: " + username);
       throw new UsernameNotFoundException("User not found: " + username);
     }
 
+    // Make spring user object if username exists
+    // gets the user's password and role
     return User.builder()
         .username(employee.getUsername())
         .password(employee.getPassword())

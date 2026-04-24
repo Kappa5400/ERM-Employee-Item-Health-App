@@ -13,7 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class IDCard {
+  // Primary key
   private Long idCardId;
+  // Secondary key
   @NotNull private Long employeeId;
   @Builder.Default private LocalDate lastRenewedDate = LocalDate.now();
   @Builder.Default private LocalDate needToRenewDate = LocalDate.now().plusYears(2);

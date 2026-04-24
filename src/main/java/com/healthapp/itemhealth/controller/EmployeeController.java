@@ -60,6 +60,9 @@ public class EmployeeController {
     this.excelService = excelService;
   }
 
+  // The init binder is in each controller
+  // it sanatizes input to prevent sql injection attack
+  // and clean up invisible characters
   @InitBinder
   public void initBinder(WebDataBinder binder) {
     StringTrimmerEditor stringTrimmer = new StringTrimmerEditor(true);
@@ -118,8 +121,10 @@ public class EmployeeController {
     List<IDCard> idcard = idCardService.getAll();
     List<Car> cars = carService.getAll();
 
+    // Initiates input stream and passes all the employees, laptops, idcards, and car data to the excel service method
     ByteArrayInputStream in = excelService.employeesToExcel(employees, laptops, cars, idcard);
 
+    // Outputs a new excel file
     InputStreamResource file = new InputStreamResource(in);
     return ResponseEntity.ok()
         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=employees.xlsx")

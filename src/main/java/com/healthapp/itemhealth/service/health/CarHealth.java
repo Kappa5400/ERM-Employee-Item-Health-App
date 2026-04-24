@@ -6,6 +6,16 @@ import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+// For all items how each checks if the
+// item needs to be 'renewed' or 'updated'
+// the logic changes, as such we make the
+// health check function polymorphic. For the car class,
+// cars that are over 10 years old need to be renewed, and 
+// require servicing every 3 months. If either field
+// is over the limit, a boolean flag is flipped
+// and it will trigger the mail logic to detect the item needs to be updated
+// and will include it in the automatic email that goes to every boss employee.
+
 @Component
 @RequiredArgsConstructor
 public class CarHealth implements HealthCheck<Car> {

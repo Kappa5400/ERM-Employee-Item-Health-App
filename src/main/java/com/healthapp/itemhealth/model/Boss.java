@@ -11,13 +11,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Boss {
+  // Primary key
   private Long bossId;
-
+  // Foreign key
   @NotNull private Long employeeId;
 
   @NotBlank

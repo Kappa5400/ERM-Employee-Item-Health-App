@@ -15,7 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
+  // primary key
   private Long employeeId;
+  // foreign key
   @NotBlank(message = "Must enter a name")
   private String name;
   @NotBlank(message = "Must enter a title")
