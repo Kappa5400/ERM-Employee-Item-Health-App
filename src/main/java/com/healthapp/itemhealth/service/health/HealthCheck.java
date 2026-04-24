@@ -1,7 +1,7 @@
 package com.healthapp.itemhealth.service.health;
 
-// An interface class that calls each item
-// and calls the polymorphic method 
+// An interface class that each item
+// implements. Does checkupdate and then
 // perform update
 
 public interface HealthCheck<T> {

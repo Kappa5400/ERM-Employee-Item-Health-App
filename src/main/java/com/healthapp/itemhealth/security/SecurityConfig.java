@@ -22,8 +22,7 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(Customizer.withDefaults())
 
-        // to delete
-        .headers(headers -> headers.frameOptions(f -> f.sameOrigin()))
+       
 
         // authorization rules
         .authorizeHttpRequests(
@@ -50,8 +49,7 @@ public class SecurityConfig {
         // on exception have exception handler handle then redirect to login page
         .exceptionHandling(exception -> exception.accessDeniedPage("/login"))
 
-        // to delete below, 
-        .httpBasic(Customizer.withDefaults())
+        
         // must login to access rest of site, it attempt to access redirect to login page
         .formLogin(form -> form.loginPage("/login"));
     

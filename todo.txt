@@ -1,8 +1,5 @@
 
 
-4. Manual retest of full site
-
-auth guards working
 
 5. Automated testing
 
@@ -12,6 +9,7 @@ Fix/complete existing test files
 
 7. Documentation
 
-Clean README with setup instructions, how to run, architecture overview
+Clean README
 
+redo db er Diagram
 

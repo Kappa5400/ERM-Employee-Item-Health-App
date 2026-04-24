@@ -57,7 +57,7 @@ public class ExcelService {
       rowIdx = 1;
       for (Laptop l : laptops) {
         Row row = lapSheet.createRow(rowIdx++);
-        // Note: Using getLaptopId() - Check your model if it's getLaptopId or getLaptopId
+       
         row.createCell(0).setCellValue(l.getLaptopId() != null ? l.getLaptopId() : 0);
         row.createCell(1).setCellValue(l.getEmployeeId());
         row.createCell(2).setCellValue(l.getLaptopYear());

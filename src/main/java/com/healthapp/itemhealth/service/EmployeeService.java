@@ -59,26 +59,27 @@ public class EmployeeService {
   @PreAuthorize("hasRole('BOSS')")
   public void insert(Employee employee) {
     
-    // 1. Check for duplicates
+    // Check if username exists
     if (employeeMapper.existsByUsername(employee.getUsername())) {
         throw new ResponseStatusException(
+          // look into bad_req err, should be same username err(?)
             HttpStatus.BAD_REQUEST, 
             "The username '" + employee.getUsername() + "' is already taken."
         );
-    } // <-- Added the closing brace here!
+    } 
 
-    // 2. Proceed with saving
+    
     log.info("Inserting new employee: {}", employee.getUsername());
     String hashed_password = passwordEncoder.encode(employee.getPassword());
     employee.setPassword(hashed_password);
     employeeMapper.insert(employee);
 
-    // 3. Handle Relationships
+   
     if (employee.isHasBoss()) {
       employeeMapper.insertSub(employee.getBossUserId(), employee.getEmployeeId());
     }
 
-    // 4. Handle Boss Role
+    
     if (employee.isBossRole()) { // Cleaned up the '== true'
       log.info("Turning employee object into boss...");
 
@@ -100,6 +101,14 @@ public class EmployeeService {
       log.info("Is big boss.");
       return;
     }
+
+    log.info("Checking if dummy account...");
+    if ("Lowly Employee".equals(emp.getName())){
+      log.info("Is dummy account");
+      return;
+    }
+
+
     log.info("Checking if boss role...");
     
     if (emp.isBossRole()) {

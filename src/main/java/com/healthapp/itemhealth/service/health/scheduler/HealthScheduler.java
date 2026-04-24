@@ -4,10 +4,10 @@ import com.healthapp.itemhealth.service.HealthCheckService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-// The scheduler for the script, cron job
+// The scheduler for the script, fixed rate
 // triggers the health check every day, and the cleanup every
 // 5 days.
-// Uses the fixed rate function to schedule the jobs.
+
 
 @Component
 public class HealthScheduler {

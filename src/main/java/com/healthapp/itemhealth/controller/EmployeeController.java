@@ -61,8 +61,7 @@ public class EmployeeController {
   }
 
   // The init binder is in each controller
-  // it sanatizes input to prevent sql injection attack
-  // and clean up invisible characters
+  // it cleans up invisible characters
   @InitBinder
   public void initBinder(WebDataBinder binder) {
     StringTrimmerEditor stringTrimmer = new StringTrimmerEditor(true);

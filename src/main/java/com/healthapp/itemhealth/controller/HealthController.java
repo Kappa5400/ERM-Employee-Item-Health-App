@@ -148,11 +148,10 @@ public class HealthController {
     RestTemplate restTemplate = new RestTemplate();
 
     MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-    // We tell this converter to support standard JSON AND the text/json that MailHog sends
+    
     converter.setSupportedMediaTypes(
         Arrays.asList(MediaType.APPLICATION_JSON, MediaType.parseMediaType("text/json")));
 
-    // We insert it at the beginning so Spring uses it first
     restTemplate.getMessageConverters().add(0, converter);
 
     return restTemplate;
