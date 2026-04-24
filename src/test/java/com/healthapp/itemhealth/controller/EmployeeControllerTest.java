@@ -10,12 +10,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.healthapp.itemhealth.model.Employee;
 import com.healthapp.itemhealth.security.SecurityConfig;
+import com.healthapp.itemhealth.service.CarService;
 import com.healthapp.itemhealth.service.EmployeeService;
+import com.healthapp.itemhealth.service.ExcelService;
+import com.healthapp.itemhealth.service.IDCardService;
+import com.healthapp.itemhealth.service.LaptopService;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -38,6 +43,14 @@ public class EmployeeControllerTest {
 
   @MockitoBean private EmployeeService employeeService;
 
+  @MockitoBean private ExcelService ExcelService;
+
+  @MockitoBean private CarService carService;
+
+  @MockitoBean private LaptopService laptopService;
+
+  @MockitoBean private IDCardService idCardService;
+
   private final ObjectMapper objectMapper = new ObjectMapper();
 
   private Employee sampleEmployee;
@@ -54,11 +67,18 @@ public class EmployeeControllerTest {
                     .springSecurity())
             .build();
 
-    sampleEmployee = new Employee();
-    sampleEmployee.setEmployeeId(1L);
-    sampleEmployee.setName("Test User");
-    sampleEmployee.setUsername("testuser123");
-    sampleEmployee.setPassword("password123");
+    sampleEmployee =
+        Employee.builder()
+            .employeeId(1L)
+            .name("Test User")
+            .title("Employee")
+            .email("Test@gmail.com")
+            .bossRole(false)
+            .hasBoss(true)
+            .bossUserId(1L)
+            .username("testuser123")
+            .password("password123")
+            .build();
   }
 
   @Test
@@ -138,9 +158,9 @@ public class EmployeeControllerTest {
 
   @Test
   @DisplayName("ANY /api/employee - Fail Path (Unauthorized)")
-  void unauthorized_Access() throws Exception {
-    // No @WithMockUser simulation
-    mockMvc.perform(get("/api/employee")).andExpect(status().isUnauthorized());
+  void unauthorized_Access_redirects() throws Exception {
+
+    mockMvc.perform(get("/api/employee")).andExpect(redirectedUrlPattern("/*login"));
   }
 
   @Test
