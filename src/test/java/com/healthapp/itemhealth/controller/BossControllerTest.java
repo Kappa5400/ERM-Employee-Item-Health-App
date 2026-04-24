@@ -1,6 +1,7 @@
 package com.healthapp.itemhealth.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -67,14 +68,14 @@ public class BossControllerTest {
   @WithMockUser(roles = "BOSS")
   void insert_Positive_Returns201() throws Exception {
     Boss boss = new Boss();
-    boss.setName("Big Boss"); // Assume @NotBlank on bossName
+    boss.setName("Big Boss");
     boss.setBossId(1L);
     boss.setEmployeeId(2L);
-
+    boss.setTitle("The Boss");
     mockMvc
         .perform(
             post("/api/boss")
-                .with(csrf()) // Required for POST/PATCH/DELETE
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(boss)))
         .andExpect(status().isCreated())
@@ -85,11 +86,32 @@ public class BossControllerTest {
 
   @Test
   @WithMockUser(roles = "BOSS")
+  void insert_Negative_Returns400() throws Exception {
+    Boss boss = new Boss();
+    boss.setName("Big Boss");
+    boss.setBossId(1L);
+    boss.setEmployeeId(2L);
+    // title necessary, removing for expected failure
+
+    mockMvc
+        .perform(
+            post("/api/boss")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(boss)))
+        .andExpect(status().isBadRequest());
+
+    verify(bossService, never()).insert(any(Boss.class));
+  }
+
+  @Test
+  @WithMockUser(roles = "BOSS")
   void update_Positive_Returns200() throws Exception {
     Boss boss = new Boss();
     boss.setBossId(1L);
     boss.setName("Big Boss");
     boss.setEmployeeId(2L);
+    boss.setTitle("The Boss");
 
     mockMvc
         .perform(
@@ -101,6 +123,26 @@ public class BossControllerTest {
         .andExpect(jsonPath("$.employeeId").isNotEmpty());
 
     verify(bossService).update(any(Boss.class));
+  }
+
+  @Test
+  @WithMockUser(roles = "BOSS")
+  void update_Negative_Returns400() throws Exception {
+    Boss boss = new Boss();
+    boss.setBossId(1L);
+    boss.setName("Big Boss");
+    boss.setEmployeeId(2L);
+    // title is necessary for boss, excluding for expected failure
+
+    mockMvc
+        .perform(
+            patch("/api/boss")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(boss)))
+        .andExpect(status().isBadRequest());
+
+    verify(bossService, never()).update(any(Boss.class));
   }
 
   // --- DELETE TESTS ---

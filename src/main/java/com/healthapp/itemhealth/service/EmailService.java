@@ -1,16 +1,14 @@
 package com.healthapp.itemhealth.service;
 
+import com.healthapp.itemhealth.model.Boss;
+import com.healthapp.itemhealth.model.Employee;
+import com.healthapp.itemhealth.model.HealthReport;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
-import com.healthapp.itemhealth.model.Boss;
-import com.healthapp.itemhealth.model.Employee;
-import com.healthapp.itemhealth.model.HealthReport;
 
 @Service
 public class EmailService {
@@ -43,18 +41,14 @@ public class EmailService {
     Boss boss = employee.getBoss();
     if (boss == null) {
 
- 
       return null;
     }
     Long bossEmpId = boss.getEmployeeId();
     Employee bossEmp = employeeService.getById(bossEmpId);
     String bossEmail = bossEmp.getEmail();
 
-  
-
     return bossEmail;
   }
-
 
   // helper functions below to format emails
   public String formatEmailSubject(Employee employee) {
@@ -68,7 +62,7 @@ public class EmailService {
     // Get the employee info from the first report
     Employee emp = items.get(0).getEmployee();
 
-    // As we want only necessary items to be included in the email body, 
+    // As we want only necessary items to be included in the email body,
     // items included in the to renew list, we use stringbuilder to build
     // dynamicly generated strings
     StringBuilder sb = new StringBuilder();

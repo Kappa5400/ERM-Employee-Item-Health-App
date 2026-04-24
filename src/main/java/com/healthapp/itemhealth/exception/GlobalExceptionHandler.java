@@ -2,7 +2,6 @@ package com.healthapp.itemhealth.exception;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 // To handle exceptions on the frontend
 @ControllerAdvice
@@ -38,11 +36,10 @@ public class GlobalExceptionHandler {
                   error.getDefaultMessage());
               errors.put(error.getField(), error.getDefaultMessage());
             });
-    
+
     // return to frontend the faulty request and the body in the error
     return ResponseEntity.badRequest().body(errors);
   }
-
 
   // For when an auth error occurs, redirect to different page
   @ExceptionHandler(AccessDeniedException.class)
@@ -61,7 +58,7 @@ public class GlobalExceptionHandler {
   public ResponseEntity<String> handleResponseStatusException(ResponseStatusException ex) {
     // logs it
     log.warn("Blocked request: {}", ex.getReason());
-    
+
     // returns error message to front end
     return new ResponseEntity<>(ex.getReason(), ex.getStatusCode());
   }

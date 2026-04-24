@@ -27,7 +27,7 @@ public class ExcelService {
     try (Workbook workbook = new XSSFWorkbook();
         ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 
-       // Make a 'style' that cells use for syntax, making for dates
+      // Make a 'style' that cells use for syntax, making for dates
       CellStyle dateStyle = workbook.createCellStyle();
       // https://poi.apache.org/apidocs/dev/org/apache/poi/ss/usermodel/CreationHelper.html
       CreationHelper createHelper = workbook.getCreationHelper();
@@ -47,7 +47,6 @@ public class ExcelService {
         row.createCell(4).setCellValue(e.isBossRole() ? "Yes" : "No");
       }
 
-     
       Sheet lapSheet = workbook.createSheet("Laptops");
       writeHeader(
           lapSheet,
@@ -57,7 +56,7 @@ public class ExcelService {
       rowIdx = 1;
       for (Laptop l : laptops) {
         Row row = lapSheet.createRow(rowIdx++);
-       
+
         row.createCell(0).setCellValue(l.getLaptopId() != null ? l.getLaptopId() : 0);
         row.createCell(1).setCellValue(l.getEmployeeId());
         row.createCell(2).setCellValue(l.getLaptopYear());
@@ -68,7 +67,6 @@ public class ExcelService {
         row.createCell(7).setCellValue(l.isInUse() ? "Yes" : "No");
       }
 
-   
       Sheet carSheet = workbook.createSheet("Cars");
       writeHeader(
           carSheet,
@@ -97,7 +95,6 @@ public class ExcelService {
         row.createCell(8).setCellValue(c.isInUse() ? "Active" : "No");
       }
 
-      
       Sheet idSheet = workbook.createSheet("ID Cards");
       writeHeader(
           idSheet,
@@ -113,7 +110,7 @@ public class ExcelService {
         row.createCell(5).setCellValue(id.isToRenew() ? "YES" : "No");
       }
 
-      //Loops through sheets, rows, cells and autosizes them
+      // Loops through sheets, rows, cells and autosizes them
       for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
         Sheet s = workbook.getSheetAt(i);
         if (s.getRow(0) != null) {
@@ -138,7 +135,8 @@ public class ExcelService {
       headerRow.createCell(i).setCellValue(headers[i]);
     }
   }
-  //helper func to write dates with the date 'style' into a cell
+
+  // helper func to write dates with the date 'style' into a cell
   private void addDateCell(Row row, int column, Object date, CellStyle style) {
     if (date == null) return;
     Cell cell = row.createCell(column);

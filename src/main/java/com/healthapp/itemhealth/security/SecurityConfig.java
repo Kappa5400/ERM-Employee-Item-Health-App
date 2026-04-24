@@ -17,12 +17,10 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
   // The security filter chain
-  // starts with  csrf, or cross-site request forgery security options 
+  // starts with  csrf, or cross-site request forgery security options
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(Customizer.withDefaults())
-
-       
 
         // authorization rules
         .authorizeHttpRequests(
@@ -49,10 +47,9 @@ public class SecurityConfig {
         // on exception have exception handler handle then redirect to login page
         .exceptionHandling(exception -> exception.accessDeniedPage("/login"))
 
-        
         // must login to access rest of site, it attempt to access redirect to login page
         .formLogin(form -> form.loginPage("/login"));
-    
+
     return http.build();
   }
 

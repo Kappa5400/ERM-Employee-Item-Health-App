@@ -1,20 +1,19 @@
 package com.healthapp.itemhealth.service.health;
 
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import com.healthapp.itemhealth.mapper.LaptopMapper;
+import com.healthapp.itemhealth.model.Laptop;
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import com.healthapp.itemhealth.mapper.LaptopMapper;
-import com.healthapp.itemhealth.model.Laptop;
 
 @ExtendWith(MockitoExtension.class)
 public class LaptopHealthTest {

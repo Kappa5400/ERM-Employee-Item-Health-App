@@ -148,7 +148,7 @@ public class HealthController {
     RestTemplate restTemplate = new RestTemplate();
 
     MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-    
+
     converter.setSupportedMediaTypes(
         Arrays.asList(MediaType.APPLICATION_JSON, MediaType.parseMediaType("text/json")));
 

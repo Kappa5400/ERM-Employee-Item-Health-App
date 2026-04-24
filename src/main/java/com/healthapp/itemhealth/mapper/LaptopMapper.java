@@ -1,11 +1,9 @@
 package com.healthapp.itemhealth.mapper;
 
+import com.healthapp.itemhealth.model.Laptop;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
-import com.healthapp.itemhealth.model.Laptop;
 
 @Mapper
 public interface LaptopMapper {

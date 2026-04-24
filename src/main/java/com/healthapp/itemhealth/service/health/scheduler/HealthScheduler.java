@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 // triggers the health check every day, and the cleanup every
 // 5 days.
 
-
 @Component
 public class HealthScheduler {
 

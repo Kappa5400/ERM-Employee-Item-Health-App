@@ -1,5 +1,7 @@
 
-
+note on login
+unable to delete dummy accoutns
+aka big boss and lowly worker
 
 5. Automated testing
 

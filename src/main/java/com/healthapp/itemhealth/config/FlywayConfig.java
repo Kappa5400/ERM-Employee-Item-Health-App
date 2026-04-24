@@ -12,7 +12,6 @@ public class FlywayConfig {
   // Datasource hooks up our code to the database
   @Autowired private DataSource dataSource;
 
-
   // On init we run this flyway 'migration' class
   // it has the datasource hookup the connection to postgres
   // finds the migration files in the recources/db/migration folder

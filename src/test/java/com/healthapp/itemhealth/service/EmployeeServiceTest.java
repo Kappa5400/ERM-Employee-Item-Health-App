@@ -1,24 +1,24 @@
 package com.healthapp.itemhealth.service;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import com.healthapp.itemhealth.mapper.EmployeeMapper;
+import com.healthapp.itemhealth.model.Employee;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import com.healthapp.itemhealth.mapper.EmployeeMapper;
-import com.healthapp.itemhealth.model.Employee;
 
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceTest {
@@ -97,7 +97,7 @@ public class EmployeeServiceTest {
 
   @Test
   void findBossByEmployeeId_NullPath_ReturnsNull() {
-    // Testing behavior when ID is 0 or invalid
+
     when(employeeMapper.findBossByEmployeeId(0L)).thenReturn(null);
     assertNull(employeeService.findBossByEmployeeId(0L));
   }
@@ -131,8 +131,22 @@ public class EmployeeServiceTest {
 
   @Test
   void delete_Positive_InvokesMapper() {
+    Employee emp = new Employee();
+    emp.setEmployeeId(2L);
+    when(employeeMapper.findById(2L)).thenReturn(emp);
     employeeService.delete(2L);
     verify(employeeMapper, times(1)).delete(2L);
+  }
+
+  @Test
+  void delete_Negative_Bigboss() {
+    Employee emp = new Employee();
+    emp.setEmployeeId(1L);
+    emp.setBossRole(true);
+    emp.setHasBoss(false);
+    when(employeeMapper.findById(1L)).thenReturn(emp);
+    employeeService.delete(1L);
+    verify(employeeMapper, never()).delete(1L);
   }
 
   @Test

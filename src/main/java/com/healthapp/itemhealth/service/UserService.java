@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-// User service handles the login 
+// User service handles the login
 // and security logic by implementing spring-security userdetailservice
 // load username during auth
 
@@ -23,7 +23,6 @@ public class UserService implements UserDetailsService {
   public UserService(EmployeeMapper employeeMapper) {
     this.employeeMapper = employeeMapper;
   }
-
 
   // Look up the username entered in the front end and if it exists.
   // if it doesn't, throw error.

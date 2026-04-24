@@ -5,7 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// The health report is used in the health service class to collect data on each object for the automated email.
+// The health report is used in the health service class to collect data on each object for the
+// automated email.
 
 @Data
 @Builder
