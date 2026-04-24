@@ -14658,3 +14658,331 @@ Caused by: java.net.UnknownHostException: db
 2026-04-24 11:38:02 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
 2026-04-24 11:38:02 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
 2026-04-24 11:38:02 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:38:48 [main] INFO  c.h.i.c.IDCardControllerTest - Starting IDCardControllerTest using Java 17.0.18 with PID 172466 (started by colin in /home/colin/code/ERM-Employee-Item-Health-App)
+2026-04-24 11:38:48 [main] INFO  c.h.i.c.IDCardControllerTest - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 11:38:48 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-24 11:38:50 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2026-04-24 11:38:50 [main] INFO  c.h.i.c.IDCardControllerTest - Started IDCardControllerTest in 1.891 seconds (process running for 2.755)
+2026-04-24 11:38:50 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:38:50 [main] INFO  c.h.i.controller.IDCardController - Updating ID card: IDCard(idCardId=1, employeeId=101, lastRenewedDate=2025-10-24, needToRenewDate=2028-04-24, inUse=true, toRenew=false, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 11:38:50 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:38:50 [main] INFO  c.h.i.controller.IDCardController - Creating new ID card: IDCard(idCardId=1, employeeId=101, lastRenewedDate=2025-10-24, needToRenewDate=2028-04-24, inUse=true, toRenew=false, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 11:38:50 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:38:50 [main] INFO  c.h.i.controller.IDCardController - Fetching ID cards requiring renewal
+2026-04-24 11:38:50 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:38:50 [main] INFO  c.h.i.controller.IDCardController - Fetching ID card with ID: 1
+2026-04-24 11:38:50 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-04-24 11:38:50 [main] INFO  c.h.i.controller.IDCardController - Fetching ID card for employee ID: 101
+2026-04-24 11:38:50 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-04-24 11:38:50 [main] INFO  c.h.i.controller.IDCardController - Deleting ID card with ID: 1
+2026-04-24 11:38:50 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:38:50 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:38:50 [main] INFO  c.h.i.controller.IDCardController - Fetching all ID cards currently in use
+2026-04-24 11:38:50 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:38:50 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:38:50 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:38:50 [main] INFO  c.h.i.controller.IDCardController - Fetching all ID cards
+2026-04-24 11:39:06 [main] INFO  c.h.i.c.IDCardControllerTest - Starting IDCardControllerTest using Java 17.0.18 with PID 172915 (started by colin in /home/colin/code/ERM-Employee-Item-Health-App)
+2026-04-24 11:39:06 [main] INFO  c.h.i.c.IDCardControllerTest - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 11:39:06 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-24 11:39:08 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2026-04-24 11:39:08 [main] INFO  c.h.i.c.IDCardControllerTest - Started IDCardControllerTest in 1.882 seconds (process running for 2.691)
+2026-04-24 11:39:08 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:39:08 [main] INFO  c.h.i.controller.IDCardController - Updating ID card: IDCard(idCardId=1, employeeId=101, lastRenewedDate=2025-10-24, needToRenewDate=2028-04-24, inUse=true, toRenew=false, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 11:39:08 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:39:08 [main] INFO  c.h.i.controller.IDCardController - Creating new ID card: IDCard(idCardId=1, employeeId=101, lastRenewedDate=2025-10-24, needToRenewDate=2028-04-24, inUse=true, toRenew=false, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 11:39:08 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:39:08 [main] INFO  c.h.i.controller.IDCardController - Fetching ID cards requiring renewal
+2026-04-24 11:39:08 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:39:08 [main] INFO  c.h.i.controller.IDCardController - Fetching ID card with ID: 1
+2026-04-24 11:39:08 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:39:08 [main] INFO  c.h.i.controller.IDCardController - Fetching ID card for employee ID: 101
+2026-04-24 11:39:08 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:39:08 [main] INFO  c.h.i.controller.IDCardController - Deleting ID card with ID: 1
+2026-04-24 11:39:08 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:39:08 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-04-24 11:39:08 [main] INFO  c.h.i.controller.IDCardController - Fetching all ID cards currently in use
+2026-04-24 11:39:08 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-04-24 11:39:08 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:08 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:39:08 [main] INFO  c.h.i.controller.IDCardController - Fetching all ID cards
+2026-04-24 11:39:57 [main] INFO  c.h.i.c.IDCardControllerTest - Starting IDCardControllerTest using Java 17.0.18 with PID 173613 (started by colin in /home/colin/code/ERM-Employee-Item-Health-App)
+2026-04-24 11:39:57 [main] INFO  c.h.i.c.IDCardControllerTest - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 11:39:58 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-24 11:39:59 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2026-04-24 11:39:59 [main] INFO  c.h.i.c.IDCardControllerTest - Started IDCardControllerTest in 1.918 seconds (process running for 2.782)
+2026-04-24 11:39:59 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:39:59 [main] INFO  c.h.i.controller.IDCardController - Updating ID card: IDCard(idCardId=1, employeeId=101, lastRenewedDate=2025-10-24, needToRenewDate=2028-04-24, inUse=true, toRenew=false, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 11:39:59 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:39:59 [main] INFO  c.h.i.controller.IDCardController - Creating new ID card: IDCard(idCardId=1, employeeId=101, lastRenewedDate=2025-10-24, needToRenewDate=2028-04-24, inUse=true, toRenew=false, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 11:39:59 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:39:59 [main] INFO  c.h.i.controller.IDCardController - Fetching ID cards requiring renewal
+2026-04-24 11:39:59 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2026-04-24 11:39:59 [main] INFO  c.h.i.controller.IDCardController - Fetching ID card with ID: 1
+2026-04-24 11:39:59 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2026-04-24 11:39:59 [main] INFO  c.h.i.controller.IDCardController - Fetching ID card for employee ID: 101
+2026-04-24 11:39:59 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:39:59 [main] INFO  c.h.i.controller.IDCardController - Deleting ID card with ID: 1
+2026-04-24 11:39:59 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:39:59 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:40:00 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:40:00 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:40:00 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:40:00 [main] INFO  c.h.i.controller.IDCardController - Fetching all ID cards currently in use
+2026-04-24 11:40:00 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:40:00 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:40:00 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-04-24 11:40:00 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:40:00 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:40:00 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:40:00 [main] INFO  c.h.i.controller.IDCardController - Fetching all ID cards
+2026-04-24 11:40:14 [main] INFO  c.h.i.c.LaptopControllerTest - Starting LaptopControllerTest using Java 17.0.18 with PID 174091 (started by colin in /home/colin/code/ERM-Employee-Item-Health-App)
+2026-04-24 11:40:14 [main] INFO  c.h.i.c.LaptopControllerTest - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 11:40:14 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-24 11:40:16 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:40:16 [main] INFO  c.h.i.c.LaptopControllerTest - Started LaptopControllerTest in 1.895 seconds (process running for 2.742)
+2026-04-24 11:40:16 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:40:16 [main] INFO  c.h.i.controller.LaptopController - Updating laptop record: Laptop(LaptopId=1, osVersion=11, lastOSUpdate=null, needToUpdate=false, laptopYear=0, toRenew=false, inUse=false, employeeId=101, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 11:40:16 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:40:16 [main] INFO  c.h.i.controller.LaptopController - Creating new laptop record: Laptop(LaptopId=1, osVersion=11, lastOSUpdate=null, needToUpdate=false, laptopYear=0, toRenew=false, inUse=false, employeeId=101, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 11:40:16 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:40:16 [main] INFO  c.h.i.controller.LaptopController - Fetching laptop with ID: 1
+2026-04-24 11:40:16 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:40:16 [main] INFO  c.h.i.controller.LaptopController - Fetching laptop with ID: 999
+2026-04-24 11:40:16 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:40:16 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:40:16 [main] WARN  c.h.i.e.GlobalExceptionHandler - Validation failed: Field 'osVersion' - must be greater than 0
+2026-04-24 11:40:16 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:40:16 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:40:16 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:40:16 [main] INFO  c.h.i.controller.LaptopController - Fetching all laptops
+2026-04-24 11:48:56 [main] INFO  c.h.i.c.LaptopControllerTest - Starting LaptopControllerTest using Java 17.0.18 with PID 177239 (started by colin in /home/colin/code/ERM-Employee-Item-Health-App)
+2026-04-24 11:48:56 [main] INFO  c.h.i.c.LaptopControllerTest - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 11:48:56 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-24 11:48:57 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:48:57 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:48:57 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2026-04-24 11:48:57 [main] INFO  c.h.i.c.LaptopControllerTest - Started LaptopControllerTest in 1.907 seconds (process running for 2.743)
+2026-04-24 11:48:57 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:48:57 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:48:57 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:48:58 [main] INFO  c.h.i.controller.LaptopController - Updating laptop record: Laptop(LaptopId=1, osVersion=11, lastOSUpdate=null, needToUpdate=false, laptopYear=0, toRenew=false, inUse=false, employeeId=101, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 11:48:58 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:48:58 [main] INFO  c.h.i.controller.LaptopController - Creating new laptop record: Laptop(LaptopId=1, osVersion=11, lastOSUpdate=null, needToUpdate=false, laptopYear=0, toRenew=false, inUse=false, employeeId=101, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 11:48:58 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:48:58 [main] INFO  c.h.i.controller.LaptopController - Fetching laptop with ID: 1
+2026-04-24 11:48:58 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:48:58 [main] INFO  c.h.i.controller.LaptopController - Fetching laptop with ID: 999
+2026-04-24 11:48:58 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:48:58 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:48:58 [main] WARN  c.h.i.e.GlobalExceptionHandler - Validation failed: Field 'osVersion' - must be greater than 0
+2026-04-24 11:48:58 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:48:58 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:48:58 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:48:58 [main] INFO  c.h.i.controller.LaptopController - Fetching all laptops
+2026-04-24 11:50:43 [main] INFO  c.h.i.c.LaptopControllerTest - Starting LaptopControllerTest using Java 17.0.18 with PID 178236 (started by colin in /home/colin/code/ERM-Employee-Item-Health-App)
+2026-04-24 11:50:43 [main] INFO  c.h.i.c.LaptopControllerTest - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 11:50:43 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-24 11:50:45 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2026-04-24 11:50:45 [main] INFO  c.h.i.c.LaptopControllerTest - Started LaptopControllerTest in 1.866 seconds (process running for 2.696)
+2026-04-24 11:50:45 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:50:45 [main] INFO  c.h.i.controller.LaptopController - Updating laptop record: Laptop(LaptopId=1, osVersion=11, lastOSUpdate=null, needToUpdate=false, laptopYear=0, toRenew=false, inUse=false, employeeId=101, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 11:50:45 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:50:45 [main] INFO  c.h.i.controller.LaptopController - Creating new laptop record: Laptop(LaptopId=1, osVersion=11, lastOSUpdate=null, needToUpdate=false, laptopYear=0, toRenew=false, inUse=false, employeeId=101, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 11:50:45 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2026-04-24 11:50:45 [main] INFO  c.h.i.controller.LaptopController - Fetching laptop with ID: 1
+2026-04-24 11:50:45 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2026-04-24 11:50:45 [main] INFO  c.h.i.controller.LaptopController - Fetching laptop with ID: 999
+2026-04-24 11:50:45 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:50:45 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:50:45 [main] WARN  c.h.i.e.GlobalExceptionHandler - Validation failed: Field 'osVersion' - must be greater than 0
+2026-04-24 11:50:45 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:50:45 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 11:50:45 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 11:50:45 [main] INFO  c.h.i.controller.LaptopController - Fetching all laptops
+2026-04-24 12:06:13 [main] INFO  c.h.i.c.LaptopControllerTest - Starting LaptopControllerTest using Java 17.0.18 with PID 185011 (started by colin in /home/colin/code/ERM-Employee-Item-Health-App)
+2026-04-24 12:06:13 [main] INFO  c.h.i.c.LaptopControllerTest - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 12:06:13 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-24 12:06:14 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:14 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:14 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2026-04-24 12:06:14 [main] INFO  c.h.i.c.LaptopControllerTest - Started LaptopControllerTest in 1.878 seconds (process running for 2.69)
+2026-04-24 12:06:14 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:14 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:14 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:15 [main] INFO  c.h.i.controller.LaptopController - Updating laptop record: Laptop(LaptopId=1, osVersion=11, lastOSUpdate=null, needToUpdate=false, laptopYear=0, toRenew=false, inUse=false, employeeId=101, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 12:06:15 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:15 [main] INFO  c.h.i.controller.LaptopController - Creating new laptop record: Laptop(LaptopId=1, osVersion=11, lastOSUpdate=null, needToUpdate=false, laptopYear=0, toRenew=false, inUse=false, employeeId=101, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 12:06:15 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:15 [main] INFO  c.h.i.controller.LaptopController - Fetching laptop with ID: 1
+2026-04-24 12:06:15 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:15 [main] INFO  c.h.i.controller.LaptopController - Fetching laptop with ID: 999
+2026-04-24 12:06:15 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:15 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:15 [main] WARN  c.h.i.e.GlobalExceptionHandler - Validation failed: Field 'osVersion' - must be greater than 0
+2026-04-24 12:06:15 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:15 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:15 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:15 [main] INFO  c.h.i.controller.LaptopController - Fetching all laptops
+2026-04-24 12:06:32 [main] INFO  c.h.i.c.IDCardControllerTest - Starting IDCardControllerTest using Java 17.0.18 with PID 185459 (started by colin in /home/colin/code/ERM-Employee-Item-Health-App)
+2026-04-24 12:06:32 [main] INFO  c.h.i.c.IDCardControllerTest - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 12:06:32 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-24 12:06:34 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2026-04-24 12:06:34 [main] INFO  c.h.i.c.IDCardControllerTest - Started IDCardControllerTest in 1.84 seconds (process running for 2.616)
+2026-04-24 12:06:34 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:34 [main] INFO  c.h.i.controller.IDCardController - Updating ID card: IDCard(idCardId=1, employeeId=101, lastRenewedDate=2025-10-24, needToRenewDate=2028-04-24, inUse=true, toRenew=false, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 12:06:34 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:34 [main] INFO  c.h.i.controller.IDCardController - Creating new ID card: IDCard(idCardId=1, employeeId=101, lastRenewedDate=2025-10-24, needToRenewDate=2028-04-24, inUse=true, toRenew=false, createdAt=null, updatedAt=null, employee=null)
+2026-04-24 12:06:34 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:34 [main] INFO  c.h.i.controller.IDCardController - Fetching ID cards requiring renewal
+2026-04-24 12:06:34 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:34 [main] INFO  c.h.i.controller.IDCardController - Fetching ID card with ID: 1
+2026-04-24 12:06:34 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:34 [main] INFO  c.h.i.controller.IDCardController - Fetching ID card for employee ID: 101
+2026-04-24 12:06:34 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:34 [main] INFO  c.h.i.controller.IDCardController - Deleting ID card with ID: 1
+2026-04-24 12:06:34 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:34 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:34 [main] INFO  c.h.i.controller.IDCardController - Fetching all ID cards currently in use
+2026-04-24 12:06:34 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:34 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-04-24 12:06:34 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-04-24 12:06:34 [main] INFO  c.h.i.controller.IDCardController - Fetching all ID cards

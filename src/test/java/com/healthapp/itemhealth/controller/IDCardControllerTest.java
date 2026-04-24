@@ -151,8 +151,11 @@ public class IDCardControllerTest {
 
   @Test
   @DisplayName("GET /api/id-card - Fail (Unauthenticated)")
-  void access_Unauthenticated_Returns401() throws Exception {
-    mockMvc.perform(get("/api/id-card")).andExpect(status().isUnauthorized());
+  void access_Unauthenticated_Redirects() throws Exception {
+    mockMvc
+        .perform(get("/api/id-card"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrlPattern("/*login"));
   }
 
   @Test

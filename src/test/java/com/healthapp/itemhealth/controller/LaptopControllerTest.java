@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -169,7 +170,10 @@ public class LaptopControllerTest {
   @Test
   @DisplayName("ANY /api/laptop - Fail (Unauthenticated)")
   void access_Unauthenticated_Returns401() throws Exception {
-    mockMvc.perform(get("/api/laptop/1")).andExpect(status().isUnauthorized());
+    mockMvc
+        .perform(get("/api/laptop/1"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrlPattern("/*login"));
   }
 
   @Test
