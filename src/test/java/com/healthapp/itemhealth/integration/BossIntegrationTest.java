@@ -24,7 +24,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-@SpringBootTest
+@SpringBootTest(
+    properties = {
+      "spring.datasource.url=jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL",
+      "spring.datasource.driver-class-name=org.h2.Driver",
+      "spring.datasource.username=sa",
+      "spring.datasource.password=",
+      "spring.flyway.enabled=true"
+    })
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional

@@ -7,7 +7,7 @@ CREATE TABLE car (
     to_service BOOLEAN NOT NULL DEFAULT FALSE,
     need_to_service_date DATE NOT NULL DEFAULT CURRENT_DATE,
     last_insurance_renewal DATE NOT NULL DEFAULT CURRENT_DATE,
-    insurance_expire_date DATE NOT NULL DEFAULT (CURRENT_DATE + INTERVAL '1 year'),
+    insurance_expire_date DATE NOT NULL DEFAULT (CURRENT_DATE + INTERVAL '1' YEAR),
     to_renew_insurance BOOLEAN NOT NULL DEFAULT FALSE,
     in_use BOOLEAN NOT NULL DEFAULT true,
     employee_ID BIGINT,

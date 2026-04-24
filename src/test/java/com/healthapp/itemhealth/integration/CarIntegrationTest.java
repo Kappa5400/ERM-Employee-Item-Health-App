@@ -24,7 +24,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-@SpringBootTest
+@SpringBootTest(
+    properties = {
+      "spring.datasource.url=jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL",
+      "spring.datasource.driver-class-name=org.h2.Driver",
+      "spring.datasource.username=sa",
+      "spring.datasource.password=",
+      "spring.flyway.enabled=true",
+      "spring.mail.host=localhost"
+    })
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional
@@ -49,13 +57,41 @@ public class CarIntegrationTest {
   @WithMockUser(roles = "BOSS")
   @DisplayName("Integration: Create Car and Assign to Employee")
   void testCreateCarAndVerify() throws Exception {
-    // 1. Arrange: 持ち主となる社員を作成
+
+    Employee boss =
+        Employee.builder()
+            .name("Big Boss")
+            .title("Manager")
+            .username("boss_man")
+            .password("password123")
+            .bossRole(true)
+            .build();
+
+    String bossJson =
+        mockMvc
+            .perform(
+                post("/api/employee")
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(boss)))
+            .andExpect(status().isCreated())
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+
+    Long bossId =
+        ((Number) com.jayway.jsonpath.JsonPath.read(bossJson, "$.employeeId")).longValue();
+
     Employee driver =
         Employee.builder()
             .name("Test Driver")
             .title("Sales")
-            .username("driver_")
-            .password("secure123")
+            .bossUserId(bossId)
+            .bossRole(true)
+            .hasBoss(true)
+            .username("driver123")
+            .password("password123")
+            .email("Test@gmail.com")
             .build();
 
     String empJson =
@@ -73,8 +109,7 @@ public class CarIntegrationTest {
     Long employeeId =
         ((Number) com.jayway.jsonpath.JsonPath.read(empJson, "$.employeeId")).longValue();
 
-    // 2. Act: Carを作成
-    Car car = Car.builder().employeeId(employeeId).build();
+    Car car = Car.builder().employeeId(employeeId).carYear(1).build();
 
     String carJson =
         mockMvc
