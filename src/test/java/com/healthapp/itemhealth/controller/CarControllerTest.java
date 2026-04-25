@@ -41,7 +41,6 @@ public class CarControllerTest {
   @Autowired private WebApplicationContext context;
   @MockitoBean private CarService carService;
 
-  // Critical: JavaTimeModule handles LocalDate fields in your model
   private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
   private Car sampleCar;
@@ -59,7 +58,7 @@ public class CarControllerTest {
     sampleCar.setInUse(true);
   }
 
-  // --- 1. SUCCESS PATHS ---
+
 
   @Test
   @WithMockUser(roles = "BOSS")
@@ -113,7 +112,7 @@ public class CarControllerTest {
     mockMvc.perform(delete("/api/car/1").with(csrf())).andExpect(status().isNoContent());
   }
 
-  // --- 2. FAIL PATHS ---
+
 
   @Test
   @DisplayName("GET /api/car - Fail (Unauthorized)")
@@ -128,7 +127,7 @@ public class CarControllerTest {
   @WithMockUser(roles = "EMPLOYEE")
   @DisplayName("DELETE /api/car/{id} - Fail (Forbidden for USER role)")
   void delete_WrongRole_Returns403() throws Exception {
-    // This will only pass if SecurityConfig protects /api/car/**
+    
     mockMvc.perform(delete("/api/car/1").with(csrf())).andExpect(status().isForbidden());
   }
 }

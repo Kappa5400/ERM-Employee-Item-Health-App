@@ -123,7 +123,7 @@ public class EmployeeControllerTest {
     verify(employeeService, times(1)).insert(any(Employee.class));
   }
 
-  // --- 2. NULL & EMPTY PATHS ---
+
 
   @Test
   @WithMockUser(roles = "BOSS")
@@ -137,7 +137,7 @@ public class EmployeeControllerTest {
         .andExpect(content().string(""));
   }
 
-  // --- 3. ABNORMAL PATHS (FAILURES) ---
+
 
   @Test
   @WithMockUser(roles = "BOSS")
@@ -154,7 +154,7 @@ public class EmployeeControllerTest {
         .andExpect(status().isBadRequest());
   }
 
-  // --- 4. SECURITY PATHS ---
+
 
   @Test
   @DisplayName("ANY /api/employee - Fail Path (Unauthorized)")
@@ -164,10 +164,10 @@ public class EmployeeControllerTest {
   }
 
   @Test
-  @WithMockUser(roles = "USER") // Authenticated but lacks BOSS role
+  @WithMockUser(roles = "USER") 
   @DisplayName("DELETE /api/employee - Fail Path (Forbidden)")
   void delete_WrongRole() throws Exception {
-    // This expects 403 Forbidden if your SecurityConfig protects the route
+   
     mockMvc.perform(delete("/api/employee/1").with(csrf())).andExpect(status().isForbidden());
   }
 }

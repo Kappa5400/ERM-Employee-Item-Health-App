@@ -11,13 +11,17 @@
       <div class="card-body">
         <form id="edit-form">
           <input type="hidden" id="item-type" th:value="${type}" />
-
-          <input
+          <input type="hidden" id="isCreate" value="false" /> <input
             type="hidden"
             id="item-id"
             th:value="${type == 'laptop' ? item.laptopId : (type == 'car' ? item.carId : (type == 'id-card' ? item.idCardId : ''))}"
           />
 
+          <input
+            type="hidden"
+            id="employee-id"
+            th:value="${item?.employee?.employeeId}"
+          />
           <input
             type="hidden"
             id="emp-boss-role"
@@ -28,16 +32,9 @@
             id="emp-has-boss"
             th:value="${item?.employee?.hasBoss ?: false}"
           />
-          <input
-            type="hidden"
-            id="employee-id"
-            th:value="${item?.employee?.employeeId}"
-          />
 
           <th:block th:if="${type == 'laptop'}">
-            <div
-              th:replace="~{fragments/forms :: laptop-fields(${item})}"
-            ></div>
+            <div th:replace="~{fragments/forms :: laptop-fields(${item})}"></div>
           </th:block>
 
           <th:block th:if="${type == 'car'}">
@@ -45,14 +42,12 @@
           </th:block>
 
           <th:block th:if="${type == 'id-card'}">
-            <div
-              th:replace="~{fragments/forms :: id_card_fields(${item})}"
-            ></div>
+            <div th:replace="~{fragments/forms :: id_card_fields(${item})}"></div>
           </th:block>
 
-          <div class="mt-4">
+          <div class="mt-4 border-top pt-3">
             <button type="button" onclick="saveData()" class="btn btn-success">
-              Save Changes
+              <i class="bi bi-save"></i> Save Changes
             </button>
             <a th:href="@{/bossdashboard}" class="btn btn-secondary">Cancel</a>
           </div>
@@ -60,16 +55,6 @@
       </div>
     </div>
 
-    <script th:src="@{/js/item_handler.js}"></script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        console.log(
-          "Edit form loaded for type:",
-          document.getElementById("item-type").value,
-        );
-        console.log("Editing ID:", document.getElementById("item-id").value);
-      });
-    </script>
+    <script type="module" th:src="@{/js/app.js}"></script>
   </body>
 </html>

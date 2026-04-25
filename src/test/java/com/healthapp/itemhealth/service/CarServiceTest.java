@@ -67,7 +67,7 @@ public class CarServiceTest {
 
   @Test
   void getToService_Negative_ReturnsEmptyList() {
-    // 整備が必要な車がない場合
+
     when(carMapper.findToService()).thenReturn(List.of());
     List<Car> result = carService.getToService();
     assertTrue(result.isEmpty());

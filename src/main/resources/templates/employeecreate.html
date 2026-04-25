@@ -131,33 +131,7 @@
       </div>
     </div>
 
-    <script th:src="@{/js/item_handler.js}"></script>
+    <script type="module" th:src="@{/js/app.js}"></script>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const hasBossToggle = document.getElementById("hasBoss");
-        const bossSelect = document.getElementById("bossUserId");
-
-        function syncState() {
-          // dropdown is disabled if checkbox is NOT checked
-          bossSelect.disabled = !hasBossToggle.checked;
-
-          // Optional: add a visual cue via Bootstrap classes
-          if (bossSelect.disabled) {
-            bossSelect.classList.add("bg-light");
-            bossSelect.value = "";
-          } else {
-            bossSelect.classList.remove("bg-light");
-          }
-        }
-
-        if (hasBossToggle && bossSelect) {
-          // Run once on load to set initial state
-          syncState();
-          // Run every time the toggle changes
-          hasBossToggle.addEventListener("change", syncState);
-        }
-      });
-    </script>
   </body>
 </html>

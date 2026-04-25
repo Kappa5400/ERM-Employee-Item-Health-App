@@ -36,7 +36,7 @@ public class HealthCheckServiceTest {
 
   @Test
   void runHealthCheck_Positive_UpdatesAllEquipmentWhenNeeded() {
-    // Arrange
+  
     Employee emp = new Employee();
     emp.setEmployeeId(1L);
     when(employeeService.findAllEmployees()).thenReturn(List.of(emp));
@@ -49,15 +49,14 @@ public class HealthCheckServiceTest {
     when(carService.getByEmployeeId(1L)).thenReturn(car);
     when(idCardService.getByEmployeeId(1L)).thenReturn(idCard);
 
-    // Set all to true to trigger updates
+ 
     when(laptopHealth.checkUpdate(laptop)).thenReturn(true);
     when(carHealth.checkUpdate(car)).thenReturn(true);
     when(idCardHealth.checkUpdate(idCard)).thenReturn(true);
 
-    // Act
+
     healthCheckService.runHealthCheck();
 
-    // Assert: Verify that performUpdate was called for each device
     verify(laptopHealth, times(1)).performUpdate(laptop);
     verify(carHealth, times(1)).performUpdate(car);
     verify(idCardHealth, times(1)).performUpdate(idCard);
@@ -65,34 +64,33 @@ public class HealthCheckServiceTest {
 
   @Test
   void runHealthCheck_Negative_NoUpdatesIfHealthy() {
-    // Arrange
+
     Employee emp = new Employee();
     emp.setEmployeeId(1L);
     when(employeeService.findAllEmployees()).thenReturn(List.of(emp));
 
     Laptop laptop = new Laptop();
     when(laptopService.getByEmployeeId(1L)).thenReturn(laptop);
-    when(laptopHealth.checkUpdate(laptop)).thenReturn(false); // No update needed
+    when(laptopHealth.checkUpdate(laptop)).thenReturn(false); 
 
-    // Act
+
     healthCheckService.runHealthCheck();
 
-    // Assert
+
     verify(laptopHealth, never()).performUpdate(any());
   }
 
   @Test
   void runHealthCheck_NullPath_HandlesMissingEquipment() {
-    // Arrange: Employee exists but has no laptop (returns null)
     Employee emp = new Employee();
     emp.setEmployeeId(1L);
     when(employeeService.findAllEmployees()).thenReturn(List.of(emp));
     when(laptopService.getByEmployeeId(1L)).thenReturn(null);
 
-    // Act
+ 
     healthCheckService.runHealthCheck();
 
-    // Assert: Should not even check health if the object is null
+
     verify(laptopHealth, never()).checkUpdate(any());
   }
 }

@@ -51,7 +51,7 @@ public class LaptopControllerTest {
 
   @BeforeEach
   void setUp() {
-    // Initialize MockMvc with Spring Security filters
+   
     mockMvc =
         MockMvcBuilders.webAppContextSetup(context)
             .apply(
@@ -61,16 +61,16 @@ public class LaptopControllerTest {
 
     sampleLaptop = new Laptop();
     sampleLaptop.setLaptopId(1L);
-    sampleLaptop.setOsVersion(11); // Valid int version
+    sampleLaptop.setOsVersion(11); 
     sampleLaptop.setEmployeeId(101L);
 
     sampleLaptop2 = new Laptop();
     sampleLaptop2.setLaptopId(2L);
-    sampleLaptop2.setOsVersion(22); // Valid int version
+    sampleLaptop2.setOsVersion(22); 
     sampleLaptop2.setEmployeeId(201L);
   }
 
-  // --- 1. SUCCESS PATHS ---
+
 
   @Test
   @WithMockUser(roles = "BOSS")
@@ -134,13 +134,13 @@ public class LaptopControllerTest {
         .andExpect(jsonPath("$.osVersion").value(11));
   }
 
-  // --- 2. FAIL & NULL PATHS (異常系) ---
+
 
   @Test
   @WithMockUser(roles = "BOSS")
   @DisplayName("POST /api/laptop - Fail (Validation: Non-Positive OS Version)")
   void create_Fail_InvalidOs() throws Exception {
-    // Your model uses @Positive, so 0 or -5 should trigger a 400
+ 
     sampleLaptop.setOsVersion(0);
 
     mockMvc
@@ -165,7 +165,7 @@ public class LaptopControllerTest {
         .andExpect(content().string(""));
   }
 
-  // --- 3. SECURITY PATHS ---
+ 
 
   @Test
   @DisplayName("ANY /api/laptop - Fail (Unauthenticated)")
@@ -177,7 +177,7 @@ public class LaptopControllerTest {
   }
 
   @Test
-  @WithMockUser(roles = "EMPLOYEE") // Not BOSS
+  @WithMockUser(roles = "EMPLOYEE") 
   @DisplayName("DELETE /api/laptop/{id} - Fail (Insufficient Roles)")
   void delete_WrongRole_Returns403() throws Exception {
     mockMvc.perform(delete("/api/laptop/1").with(csrf())).andExpect(status().isForbidden());

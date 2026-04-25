@@ -50,7 +50,7 @@ public class IDCardServiceTest {
     assertNull(idCardService.getById(null));
   }
 
-  // --- LIST RETRIEVAL (ALL, IN USE, RENEW) ---
+
 
   @Test
   void getAll_Positive_ReturnsList() {
@@ -74,7 +74,6 @@ public class IDCardServiceTest {
     assertTrue(result.isEmpty());
   }
 
-  // --- EMPLOYEE RELATIONSHIP ---
 
   @Test
   void getByEmployeeId_Positive_ReturnsIDCard() {

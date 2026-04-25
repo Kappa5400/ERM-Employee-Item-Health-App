@@ -35,7 +35,6 @@ public class BossControllerTest {
   private final ObjectMapper objectMapper =
       new ObjectMapper().registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
-  // --- READ TESTS ---
 
   @Test
   @WithMockUser(roles = "BOSS")
@@ -62,7 +61,7 @@ public class BossControllerTest {
         .andExpect(jsonPath("$[0]").value(101L));
   }
 
-  // --- WRITE TESTS (POST/PATCH) ---
+
 
   @Test
   @WithMockUser(roles = "BOSS")
@@ -145,7 +144,7 @@ public class BossControllerTest {
     verify(bossService, never()).update(any(Boss.class));
   }
 
-  // --- DELETE TESTS ---
+
 
   @Test
   @WithMockUser(roles = "BOSS")
@@ -155,13 +154,13 @@ public class BossControllerTest {
     verify(bossService).delete(1L);
   }
 
-  // --- VALIDATION TEST ---
+
 
   @Test
   @WithMockUser(roles = "BOSS")
   void insert_Negative_InvalidData_Returns400() throws Exception {
     Boss invalidBoss = new Boss();
-    // Leave fields blank to trigger @Valid
+    // Fields missing to throw exception
 
     mockMvc
         .perform(
@@ -182,7 +181,7 @@ public class BossControllerTest {
         .perform(post("/api/boss/sub/{bossId}/{subordinateId}", bossId, subId).with(csrf()))
         .andExpect(status().isCreated());
 
-    // Verify the service was called with the exact IDs from the URL
+
     verify(bossService, times(1)).insertSubordinate(bossId, subId);
   }
 

@@ -35,7 +35,6 @@ public class IDCardControllerTest {
 
   @MockitoBean private IDCardService idCardService;
 
-  // Critical: Register JavaTimeModule for LocalDate expirationDate
   private final ObjectMapper objectMapper =
       new ObjectMapper().registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
@@ -51,7 +50,6 @@ public class IDCardControllerTest {
             .idCardId(1L)
             .employeeId(101L)
             .lastRenewedDate(LocalDate.now().minusMonths(6))
-            // Note: needToRenewDate will be auto-calculated if @Builder.Default is set
             .inUse(true)
             .build();
 
@@ -64,7 +62,6 @@ public class IDCardControllerTest {
             .build();
   }
 
-  // --- 1. SUCCESS PATHS (正常系) ---
   @Test
   @WithMockUser(roles = "BOSS")
   @DisplayName("GET /api/id-card/{id} - Success")
@@ -110,7 +107,6 @@ public class IDCardControllerTest {
     mockMvc.perform(get("/api/id-card/to-renew")).andExpect(status().isOk());
   }
 
-  // --- 2. POST / PATCH / DELETE ---
 
   @Test
   @WithMockUser(roles = "BOSS")
@@ -147,7 +143,6 @@ public class IDCardControllerTest {
     mockMvc.perform(delete("/api/id-card/1").with(csrf())).andExpect(status().isNoContent());
   }
 
-  // --- 3. FAIL PATHS (Security & Logic) ---
 
   @Test
   @DisplayName("GET /api/id-card - Fail (Unauthenticated)")
@@ -162,7 +157,6 @@ public class IDCardControllerTest {
   @WithMockUser(roles = "EMPLOYEE")
   @DisplayName("DELETE /api/id-card/{id} - Fail (Forbidden for non-BOSS)")
   void delete_WrongRole_Returns403() throws Exception {
-    // Ensure SecurityConfig has .requestMatchers("/api/id-card/**").hasRole("BOSS")
     mockMvc.perform(delete("/api/id-card/1").with(csrf())).andExpect(status().isForbidden());
   }
 }

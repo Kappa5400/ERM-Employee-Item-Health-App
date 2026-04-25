@@ -32,17 +32,17 @@ public class CarHealthTest {
   void setUp() {
     car = new Car();
     car.setCarId(1L);
-    // Default "Healthy" state
+   
     car.setCarYear(LocalDate.now().getYear() - 2);
     car.setInsuranceExpireDate(LocalDate.now().plusMonths(6));
     car.setLastInsuranceRenewal(LocalDate.now().minusMonths(1));
   }
 
-  // --- CHECK UPDATE TESTS (LOGIC) ---
+ 
 
   @Test
   void checkUpdate_Positive_ReturnsTrueWhenTooOld() {
-    // Car is exactly 10 years old
+ 
     car.setCarYear(LocalDate.now().getYear() - 10);
     assertTrue(carHealth.checkUpdate(car));
   }
@@ -55,7 +55,7 @@ public class CarHealthTest {
 
   @Test
   void checkUpdate_Positive_ReturnsTrueWhenServiceOverdue() {
-    // Service frequency is 3 months
+
     car.setLastInsuranceRenewal(LocalDate.now().minusMonths(4));
     assertTrue(carHealth.checkUpdate(car));
   }
@@ -65,7 +65,7 @@ public class CarHealthTest {
     assertFalse(carHealth.checkUpdate(car));
   }
 
-  // --- PERFORM UPDATE TESTS (MAPPER INTERACTIONS) ---
+
 
   @Test
   void performUpdate_CallsMapperForReplacement() {
@@ -74,13 +74,13 @@ public class CarHealthTest {
     carHealth.performUpdate(car);
 
     verify(carMapper, times(1)).setReplace(1L, true);
-    // Ensure other updates weren't called if their conditions weren't met
+
     verify(carMapper, never()).setInsurance(anyLong(), anyBoolean());
   }
 
   @Test
   void performUpdate_CallsMultipleUpdatesWhenNeeded() {
-    // Both old and insurance expired
+
     car.setCarYear(LocalDate.now().getYear() - 15);
     car.setInsuranceExpireDate(LocalDate.now().minusYears(1));
 
@@ -90,11 +90,11 @@ public class CarHealthTest {
     verify(carMapper).setInsurance(1L, true);
   }
 
-  // --- NULL PATHS ---
+
 
   @Test
   void checkUpdate_NullPath_ThrowsException() {
-    // Testing how the component handles a null car object
+
     assertThrows(
         NullPointerException.class,
         () -> {

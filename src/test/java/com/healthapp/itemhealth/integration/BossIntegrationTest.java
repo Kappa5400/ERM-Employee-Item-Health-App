@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
@@ -65,12 +64,11 @@ public class BossIntegrationTest {
   @DisplayName("Integration: Create Boss from existing Employee and Verify")
   void testCreateBossAndVerifySubordinates() throws Exception {
 
-    // 1. Create the Employee
     Employee employee =
         Employee.builder()
             .name("Boss Candidate")
             .title("Manager")
-            .username("boss_user_unique") // Ensure uniqueness
+            .username("boss_user_unique") 
             .password("secure123")
             .bossRole(false)
             .hasBoss(false)
@@ -90,14 +88,14 @@ public class BossIntegrationTest {
             .getResponse()
             .getContentAsString();
 
-    // Capture the ID assigned by the database
+  
     Long generatedEmployeeId =
         ((Number) com.jayway.jsonpath.JsonPath.read(empJson, "$.employeeId")).longValue();
 
-    // 2. Create the Boss using the GENERATED ID
+    
     Boss boss =
         Boss.builder()
-            .employeeId(generatedEmployeeId) // Use the dynamic ID here!
+            .employeeId(generatedEmployeeId) 
             .bossId(3L)
             .title("Bossy boss")
             .name("Boss Candidate")
@@ -118,12 +116,12 @@ public class BossIntegrationTest {
     Long generatedBossId =
         ((Number) com.jayway.jsonpath.JsonPath.read(bossJson, "$.bossId")).longValue();
 
-    // 3. Verify
+
     mockMvc
         .perform(get("/api/boss/" + generatedBossId))
         .andExpect(status().isOk())
         .andExpect(
-            jsonPath("$.employeeId").value(generatedEmployeeId)) // Compare against the dynamic ID
+            jsonPath("$.employeeId").value(generatedEmployeeId)) 
         .andExpect(jsonPath("$.name").value("Boss Candidate"));
   }
 }

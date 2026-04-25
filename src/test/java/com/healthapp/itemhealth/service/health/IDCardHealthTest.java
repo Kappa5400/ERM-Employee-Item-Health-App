@@ -31,7 +31,7 @@ public class IDCardHealthTest {
   void setUp() {
     idCard = new IDCard();
     idCard.setIdCardId(500L);
-    // Default healthy state (expires in the future)
+
     idCard.setNeedToRenewDate(LocalDate.now().plusDays(1));
   }
 
