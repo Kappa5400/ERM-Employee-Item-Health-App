@@ -3,7 +3,6 @@ package com.healthapp.itemhealth.integration;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -66,11 +65,12 @@ public class BossIntegrationTest {
   @DisplayName("Integration: Create Boss from existing Employee and Verify")
   void testCreateBossAndVerifySubordinates() throws Exception {
 
+    // 1. Create the Employee
     Employee employee =
         Employee.builder()
             .name("Boss Candidate")
             .title("Manager")
-            .username("boss_user_")
+            .username("boss_user_unique") // Ensure uniqueness
             .password("secure123")
             .bossRole(false)
             .hasBoss(false)
@@ -90,11 +90,18 @@ public class BossIntegrationTest {
             .getResponse()
             .getContentAsString();
 
-    Boss boss =
-        Boss.builder().employeeId(4L).bossId(3L).title("Bossy boss").name("Boss Candidate").build();
-
-    Long employeeId =
+    // Capture the ID assigned by the database
+    Long generatedEmployeeId =
         ((Number) com.jayway.jsonpath.JsonPath.read(empJson, "$.employeeId")).longValue();
+
+    // 2. Create the Boss using the GENERATED ID
+    Boss boss =
+        Boss.builder()
+            .employeeId(generatedEmployeeId) // Use the dynamic ID here!
+            .bossId(3L)
+            .title("Bossy boss")
+            .name("Boss Candidate")
+            .build();
 
     String bossJson =
         mockMvc
@@ -108,14 +115,15 @@ public class BossIntegrationTest {
             .getResponse()
             .getContentAsString();
 
-    Long bossId = ((Number) com.jayway.jsonpath.JsonPath.read(bossJson, "$.bossId")).longValue();
+    Long generatedBossId =
+        ((Number) com.jayway.jsonpath.JsonPath.read(bossJson, "$.bossId")).longValue();
 
-    // 3. Assert: Verify the Boss exists and is linked correctly
+    // 3. Verify
     mockMvc
-        .perform(get("/api/boss/" + bossId))
-        .andDo(print())
+        .perform(get("/api/boss/" + generatedBossId))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.employeeId").value(employeeId))
+        .andExpect(
+            jsonPath("$.employeeId").value(generatedEmployeeId)) // Compare against the dynamic ID
         .andExpect(jsonPath("$.name").value("Boss Candidate"));
   }
 }
