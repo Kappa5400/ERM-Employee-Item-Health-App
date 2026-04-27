@@ -8,10 +8,10 @@ services:
     image: postgres:15
     container_name: itemhealth-db
     ports:
-      - "5432:5432"
+      - "5432"
     environment:
-      POSTGRES_USER: ${DB_USERNAME:-postgres}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORDs}
       POSTGRES_DB: itemhealth
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d itemhealth"]
@@ -27,19 +27,19 @@ services:
   app:
     build: .
     container_name: itemhealth-app
-    user: root
+ 
     ports:
       - "8080:8080"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+  #  volumes:
+  #    - /var/run/docker.sock:/var/run/docker.sock
     deploy:
       resources:
         limits:
           memory: 2G
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/itemhealth
-      - DB_USERNAME=${DB_USERNAME:-postgres}
-      - DB_PASSWORD=${DB_PASSWORD:-password}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
       - DOCKER_API_VERSION=1.43
       - MAVEN_OPTS=-Xmx1024m
     depends_on:
@@ -53,5 +53,5 @@ services:
     image: mailhog/mailhog
     container_name: mailhog
     ports:
-      - "8025:8025"
-      - "1025:1025"
+      - "8025"
+      - "1025"
