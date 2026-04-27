@@ -3,12 +3,9 @@ import { EmployeeAPI, ItemAPI, BossAPI } from './api-service.js';
 import { restrictDateInputs, populateBossDropdown, handleApiError, initBossToggle } from './ui-helpers.js';
 import { validateItem } from './validation.js';
 
-
 document.addEventListener("DOMContentLoaded", () => {
   restrictDateInputs();
   populateBossDropdown(BossAPI);
-
-  
   initBossToggle();
 
   document.getElementById("username")?.addEventListener("blur", async (e) => {
@@ -37,7 +34,6 @@ window.saveData = async function() {
   const bossRoleValue = document.getElementById("emp-boss-role").value === "true";
   const hasBossValue = document.getElementById("emp-has-boss").value === "true";
 
- 
   const payload = {
     employeeId: Number(employeeIdValue),
     employee: {
@@ -47,7 +43,6 @@ window.saveData = async function() {
     },
     inUse: document.getElementById("inUse")?.checked ?? true,
   };
-
 
   if (type === "laptop") {
     if (!isCreate) payload.laptopId = Number(id);
@@ -78,10 +73,8 @@ window.saveData = async function() {
     payload.toRenew = document.getElementById("toRenew").checked;
   }
 
-
   const error = validateItem(type, payload);
   if (error) return alert(error);
-
 
   try {
     await ItemAPI.save(type, payload, isCreate);
@@ -123,15 +116,6 @@ window.saveEmployee = async function() {
   }
 };
 
-window.deleteEmployee = async function(id, name) {
-  if (!confirm(`Are you sure you want to delete employee "${name}"?`)) return;
-  try {
-    await EmployeeAPI.delete(id);
-    window.location.href = "/bossdashboard";
-  } catch (err) {
-    alert("Delete failed: " + err.message);
-  }
-};
 
 window.deleteItem = async function(type, id) {
   if (!confirm(`Are you sure you want to delete this ${type}?`)) return;
@@ -143,11 +127,22 @@ window.deleteItem = async function(type, id) {
   }
 };
 
+
+window.deleteEmployee = async function(id, name) {
+  if (!confirm(`Are you sure you want to delete employee "${name}"?`)) return;
+  try {
+    await EmployeeAPI.delete(id);
+    window.location.href = "/bossdashboard";
+  } catch (err) {
+    alert("Delete failed: " + err.message);
+  }
+};
+
 window.getMail = async () => {
-    try { 
-      await BossAPI.getMail(); 
-      console.log("Mail sync triggered successfully"); 
-    } catch (err) { 
-      console.error("Mail error:", err); 
-    }
+  try {
+    await BossAPI.getMail();
+    console.log("Mail sync triggered successfully");
+  } catch (err) {
+    console.error("Mail error:", err);
+  }
 };

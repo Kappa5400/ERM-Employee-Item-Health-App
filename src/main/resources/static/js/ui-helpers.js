@@ -3,13 +3,10 @@ export function restrictDateInputs() {
   const today = new Date().toISOString().split('T')[0];
   const now = new Date().toISOString().slice(0, 16);
 
-
   ["lastOSUpdate", "lastRenewedDate", "lastServiced", "lastInsuranceRenewal"].forEach(id => {
-    // el is page element
     const el = document.getElementById(id);
     if (el) el.max = (id === "lastOSUpdate") ? now : today;
   });
-
 
   ["needToRenewDate", "needToServiceDate", "insuranceExpireDate"].forEach(id => {
     const el = document.getElementById(id);
@@ -41,7 +38,7 @@ export function handleApiError(errorMsg, usernameInputId = "username") {
     if (userBox) {
       userBox.value = "";
       userBox.focus();
-     }
+    }
   }
 }
 
@@ -49,7 +46,7 @@ export function initBossToggle() {
   const hasBossToggle = document.getElementById("hasBoss");
   const bossSelect = document.getElementById("bossUserId");
 
-  if (!hasBossToggle || !bossSelect) return; 
+  if (!hasBossToggle || !bossSelect) return;
 
   const syncState = () => {
     bossSelect.disabled = !hasBossToggle.checked;
@@ -63,5 +60,3 @@ export function initBossToggle() {
   syncState();
   hasBossToggle.addEventListener("change", syncState);
 }
-
-
