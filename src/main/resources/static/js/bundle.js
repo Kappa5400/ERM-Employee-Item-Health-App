@@ -1,0 +1,224 @@
+// ── CSRF ──────────────────────────────────────────────────────────────────────
+function getCsrf() {
+  return {
+    token: document.querySelector('meta[name="_csrf"]')?.getAttribute("content"),
+    header: document.querySelector('meta[name="_csrf_header"]')?.getAttribute("content")
+  };
+}
+
+// ── CORE API REQUEST ──────────────────────────────────────────────────────────
+async function apiRequest(url, method, body) {
+  const { token, header } = getCsrf();
+  const options = { method, headers: { "Content-Type": "application/json" } };
+  if (header && token) options.headers[header] = token;
+  if (body) options.body = JSON.stringify(body);
+  const response = await fetch(url, options);
+  if (!response.ok) throw new Error(await response.text() || "Server error");
+  return response;
+}
+
+// ── API SERVICES ──────────────────────────────────────────────────────────────
+const EmployeeAPI = {
+  checkUsername: (u) => fetch(`/api/employee/check-username?username=${encodeURIComponent(u)}`).then(r => r.json()),
+  create: (payload) => apiRequest("/api/employee", "POST", payload),
+  delete: (id)      => apiRequest(`/api/employee/${id}`, "DELETE")
+};
+
+const ItemAPI = {
+  save:   (type, payload, isCreate) => apiRequest(`/api/${type}`, isCreate ? "POST" : "PATCH", payload),
+  delete: (type, id)                => apiRequest(`/api/${type}/${id}`, "DELETE")
+};
+
+const BossAPI = {
+  getAll: () => fetch("/api/boss").then(r => r.json()),
+  getMail: () => apiRequest("/api/getmail", "GET")
+};
+
+// ── VALIDATION ────────────────────────────────────────────────────────────────
+function validateItem(type, payload) {
+  const now = new Date();
+  if (type === "laptop" && new Date(payload.lastOSUpdate) > now)
+    return "Error: Last OS Update cannot be in the future.";
+  if (type === "car") {
+    const ls = new Date(payload.lastServiced), ns = new Date(payload.needToServiceDate);
+    if (ls > now)  return "Error: Last Serviced Date cannot be in the future.";
+    if (ls > ns)   return "Error: Last Serviced Date cannot be after the Next Service Due date.";
+  }
+  if (type === "id-card") {
+    const lr = new Date(payload.lastRenewedDate), nd = new Date(payload.needToRenewDate);
+    if (lr > now)        return "Error: Last Renewed Date cannot be in the future.";
+    if (lr && nd && lr > nd) return "Error: Last Renewed must be before the Next Renewal.";
+  }
+  return null;
+}
+
+// ── UI HELPERS ────────────────────────────────────────────────────────────────
+function restrictDateInputs() {
+  const today = new Date().toISOString().split("T")[0];
+  const now   = new Date().toISOString().slice(0, 16);
+  ["lastOSUpdate","lastRenewedDate","lastServiced","lastInsuranceRenewal"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.max = id === "lastOSUpdate" ? now : today;
+  });
+  ["needToRenewDate","needToServiceDate","insuranceExpireDate"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.min = today;
+  });
+}
+
+async function populateBossDropdown() {
+  const select = document.getElementById("bossUserId");
+  if (!select) return;
+  try {
+    const bosses = await BossAPI.getAll();
+    select.innerHTML = '<option value="">-- Select a Boss --</option>';
+    bosses.forEach(boss => {
+      const id = boss.employeeId || boss.id;
+      select.add(new Option(`${boss.name} (${boss.title || "No Title"})`, id));
+    });
+  } catch (err) {
+    console.error("Failed to load bosses:", err);
+  }
+}
+
+function handleApiError(errorMsg, usernameInputId = "username") {
+  alert("Action failed:\n\n" + errorMsg);
+  if (errorMsg.toLowerCase().includes("already taken")) {
+    const el = document.getElementById(usernameInputId);
+    if (el) { el.value = ""; el.focus(); }
+  }
+}
+
+function initBossToggle() {
+  const toggle = document.getElementById("hasBoss");
+  const select = document.getElementById("bossUserId");
+  if (!toggle || !select) return;
+  const sync = () => {
+    select.disabled = !toggle.checked;
+    select.classList.toggle("bg-light", select.disabled);
+    if (select.disabled) select.value = "";
+  };
+  sync();
+  toggle.addEventListener("change", sync);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", () => {
+  restrictDateInputs();
+  populateBossDropdown();
+  initBossToggle();
+
+  document.getElementById("username")?.addEventListener("blur", async (e) => {
+    const username = e.target.value.trim();
+    if (!username) return;
+    try {
+      const taken = await EmployeeAPI.checkUsername(username);
+      if (taken) {
+        alert(`The username "${username}" is already taken.`);
+        e.target.value = "";
+        e.target.focus();
+      }
+    } catch (err) { console.error("Username check failed:", err); }
+  });
+});
+
+// ── GLOBAL ACTIONS (called from onclick= attributes) ─────────────────────────
+window.saveData = async function () {
+  const type    = document.getElementById("item-type").value;
+  const id      = document.getElementById("item-id").value;
+  const isCreate = document.getElementById("isCreate")?.value === "true";
+  const empId   = Number(document.getElementById("employee-id").value);
+
+  const payload = {
+    employeeId: empId,
+    employee: {
+      employeeId: empId,
+      bossRole: document.getElementById("emp-boss-role").value === "true",
+      hasBoss:  document.getElementById("emp-has-boss").value  === "true"
+    },
+    inUse: document.getElementById("inUse")?.checked ?? true
+  };
+
+  if (type === "laptop") {
+    if (!isCreate) payload.laptopId = Number(id);
+    payload.osVersion    = Number(document.getElementById("osVersion").value);
+    payload.laptopYear   = Number(document.getElementById("laptopYear").value);
+    payload.lastOSUpdate = document.getElementById("lastOSUpdate").value;
+    payload.needToUpdate = document.getElementById("needToUpdate").checked;
+    payload.toRenew      = document.getElementById("toRenew").checked;
+  }
+  if (type === "car") {
+    if (!isCreate) payload.carId = Number(id);
+    payload.milage              = Number(document.getElementById("milage").value);
+    payload.carYear             = Number(document.getElementById("carYear").value);
+    payload.lastServiced        = document.getElementById("lastServiced").value;
+    payload.needToServiceDate   = document.getElementById("needToServiceDate").value;
+    payload.lastInsuranceRenewal= document.getElementById("lastInsuranceRenewal").value;
+    payload.insuranceExpireDate = document.getElementById("insuranceExpireDate").value;
+    payload.toService           = document.getElementById("toService").checked;
+    payload.toRenewInsurance    = document.getElementById("toRenewInsurance").checked;
+    payload.toReplace           = document.getElementById("toReplace").checked;
+  }
+  if (type === "id-card") {
+    if (!isCreate) payload.idCardId = Number(id);
+    payload.lastRenewedDate = document.getElementById("lastRenewedDate").value;
+    payload.needToRenewDate = document.getElementById("needToRenewDate").value;
+    payload.toRenew         = document.getElementById("toRenew").checked;
+  }
+
+  const err = validateItem(type, payload);
+  if (err) return alert(err);
+
+  try {
+    await ItemAPI.save(type, payload, isCreate);
+    window.location.href = "/bossdashboard";
+  } catch (err) { alert("Save failed: " + err.message); }
+};
+
+window.saveEmployee = async function () {
+  const form = document.getElementById("employee-form");
+  if (form && !form.checkValidity()) return form.reportValidity();
+
+  const hasBoss   = document.getElementById("hasBoss").checked;
+  const bossUserId = document.getElementById("bossUserId")?.value;
+  if (hasBoss && !bossUserId) { alert("Please select a boss."); return; }
+
+  const payload = {
+    name:      document.getElementById("name").value.trim(),
+    title:     document.getElementById("title").value.trim(),
+    username:  document.getElementById("username").value.trim(),
+    password:  document.getElementById("password").value,
+    email:     document.getElementById("email").value.trim(),
+    bossRole:  document.getElementById("bossRole").checked,
+    hasBoss,
+    bossUserId: bossUserId ? Number(bossUserId) : null
+  };
+
+  try {
+    await EmployeeAPI.create(payload);
+    window.location.href = "/bossdashboard";
+  } catch (err) { handleApiError(err.message); }
+};
+
+window.deleteItem = async function (type, id) {
+  if (!confirm(`Are you sure you want to delete this ${type}?`)) return;
+  try {
+    await ItemAPI.delete(type, id);
+    window.location.reload();
+  } catch (err) { alert("Delete failed: " + err.message); }
+};
+
+window.deleteEmployee = async function (id, name) {
+  if (!confirm(`Are you sure you want to delete employee "${name}"?`)) return;
+  try {
+    await EmployeeAPI.delete(id);
+    window.location.href = "/bossdashboard";
+  } catch (err) { alert("Delete failed: " + err.message); }
+};
+
+window.getMail = async function () {
+  try {
+    await BossAPI.getMail();
+    console.log("Mail sync triggered");
+  } catch (err) { console.error("Mail error:", err); }
+};
