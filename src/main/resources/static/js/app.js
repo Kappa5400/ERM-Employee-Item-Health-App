@@ -1,8 +1,8 @@
 
 import { EmployeeAPI, ItemAPI, BossAPI } from './api-service.js';
-import { restrictDateInputs, populateBossDropdown, handleApiError } from './ui-helpers.js';
+import { restrictDateInputs, populateBossDropdown, handleApiError, initBossToggle } from './ui-helpers.js';
 import { validateItem } from './validation.js';
-import { initBossToggle, restrictDateInputs, populateBossDropdown } from './ui-helpers.js';
+
 
 document.addEventListener("DOMContentLoaded", () => {
   restrictDateInputs();
@@ -123,6 +123,15 @@ window.saveEmployee = async function() {
   }
 };
 
+window.deleteEmployee = async function(id, name) {
+  if (!confirm(`Are you sure you want to delete employee "${name}"?`)) return;
+  try {
+    await EmployeeAPI.delete(id);
+    window.location.href = "/bossdashboard";
+  } catch (err) {
+    alert("Delete failed: " + err.message);
+  }
+};
 
 window.deleteItem = async function(type, id) {
   if (!confirm(`Are you sure you want to delete this ${type}?`)) return;

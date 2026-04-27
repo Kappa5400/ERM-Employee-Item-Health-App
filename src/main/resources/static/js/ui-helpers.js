@@ -41,7 +41,10 @@ export function handleApiError(errorMsg, usernameInputId = "username") {
     if (userBox) {
       userBox.value = "";
       userBox.focus();
-    }
+     }
+  }
+}
+
 export function initBossToggle() {
   const hasBossToggle = document.getElementById("hasBoss");
   const bossSelect = document.getElementById("bossUserId");
@@ -61,5 +64,4 @@ export function initBossToggle() {
   hasBossToggle.addEventListener("change", syncState);
 }
 
-}
-}
+
