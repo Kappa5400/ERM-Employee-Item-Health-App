@@ -57,12 +57,16 @@ jobs:
             git fetch origin
             git reset --hard origin/master
 
+            echo "DB_USERNAME=${DB_USER}" > .env
+            echo "DB_PASSWORD=${DB_PASS}" >> .env
+
             # Take docker container running down and force a rebuild using the new
             # container in the new repo. -f tells docker to use the docker-compose.yml file
             # -d is detached mode so it runs in background
-            
+            trap "rm -f .env" EXIT
+
             /usr/bin/docker compose -f docker-compose.yml down
             /usr/bin/docker compose -f docker-compose.yml up -d --build
             
             #Delete env variables so they are not left on server
-            rm .env
+            
