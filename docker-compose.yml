@@ -1,4 +1,4 @@
-version: "3.8"
+
  
 services:
 # Makes a containorized postgres database on port 5432. Injects user, password, 
