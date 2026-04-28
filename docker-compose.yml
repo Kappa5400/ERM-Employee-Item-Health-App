@@ -52,6 +52,6 @@ services:
   mailhog:
     image: mailhog/mailhog
     container_name: mailhog
-    ports:
+    expose:
       - "8025"
       - "1025"
