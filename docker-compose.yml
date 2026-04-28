@@ -7,7 +7,7 @@ services:
   db:
     image: postgres:15
     container_name: itemhealth-db
-    exports:
+    expose:
       - "5432"
     environment:
       POSTGRES_USER: ${DB_USERNAME}
