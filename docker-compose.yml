@@ -11,7 +11,7 @@ services:
       - "5432"
     environment:
       POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORDs}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: itemhealth
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d itemhealth"]
