@@ -47,6 +47,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          debug: true
           envs: DB_USER,DB_PASS,APP_DIR_USER
           script: |
             cd /home/$APP_DIR_USER/ERM-Employee-Item-Health-App
