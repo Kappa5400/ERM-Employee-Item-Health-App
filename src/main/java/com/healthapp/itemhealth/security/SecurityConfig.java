@@ -39,6 +39,8 @@ public class SecurityConfig {
                     .hasRole("BOSS")
                     .requestMatchers("/api/car/**")
                     .hasRole("BOSS")
+                    .requestMatchers("/api/boss/**")
+                    .hasRole("BOSS")
 
                     // authentication for everything else
                     .anyRequest()

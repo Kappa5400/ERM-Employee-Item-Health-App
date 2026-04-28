@@ -62,7 +62,7 @@ public class EmployeeService {
       throw new ResponseStatusException(
           // look into bad_req err, should be same username err(?)
           HttpStatus.BAD_REQUEST,
-          "The username '" + employee.getUsername() + "' is already taken.");
+          "That username is already taken.");
     }
 
     log.info("Inserting new employee: {}", employee.getUsername());

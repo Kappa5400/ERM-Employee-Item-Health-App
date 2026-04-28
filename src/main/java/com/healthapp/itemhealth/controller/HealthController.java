@@ -157,6 +157,7 @@ public class HealthController {
     return restTemplate;
   }
 
+  @PreAuthorize("hasRole('BOSS')")
   @GetMapping("/mail")
   public String mail(Model model) {
     try {
@@ -176,6 +177,7 @@ public class HealthController {
 
   @GetMapping("/getmail")
   @ResponseBody
+  @PreAuthorize("hasRole('BOSS')")
   public Object getmail() {
     RestTemplate restTemplate = createMailhogRestTemplate();
     String fullPath = mailhogUrl + "/api/v2/messages";
