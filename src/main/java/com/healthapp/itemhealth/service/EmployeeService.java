@@ -61,8 +61,7 @@ public class EmployeeService {
     if (employeeMapper.existsByUsername(employee.getUsername())) {
       throw new ResponseStatusException(
           // look into bad_req err, should be same username err(?)
-          HttpStatus.BAD_REQUEST,
-          "That username is already taken.");
+          HttpStatus.BAD_REQUEST, "That username is already taken.");
     }
 
     log.info("Inserting new employee: {}", employee.getUsername());

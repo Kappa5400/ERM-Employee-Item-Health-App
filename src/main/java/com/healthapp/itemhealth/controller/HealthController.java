@@ -169,7 +169,7 @@ public class HealthController {
 
       model.addAttribute("mailData", items);
     } catch (Exception e) {
-   
+
       model.addAttribute("error", "MailHog error: " + e.getMessage());
     }
     return "mail";

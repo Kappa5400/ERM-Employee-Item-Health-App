@@ -30,11 +30,11 @@ public class UserService implements UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     Employee employee = employeeMapper.login(username);
 
-    log.debug("DEBUG: Login attempt ";
+    log.debug("DEBUG: Login attempt for username: " + username);
 
     // If user doesn't exist throw error
     if (employee == null) {
-      log.debug("DEBUG: User NOT FOUND in DB");
+      log.debug("DEBUG: User NOT FOUND in DB for username: " + username);
       throw new UsernameNotFoundException("User not found: " + username);
     }
 
