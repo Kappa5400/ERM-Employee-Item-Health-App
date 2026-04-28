@@ -50,7 +50,7 @@ jobs:
           debug: true
           envs: DB_USER,DB_PASS,APP_DIR_USER
           script: |
-            cd /home/$APP_DIR_USER/ERM-Employee-Item-Health-App
+            cd /root/ERM-Employee-Item-Health-App
             
             # We have the server fetch the updated repo and force
             # it to delete the old version on disk.
