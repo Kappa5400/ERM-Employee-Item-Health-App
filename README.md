@@ -1,4 +1,4 @@
-test Intro
+Intro
 A basic application to track items an employee may have. Automatically sends email to boss users when an item needs servicing or renewal. 
 The website is deployed via digital ocean on the link below.
 
