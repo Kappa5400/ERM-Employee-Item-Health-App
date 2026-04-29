@@ -1,178 +1,217 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
+<head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About</title>
-    <div>
-    イントロダクション
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f9fa; color: #212529; }
+        .content-container { max-width: 900px; margin: 50px auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1, h2, h3, h4 { color: #0d6efd; margin-top: 1.5rem; }
+        pre { background: #343a40; color: #f8f9fa; padding: 15px; border-radius: 5px; font-size: 0.9rem; }
+        .section-divider { margin: 2rem 0; border-top: 2px solid #e9ecef; }
+    </style>
+</head>
+<body>
 
-    営業向けのERMアプリです。正社員が所有するPCや備品や車が更新・保守は必要になれば上司に自動メールを打つアプリになります。
-    以下はウェブサイトリンクになります。Digitaloceanのサーバで稼働しました。
+<div class="container">
+    <div class="content-container">
+        <h1>イントロダクション</h1>
+        <p>
+            営業向けのERMアプリです。正社員が所有するPCや備品や車が更新・保守は必要になれば上司に自動メールを打つアプリになります。<br>
+            以下はウェブサイトリンクになります。Digitaloceanのサーバで稼働しました。
+        </p>
+        <p><a href="https://itemhealtherm.tech/" target="_blank" class="link-primary">https://itemhealtherm.tech/</a></p>
 
-    https://itemhealtherm.tech/
+        <p>
+            このプロジェクトの目的はSpring Bootに慣れることや営業使いそうなツールを作ることでした。<br>
+            このアプリは自動Schedulerで毎日自動スクリプト動きます。もしあるアイテムは更新や保守を必要になれば上司に自動メールを送ります。<br>
+            メールはＭａｉｌｈｏｇでキャッチするので外部のメールアドレスに送りません。<br>
+            アプリはCI/CDを導入しており従業員情報や保有アイテムの詳細をExcelでダウンロードする機能も備えています。<br>
+            単体テストや結合テスト、GithubActionsやDockerでCi/CDにDigitaloceanサーバで自動稼働を行っています。<br>
+            データベースアクセスにはMyBatisを使用し、生SQLでメソッド作り出してServiceレイヤーに繋げてFlywaydbでデータ移行を行います。<br>
+            Spring SecurityとSpring MVCでバックエンドを構築しました。<br>
+            フロントエンドはThymeleaf・JS・HTML・CSSで構築し、同一バックエンドと統合された一体型アプリです。
+        </p>
 
+        <h3>データベース体系</h3>
+        <p><a href="https://github.com/Kappa5400/ERM-Employee-Item-Health-App/blob/master/Documentation/ER%20Chart.jpg" target="_blank">ER Chart (GitHub)</a></p>
 
-    このプロジェクトの目的はSpring Bootに慣れることや営業使いそうなツールを作ることでした。
-    このアプリは自動Schedulerで毎日自動スクリプト動きます。もしあるアイテムは更新や保守を必要になれば上司に自動メールを送ります。
-    メールはＭａｉｌｈｏｇでキャッチするので外部のメールアドレスに送りません。
-    アプリはCI/CDを導入しており従業員情報や保有アイテムの詳細をExcelでダウンロードする機能も備えています。
-    単体テストや結合テスト、GithubActionsやDockerでCi/CDにDigitaloceanサーバで自動稼働を行っています。
-    データベースアクセスにはMyBatisを使用し、生SQLでメソッド作り出してServiceレイヤーに繋げてFlywaydbでデータ移行を行います。
-    Spring SecurityとSpring MVCでバックエンドを構築しました。
-    フロントエンドはThymeleaf・JS・HTML・CSSで構築し、同一バックエンドと統合された一体型アプリです
-    データベース体系
-    https://github.com/Kappa5400/ERM-Employee-Item-Health-App/blob/master/Documentation/ER%20Chart.jpg
+        <h3>システム体系</h3>
+        <p><a href="https://github.com/Kappa5400/ERM-Employee-Item-Health-App/blob/master/Documentation/Architecture%20Diagram.jpg" target="_blank">Architecture Diagram (GitHub)</a></p>
 
-    システム体系
-    https://github.com/Kappa5400/ERM-Employee-Item-Health-App/blob/master/Documentation/Architecture%20Diagram.jpg
+        <div class="section-divider"></div>
 
-    **主な機能：**
+        <h2>主な機能：</h2>
+        <ul>
+            <li>従業員が所有するアイテムの管理システム</li>
+            <li>自動お知らせメール、Excelエクスポート、CRUD管理制度</li>
+            <li>単体テスト、結合テスト、Docker,クラウドデプロイCI/CDパイプライン</li>
+            <li>リレーショナルDBによるPK/FKジョイン管理</li>
+        </ul>
 
-    - 従業員が所有するアイテムの管理システム
-    - 自動お知らせメール、Excelエクスポート、CRUD管理制度
-    - 単体テスト、結合テスト、Docker,クラウドデプロイCI/CDパイプライン
-    - リレーショナルDBによるPK/FKジョイン管理
+        <div class="section-divider"></div>
 
+        <h2>プロジェクト詳細：システムアーキテクチャ</h2>
+        <p>
+            フロントエンドとバックエンドは同じポートで作って一つのアプリになります。わざわざ複雑フロントエンドを作るより簡単や作り立てやすいのフロントエンドを目指して作りました。
+        </p>
 
-    ---
+        <h3>使用パッケージ</h3>
+        <p>
+            <strong>セキュリティ:</strong> bcrypt, Spring-security<br>
+            <strong>ユーティリティ:</strong> Cron, Spring-mail, Jackson, Mybatis, Flywaydb, mailhog<br>
+            <strong>テスト:</strong> Spring-test, junit<br>
+            <strong>フロントエンド:</strong> Spring-routing, Thymeleaf
+        </p>
 
-    ## プロジェクト詳細：システムアーキテクチャ
+        <h3>パッケージ解説</h3>
+        <h4>セキュリティ:</h4>
+        <p>
+            <strong>Spring-security:</strong> Springに組み込まれているセキュリティ機能。Security filter を構成することで認証処理に対応できます。アプリの一部機能をBoss権限必須に制限したため、認証機能が必要でした。<br>
+            <strong>bcrypt:</strong> パスワードを暗号化（ハッシュ化）するためのパッケージ。
+        </p>
 
-    フロントエンドとバックエンドは同じポートで作って一つのアプリになります。わざわざ複雑フロントエンドを作るより簡単や作り立てやすいの
-    フロントエンドを目指して作りました。
+        <h4>ユーティリティ:</h4>
+        <p>
+            <strong>Scheduler:</strong> 毎日同じときに自動スクリプトを稼働して欲しかったのでSchedulerを使いました。<br>
+            <strong>Spring-mail:</strong> 自動メールを送るためにこのSpring-mailを使いました。<br>
+            <strong>Jackson:</strong> JSONオブジェクトの対応するためのパッケージになります。<br>
+            <strong>Mybatis:</strong> SIER会社のスタックを合うためにMybatisを使おうとしました。生SQLクエリをマッピングしてServiceとつながります。<br>
+            <strong>Flywaydb:</strong> データベースの移行するためのパッケージです。<br>
+            <strong>Mailhog:</strong> メールを送るたびにMailhogでキャッチしてフロントエンドに表示できるように設定しました。<br>
+            <strong>Apache POI:</strong> Excelファイルを作成するために使用しました。
+        </p>
 
-    ### 使用パッケージ
-    セキュリティ: bcrypt, Spring-security<br/>
-    ユーティリティ: Cron, Spring-mail, Jackson, Mybatis, Flywaydb, mailhog<br/>
-    テスト: Spring-test, junit<br/>
-    フロントエンド: Spring-routing, Thymeleaf<br/>
+        <h4>テスト:</h4>
+        <p>
+            <strong>Spring-test:</strong> Springに組み込まれているテストパッケージです。<br>
+            <strong>Junit:</strong> 単位テストパッケージです。<br>
+            <strong>Mockito:</strong> テスト用モックオブジェクトを生成するパッケージです。
+        </p>
 
-    ### パッケージ解説
-    - **セキュリティ:** <br/>
-    Spring-security: Springに組み込まれているセキュリティ機能。Security filter を構成することで認証処理に対応できます。
-    アプリの一部機能をBoss権限必須に制限したため、認証機能が必要でした。
+        <h4>フロントエンド:</h4>
+        <p><strong>Thymeleaf:</strong> 軽いフロントエンドフレームワーク。</p>
 
-    bcrypt: パスワードを暗号化（ハッシュ化）するためのパッケージ。
+        <h3>ファイル構成</h3>
+<pre>
+|ERM-Employee-Item-Health-App/ 
+├──.devcontainer/ # Build settings for deployment. 
+├──.github/workflows/ # Github actions. 
+├──logs/ # Where logs end up. 
+├──Dockerfile/ # Dockerfile build setup 
+├──tests/ # Testing setup teardown files 
+├──docker-compose.yml/ # Docker build settings 
+|──Everything else in root: Standard spring-boot build files 
+├──src/ # The source code. 
+| └──test/ # Where the testing suite is, unit testing and integration testing. 
+| └──main/ # | └────resources/ # Front end and db migration files 
+| └────db/migrations/ # Flyway migration files for DB setup 
+| └────mappers# MyBatis sql mapping files 
+| └────static/js # JS script for frontend 
+| └────templates # HTML pages
+| └────application.yml/propertiex/logback # settings setup, logs 
+| └────java/com/healthapp/itemhealth/ # Backend 
+| └────config # Flyway config file.
+| └────controller # Controller layer. 
+| └────exception # Exception handler. 
+| └────mapper # Connect Mybatis to backend service layer 
+| └────model # Model layer 
+| └────security # Spring-security filter chain. 
+| └────service # service layer 
+| └────health # health template logic for health service 
+| └────scheduler # cronjob scripts 
+| └────ItemhealthApplication.java # App entry point
+</pre>
 
-    - **ユーティリティ:**<br/>
-    Scheduler:毎日同じときに自動スクリプトを稼働して欲しかったのでSchedulerを使いました。<br/>
-    Spring-mail:自動メールを送るためにこのSpring-mailを使いました。<br/>
-    Jackson: JSONオブジェクトの対応するためのパッケージになります。<br/>
-    Mybatis:SIER会社のスタックを合うためにMybatisを使おうとしました。生SQLクエリをマッピングしてServiceとつながります。<br/>
-    Flywaydb:データベースの移行するためのパッケージです。<br/>
-    Mailhog: メールを送るたびにMailhogでキャッチしてフロントエンドに表示できるように設定しました。<br/>
-    Apache POI: Excelファイルを作成するために使用しました。<br/>
+        <h3>バックエンド詳細</h3>
+        <h4>データベース</h4>
+        <p>
+            データベースはPostgresを使いました。Postgresの訓練しようとおもって使いました。<br>
+            ある程度テーブルのジョインしたり関係データベースの機能を真似しようやSIERスタックを合わせようとしました。
+        </p>
 
-    - **テスト:** <br/>
-    Spring-test: Springに組み込まれているテストパッケージです。<br/>
-    Junit:単位テストパッケージです。<br/>
-    Mockito: テスト用モックオブジェクトを生成するパッケージです。<br/>
+        <h4>モデル</h4>
+        <p>
+            モデルはプライマリーキーと外部キーでジョインして検索できるように設計しました。Employeeプライマリーキー Employee_ID でほかのモデル外部キーとして付けていると物、Ｂｏｓｓ、そしてＳｕｂｏｒｄｉｎａｔｅでジョインできます。<br>
+            Healthreportはアイテム情報を集約し、自動メール送信に使用するモデルです。ER表も上に見られます。
+        </p>
 
-    - **フロントエンド:**<br/>
-    Thymeleaf: 軽いフロントエンドフレームワーク。<br/>
+        <h4>Flywaydb</h4>
+        <p>データ移行するためFlywaydbを使いました。データベースのスキーマを作り情報一貫性や正常に起動させます。</p>
 
-    ### ファイル構成
+        <h4>Mybatis</h4>
+        <p>
+            生SQLでメソッドを定義します。プライマリーキーと外部キーでジョインして複数テーブルの情報を取得できます。<br>
+            主にCRUDメソッドを定義し、Serviceレイヤーに提供します。
+        </p>
 
+        <h4>Service</h4>
+        <p>主にMybatisCrud機能とロートをつながっています。自動スクリプト論理、自動メール機能、Excelエクスポート機能、そして物Health確認自動機能も入っています。</p>
 
-    ````text
-    |ERM-Employee-Item-Health-App/ 
-    ├──.devcontainer/ # Build settings for deployment. 
-    ├──.github/workflows/ # Github actions. 
-    ├──logs/ # Where logs end up. 
-    ├──Dockerfile/ # Dockerfile build setup 
-    ├──tests/ # Testing setup teardown files 
-    ├──docker-compose.yml/ # Docker build settings 
-    |──Everything else in root: Standard spring-boot build files 
-    ├──src/ # The source code. 
-    | └──test/ # Where the testing suite is, unit testing and integration testing. 
-    | └──main/ # | └────resources/ # Front end and db migration files 
-    | └────db/migrations/ # Flyway migration files for DB setup 
-    | └────mappers# MyBatis sql mapping files 
-    | └────static/js # JS script for frontend 
-    | └────templates # HTML pages
-    | └────application.yml/propertiex/logback # settings setup, logs 
-    | └────java/com/healthapp/itemhealth/ # Backend 
-    | └────config # Flyway config file.
-    | └────controller # Controller layer. 
-    | └────exception # Exception handler. 
-    | └────mapper # Connect Mybatis to backend service layer 
-    | └────model # Model layer 
-    | └────security # Spring-security filter chain. 
-    | └────service # service layer 
-    | └────health # health template logic for health service 
-    | └────scheduler # cronjob scripts 
-    | └────ItemhealthApplication.java # App entry point
-    ````
+        <h4>Health service</h4>
+        <p>
+            従業員の持っている物の自動Health確認を行っています。アイテムの更新・保守が必要と判断された場合、自動的に担当上司へメールを送信します。<br>
+            この自動物確認スクリプトはＢｏｓｓＤａｓｈｂｏａｒｄで開始もできます。
+        </p>
 
-    ### バックエンド詳細
+        <h4>Scheduler</h4>
+        <p>
+            スクリプトを毎日同じときに自動で開始するためSchedulerを使いました。5日ごとにメール履歴を削除します。<br>
+            ポートフォリオのために短い間のメール情報だけ表示しようと思って５日間のメール歴史は十分だと思いました。
+        </p>
 
-    #### データベース
-    データベースはPostgresを使いました。Postgresの訓練しようとおもって使いました。
-    ある程度テーブルのジョインしたり関係データベースの機能を真似しようやSIERスタックを合わせようとしました。
+        <h4>Excel</h4>
+        <p>
+            従業員、上司、車、IDCard、そしてノートパソコンの情報をExcelでエクスポートできます。<br>
+            Apachi-poiライブラリを使ってこの機能を追加しました。
+        </p>
 
-    #### モデル
-    モデルはプライマリーキーと外部キーでジョインして検索できるように設計しました。Employeeプライマリーキー Employee_ID でほかの
-    モデル外部キーとして付けていると物、Ｂｏｓｓ、そしてＳｕｂｏｒｄｉｎａｔｅでジョインできます。
-    Healthreportはアイテム情報を集約し、自動メール送信に使用するモデルです。ER表も上に見られます。
+        <h4>メール</h4>
+        <p>
+            HealthCheckスクリプトが更新・保守の必要なアイテムを検出した際に、上司へ自動メールを送る仕組みです。<br>
+            Spring-mailをつかって簡単お知らせメールを送ります。ほんとのメールアドレス送らないようにMailhogを使って、Mailhogは送るメールを捕まって表示します。
+        </p>
 
-    #### Flywaydb
-    データ移行するためFlywaydbを使いました。データベースのスキーマを作り情報一貫性や正常に起動させます。
+        <h4>ルーティング</h4>
+        <p>
+            ServiceとフロントエンドでつながっているAPIエンドポイントです。認証チェックや入力バリデーションもここで行います。<br>
+            フロントエンドのルーティングもHealthController.javaで管理しています。
+        </p>
 
-    #### Mybatis
-    生SQLでメソッドを定義します。プライマリーキーと外部キーでジョインして複数テーブルの情報を取得できます。
-    主にCRUDメソッドを定義し、Serviceレイヤーに提供します。
+        <h4>セキュリティ</h4>
+        <p>
+            Securityフィルターで認証を構成しています。ログイン論理、リダイレクト論理、パスワードのBCryptハッシュ化などもここで処理します。
+        </p>
 
-    #### Service
-    主にMybatisCrud機能とロートをつながっています。自動スクリプト論理、自動メール機能、Excelエクスポート機能、
-    そして物Health確認自動機能も入っています。
+        <h4>フロントエンド詳細</h4>
+        <p>
+            Thymeleaf、HTML,Boostrap CSS,そしてJSでフロントエンドを作りました。フロントエンドは主にCRUDフォームで従業員とノートパソコン、Idcard,と車を管理できます。認証確認でBoss権限を持つユーザーのみCRUD操作が可能で、一般従業員は閲覧のみとなっています。<br>
+            上司権限ユーザーはExcelエクスポートやHealth checkスクリプト開始できます。
+        </p>
 
-    #### Health service
-    従業員の持っている物の自動Health確認を行っています。アイテムの更新・保守が必要と判断された場合、自動的に担当上司へメールを送信します。
-    この自動物確認スクリプトはＢｏｓｓＤａｓｈｂｏａｒｄで開始もできます。
+        <h4>テスト、CI/CD、デプロイ</h4>
+        <p>
+            <strong>テスト:</strong> テストは単位テストと結合テストを両方作りました。デプロイするたびにテストを行ってパスしなければデプロイしません。すべてのAPIエンドポイントとService機能をパスべきテストと落ちるべきテストを作りました。
+        </p>
 
-    #### Scheduler
-    スクリプトを毎日同じときに自動で開始するためSchedulerを使いました。5日ごとにメール履歴を削除します。
-    ポートフォリオのために短い間のメール情報だけ表示しようと思って５日間のメール歴史は十分だと思いました。
+        <h4>CI/CDとデプロイ</h4>
+        <p>
+            Github ActionsでCI/CDパイプラインを作りました。自動テスト、Dockerコンテナーを作って、サーバに開始する流れでCI/CD立ちました。<br>
+            Docker Secretsを設定し、環境変数を安全に注入します。<br>
+            ウェブサイトはDigitalOceanクラウドサーバーでデプロイして、NGINXやDockerコンテナーでデプロイして、CloudflareとDigital Oceanファイアウォールで保護しています。
+        </p>
 
-    #### Excel
-    従業員、上司、車、IDCard、そしてノートパソコンの情報をExcelでエクスポートできます。
-    Apachi-poiライブラリを使ってこの機能を追加しました。
-
-    #### メール
-    HealthCheckスクリプトが更新・保守の必要なアイテムを検出した際に、上司へ自動メールを送る仕組みです。
-    Spring-mailをつかって簡単お知らせメールを送ります。ほんとのメールアドレス送らないようにMailhogを使って、
-    Mailhogは送るメールを捕まって表示します。
-
-    #### ルーティング
-    ServiceとフロントエンドでつながっているAPIエンドポイントです。認証チェックや入力バリデーションもここで行います。
-    フロントエンドのルーティングもHealthController.javaで管理しています。
-
-    #### セキュリティ
-    Securityフィルターで認証を構成しています。ログイン論理、
-    リダイレクト論理、パスワードのBCryptハッシュ化などもここで処理します。
-
-
-    #### フロントエンド詳細
-    Thymeleaf、HTML,Boostrap CSS,そしてJSでフロントエンドを作りました。フロントエンドは主にCRUDフォームで従業員とノートパソコン、
-    Idcard,と車を管理できます。認証確認でBoss権限を持つユーザーのみCRUD操作が可能で、一般従業員は閲覧のみとなっています。
-    上司権限ユーザーはExcelエクスポートやHealth checkスクリプト開始できます。
-
-    #### テスト、CI/CD、デプロイ
-    テスト
-    テストは単位テストと結合テストを両方作りました。デプロイするたびにテストを行ってパスしなければデプロイしません。
-    すべてのAPIエンドポイントとService機能をパスべきテストと落ちるべきテストを作りました。
-
-    #### CI/CDとデプロイ
-    Github ActionsでCI/CDパイプラインを作りました。自動テスト、Dockerコンテナーを作って、サーバに開始する流れでCI/CD立ちました。
-    Docker Secretsを設定し、環境変数を安全に注入します。
-    ウェブサイトはDigitalOceanクラウドサーバーでデプロイして、NGINXやDockerコンテナーでデプロイして、
-    CloudflareとDigital Oceanファイアウォールで保護しています。   </div>
-
-      <a th:href="@{/bossdashboard}" class="btn btn-outline-secondary mt-3">
-        <i class="bi bi-arrow-left"></i> Back to Dashboard
-      </a>
+        <div class="mt-5">
+            <a th:href="@{/bossdashboard}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
