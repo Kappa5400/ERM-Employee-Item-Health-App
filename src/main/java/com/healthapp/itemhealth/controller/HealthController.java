@@ -184,4 +184,12 @@ public class HealthController {
 
     return restTemplate.getForObject(fullPath, Object.class);
   }
+
+  @GetMapping("/about")
+  @PreAuthorize("hasRole('BOSS')")
+  public String about() {
+
+    return "about";
+  }
+
 }
